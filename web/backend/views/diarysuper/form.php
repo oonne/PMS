@@ -44,8 +44,8 @@ document.addEventListener("keydown", function(e) {
     if ('{$isNewRecord}') reutrn
     if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
         e.preventDefault();
-        var sDate = $('#diary-sDate').val();
-        var tDiaryContent = $('#diary-tDiaryContent').val();
+        var sDate = $('#diary-sdate').val();
+        var tDiaryContent = $('#diary-tdiarycontent').val();
         $.ajax({
             url: '{$saveUrl}',
             type: 'post',

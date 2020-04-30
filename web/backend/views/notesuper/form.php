@@ -39,8 +39,8 @@ document.addEventListener("keydown", function(e) {
     if ('{$isNewRecord}') reutrn
     if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
         e.preventDefault();
-        var sNoteTitle = $('#note-sNoteTitle').val();
-        var tNoteContent = $('#note-tNoteContent').val();
+        var sNoteTitle = $('#note-snotetitle').val();
+        var tNoteContent = $('#note-tnotecontent').val();
         $.ajax({
             url: '{$saveUrl}',
             type: 'post',
