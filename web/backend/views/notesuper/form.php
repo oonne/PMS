@@ -1,9 +1,11 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use backend\widgets\Alert;
 
-$this->title = $model->isNewRecord ? '添加' : $model->sNoteTitle;
+$isNewRecord = $model->isNewRecord;
+$this->title = $isNewRecord ? '添加' : $model->sNoteTitle;
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -29,3 +31,27 @@ $this->title = $model->isNewRecord ? '添加' : $model->sNoteTitle;
     <?php ActiveForm::end(); ?>
     </div>
 </div>
+<?php
+$id = $model->id;
+$saveUrl = Url::to(['/notesuper/save-note?id='.$id]);
+$js = <<<JS
+document.addEventListener("keydown", function(e) {
+    if ('{$isNewRecord}') reutrn
+    if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        e.preventDefault();
+        var sNoteTitle = $('#note-sNoteTitle').val();
+        var tNoteContent = $('#note-tNoteContent').val();
+        $.ajax({
+            url: '{$saveUrl}',
+            type: 'post',
+            dataType: 'json',
+            data: {sNoteTitle: sNoteTitle, tNoteContent: tNoteContent},
+            success: function () {},
+            error: function () {}
+        });
+    }
+}, false);
+JS;
+
+$this->registerJs($js);
+?>

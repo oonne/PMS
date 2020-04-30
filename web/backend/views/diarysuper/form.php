@@ -1,10 +1,12 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\jui\DatePicker;
 use backend\widgets\Alert;
 
-$this->title = $model->isNewRecord ? '添加' : $model->sDate;
+$isNewRecord = $model->isNewRecord;
+$this->title = $isNewRecord ? '添加' : $model->sDate;
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -34,3 +36,27 @@ $this->title = $model->isNewRecord ? '添加' : $model->sDate;
     <?php ActiveForm::end(); ?>
     </div>
 </div>
+<?php
+$id = $model->id;
+$saveUrl = Url::to(['/diarysuper/save-diary?id='.$id]);
+$js = <<<JS
+document.addEventListener("keydown", function(e) {
+    if ('{$isNewRecord}') reutrn
+    if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        e.preventDefault();
+        var sDate = $('#diary-sDate').val();
+        var tDiaryContent = $('#diary-tDiaryContent').val();
+        $.ajax({
+            url: '{$saveUrl}',
+            type: 'post',
+            dataType: 'json',
+            data: {sDate: sDate, tDiaryContent: tDiaryContent},
+            success: function () {},
+            error: function () {}
+        });
+    }
+}, false);
+JS;
+
+$this->registerJs($js);
+?>

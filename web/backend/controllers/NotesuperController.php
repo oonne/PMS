@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\BadRequestHttpException;
 use backend\models\NoteSearch;
 use common\models\Note;
@@ -13,7 +13,6 @@ use common\models\Recycle;
 
 class NotesuperController extends Controller
 {
-    
     public function behaviors()
     {
         return [
@@ -85,6 +84,35 @@ class NotesuperController extends Controller
         return $this->render('form', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSaveNote($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = Note::findOne($id);
+        if (!$model) {
+            throw new BadRequestHttpException('请求错误！');
+        }
+
+        $form = Yii::$app->request->post();
+        if ($model->load(Yii::$app->request->post(), '')) {
+            if ($model->validate()) {
+                $model->uLastAccountID = Yii::$app->user->id;
+                if ($model->save(false)) {
+                    return [
+                        'status' => 'success',
+                    ];
+                } else {
+                    return [
+                        'status' => 'fail',
+                        'data' => [
+                            'message' => '保存出错！'
+                        ]
+                    ];
+                }
+            }
+        }
     }
 
     public function actionViewNote($id)
