@@ -32,7 +32,7 @@ $this->title = $isNewRecord ? '添加' : $model->sNoteTitle;
     </div>
 </div>
 <?php
-$id = $model->id;
+$id = $model->uNoteID;
 $saveUrl = Url::to(['/notesuper/save-note?id='.$id]);
 $js = <<<JS
 document.addEventListener("keydown", function(e) {

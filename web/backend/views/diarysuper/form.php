@@ -37,7 +37,7 @@ $this->title = $isNewRecord ? '添加' : $model->sDate;
     </div>
 </div>
 <?php
-$id = $model->id;
+$id = $model->uDiaryID;
 $saveUrl = Url::to(['/diarysuper/save-diary?id='.$id]);
 $js = <<<JS
 document.addEventListener("keydown", function(e) {
