@@ -44,7 +44,8 @@ class Password extends ActiveRecord
     {
         return [
             [['sPasswordItem','sUserName','sPassword'], 'required', 'on' => ['creation']],
-            [['sPasswordItem','sUserName','sPassword'], 'string', 'max' => 32],
+            [['sPasswordItem','sUserName'], 'string', 'max' => 32],
+            [['sPassword'], 'string', 'max' => 256],
             [['tRemark'], 'string'],
             [['tRemark'], 'default','value' => ''],
         ];
