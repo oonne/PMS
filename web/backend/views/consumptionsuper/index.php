@@ -15,7 +15,7 @@ $this->title = '个人消费';
         <h1 class="page-header"><?= Html::encode($this->title) ?></h1>
     </div>
 </div>
-<?= $this->render('_nav') ?>
+<!-- <?= $this->render('_nav') ?> -->
 <p>
     <?= Html::a('添加记录', ['consumptionsuper/add-consumption'], ['class' => 'btn btn-success']) ?>
 </p>

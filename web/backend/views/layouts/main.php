@@ -24,7 +24,6 @@ $menu = [
         'url' => '#',
         'items' => [
             'consumptionsuper' => ['label' => '个人消费', 'url' => ['consumptionsuper/index'], 'active' => in_array($route, ['consumptionsuper/index', 'consumptionsuper/add-consumption', 'consumptionsuper/update-consumption', 'consumptionsuper/summary-month' ,'consumptionsuper/summary-rate'])],
-            'consumptionbulksuper' => ['label' => '大宗支出', 'url' => ['consumptionbulksuper/index'], 'active' => in_array($route, ['consumptionbulksuper/index', 'consumptionbulksuper/add-bulk', 'consumptionbulksuper/update-bulk'])],
             'estoversparentssuper' => ['label' => '赡养父母', 'url' => ['estoversparentssuper/index'], 'active' => in_array($route, ['estoversparentssuper/index', 'estoversparentssuper/add-estovers', 'estoversparentssuper/update-estovers'])],
             'incomesuper' => ['label' => '收入', 'url' => ['incomesuper/index'], 'active' => in_array($route, ['incomesuper/index', 'incomesuper/add-income', 'incomesuper/update-income'])],
             'donationsuper' => ['label' => '捐款', 'url' => ['donationsuper/index'], 'active' => in_array($route, ['donationsuper/index', 'donationsuper/add-donation', 'donationsuper/update-donation'])],

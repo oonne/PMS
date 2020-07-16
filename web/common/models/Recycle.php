@@ -16,7 +16,6 @@ namespace common\models;
 class Recycle extends ActiveRecord
 {
     const CATEGORY_CONSUMPTION             = 'Consumption';
-    const CATEGORY_CONSUMPTIONBULK         = 'ConsumptionBulk';
     const CATEGORY_ESTOVERSPARENTS         = 'EstoversParents';
     const CATEGORY_INCOME                  = 'Income';
     const CATEGORY_DONATION                = 'Donation';
@@ -80,7 +79,6 @@ class Recycle extends ActiveRecord
         if (self::$_categoryList === null) {
             self::$_categoryList = [
                 self::CATEGORY_CONSUMPTION       => '个人消费',
-                self::CATEGORY_CONSUMPTIONBULK   => '大宗支出',
                 self::CATEGORY_ESTOVERSPARENTS   => '赡养父母',
                 self::CATEGORY_INCOME            => '收入',
                 self::CATEGORY_DONATION          => '捐款',
