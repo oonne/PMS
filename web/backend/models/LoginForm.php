@@ -39,13 +39,12 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-
         if (!$this->hasErrors()) {
             $account = $this->getAccount();
             if (!$account || !$account->validatePassword($this->password)) {
                 $this->addError($attribute, '帐号密码错误');
             }
-        }else{
+        } else {
             return $this->goHome();
         }
     }

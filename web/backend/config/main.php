@@ -18,6 +18,16 @@ return [
             'identityClass' => 'common\models\UserAccount',
             'enableAutoLogin' => true,
         ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning'],
+                    'logFile' => '@runtime/logs/app.' . date('Ymd') . '.log',
+                ],
+            ],
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
