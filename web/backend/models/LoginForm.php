@@ -27,8 +27,6 @@ class LoginForm extends Model
             [['username', 'password'], 'required'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
         ];
     }
 
@@ -44,10 +42,8 @@ class LoginForm extends Model
 
         if (!$this->hasErrors()) {
             $account = $this->getAccount();
-            if (!$account) {
-                $this->addError($attribute, '你不是自己人');
-            }else if (!$account->validatePassword($this->password)) {
-                $this->addError($attribute, '密码错误');
+            if (!$account || !$account->validatePassword($this->password)) {
+                $this->addError($attribute, '帐号密码错误');
             }
         }else{
             return $this->goHome();
@@ -62,7 +58,6 @@ class LoginForm extends Model
         return [
             'username' => '帐号',
             'password' => '密码',
-            'rememberMe' => '记住密码'
         ];
     }
 
@@ -75,18 +70,17 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             $account = $this->getAccount();
-            $account->generateAuthKey();
             $account->save(false);
-            return Yii::$app->user->login($account, $this->rememberMe ? 3600 * 24 * 3 : 0);
+            return Yii::$app->user->login($account, 3600 * 24);
         } else {
             return false;
         }
     }
 
     /**
-     * Finds SuperAccount by [[username]]
+     * Finds Account by [[username]]
      *
-     * @return SuperAccount|null
+     * @return Account|null
      */
     public function getAccount()
     {

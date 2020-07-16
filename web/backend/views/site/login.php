@@ -18,7 +18,6 @@ $this->title = '登录';
                     <fieldset>
                         <?= $form->field($model, 'username') ?>
                         <?= $form->field($model, 'password')->passwordInput() ?>
-                        <?= $form->field($model, 'rememberMe')->checkbox() ?>
                         <div class="form-group">
                             <?= Html::submitButton('登录', ['class' => 'btn btn-success btn-block']) ?>
                         </div>

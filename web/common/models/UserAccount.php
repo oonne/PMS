@@ -13,7 +13,6 @@ use yii\web\IdentityInterface;
  * @property string $sNickName
  * @property string $sPasswordHash
  * @property string $sAccessToken
- * @property string $sAuthKey
  * @property string $RoleType
  */
 class UserAccount extends ActiveRecord implements IdentityInterface
@@ -58,7 +57,6 @@ class UserAccount extends ActiveRecord implements IdentityInterface
             'password' => '密码',
             'sPasswordHash' => '密码hash',
             'sAccessToken' => 'Token',
-            'sAuthKey' => '记住密码key',
         ];
     }
 
@@ -100,14 +98,6 @@ class UserAccount extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function getAuthKey()
-    {
-        return $this->sAuthKey;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
@@ -132,14 +122,6 @@ class UserAccount extends ActiveRecord implements IdentityInterface
     public function setPassword($password)
     {
         $this->sPasswordHash = Yii::$app->security->generatePasswordHash($password);
-    }
-
-    /**
-     * Generates "remember me" authentication key
-     */
-    public function generateAuthKey()
-    {
-        $this->sAuthKey = Yii::$app->security->generateRandomString();
     }
 
     /**
