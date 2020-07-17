@@ -137,7 +137,7 @@ class ConfigsuperController extends Controller
         }
 
         $transaction = Yii::$app->db->beginTransaction();
-        $recycleContent = $model->sConfigName ."  \n". $model->sConfigKey ."  \n". $model->tConfigContent;
+        $recycleContent = $model->sConfigName ."  \n". $model->sConfigKey ."  \n". $model->tConfigValue;
         $recycle = new Recycle();
         $recycle->Category = Recycle::CATEGORY_CONFIG;
         $recycle->tRecycleContent = $recycleContent;
