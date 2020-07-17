@@ -25,6 +25,7 @@ class Recycle extends ActiveRecord
     const CATEGORY_PASSWORD                = 'Password';
     const CATEGORY_PEDOMETER               = 'Pedometer';
     const CATEGORY_WEATHER                 = 'Weather';
+    const CATEGORY_CONFIG                  = 'Config';
 
     private static $_categoryList;
 
@@ -88,6 +89,7 @@ class Recycle extends ActiveRecord
                 self::CATEGORY_PASSWORD          => '密码',
                 self::CATEGORY_PEDOMETER         => '计步器',
                 self::CATEGORY_WEATHER           => '气象站',
+                self::CATEGORY_CONFIG            => '配置',
             ];
         }
 

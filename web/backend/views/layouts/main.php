@@ -44,7 +44,14 @@ $menu = [
         'url' => '#',
         'items' => [
             'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
-            'weathersuper' => ['label' => '气象站', 'url' => ['weathersuper/index'], 'active' => in_array($route, ['weathersuper/index', 'weathersuper/add-weather', 'weathersuper/update-weather'])],
+            // 'weathersuper' => ['label' => '气象站', 'url' => ['weathersuper/index'], 'active' => in_array($route, ['weathersuper/index', 'weathersuper/add-weather', 'weathersuper/update-weather'])],
+        ]
+    ],
+    [
+        'label' => '控制',
+        'url' => '#',
+        'items' => [
+            'configsuper' => ['label' => '配置', 'url' => ['configsuper/index'], 'active' => in_array($route, ['configsuper/index', 'configsuper/add-config', 'configsuper/update-config'])],
         ]
     ],
 ];

@@ -113,7 +113,7 @@ class PasswordsuperController extends Controller
         $recycle = new Recycle();
         $recycle->Category = Recycle::CATEGORY_PASSWORD;
         $recycle->tRecycleContent = $recycleContent;
-        if($recycle->validate()&&$recycle->save(false)){
+        if ($recycle->validate()&&$recycle->save(false)) {
             try {
                 if (!$model->delete()) {
                     throw new \Exception('删除失败！');
@@ -126,7 +126,7 @@ class PasswordsuperController extends Controller
                 $transaction->rollBack();
                 Yii::$app->session->setFlash('danger', $e->getMessage());
             }
-        }else{
+        } else {
             $transaction->rollBack();
             Yii::$app->session->setFlash('danger', '回收失败');
         }

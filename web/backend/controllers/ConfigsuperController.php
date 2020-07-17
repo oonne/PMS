@@ -1,18 +1,18 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\BadRequestHttpException;
-use common\models\Book;
-use backend\models\BookSearch;
+use backend\models\ConfigSearch;
+use common\models\Config;
 use common\models\Recycle;
 
 
-class BooksuperController extends Controller
+class ConfigsuperController extends Controller
 {
-    
     public function behaviors()
     {
         return [
@@ -30,7 +30,7 @@ class BooksuperController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new BookSearch();
+        $searchModel = new ConfigSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -39,15 +39,14 @@ class BooksuperController extends Controller
         ]);
     }
 
-    public function actionAddBook()
+    public function actionAddConfig()
     {
-        $model = new Book();
+        $model = new Config();
         $model->setScenario('creation');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
-                $model->sBookTitle = '《'.($model->sBookTitle).'》';
                 if ($model->save(false)) {
                     Yii::$app->session->setFlash('success', '添加成功！');
                     return $this->redirect(['index']);
@@ -62,9 +61,9 @@ class BooksuperController extends Controller
         ]);
     }
 
-    public function actionUpdateBook($id)
+    public function actionUpdateConfig($id)
     {
-        $model = Book::findOne($id);
+        $model = Config::findOne($id);
 
         if (!$model) {
             throw new BadRequestHttpException('请求错误！');
@@ -74,7 +73,7 @@ class BooksuperController extends Controller
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
                 if ($model->save(false)) {
-                    Yii::$app->session->setFlash('success', '更新成功！');
+                    Yii::$app->session->setFlash('success', '保存成功！');
                     return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('danger', '更新失败。');
@@ -87,9 +86,38 @@ class BooksuperController extends Controller
         ]);
     }
 
-    public function actionViewBook($id)
+    public function actionSaveConfig($id)
     {
-        $model = Book::findOne($id);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = Config::findOne($id);
+        if (!$model) {
+            throw new BadRequestHttpException('请求错误！');
+        }
+
+        $form = Yii::$app->request->post();
+        if ($model->load(Yii::$app->request->post(), '')) {
+            if ($model->validate()) {
+                $model->uLastAccountID = Yii::$app->user->id;
+                if ($model->save(false)) {
+                    return [
+                        'status' => 'success',
+                    ];
+                } else {
+                    return [
+                        'status' => 'fail',
+                        'data' => [
+                            'message' => '保存出错！'
+                        ]
+                    ];
+                }
+            }
+        }
+    }
+
+    public function actionViewConfig($id)
+    {
+        $model = Config::findOne($id);
 
         if (!$model) {
             throw new BadRequestHttpException('请求错误！');
@@ -100,18 +128,18 @@ class BooksuperController extends Controller
         ]);
     }
 
-    public function actionDeleteBook($id)
+    public function actionDeleteConfig($id)
     {
-        $model = Book::findOne($id);
+        $model = Config::findOne($id);
 
         if (!$model) {
             throw new BadRequestHttpException('请求错误！');
         }
 
         $transaction = Yii::$app->db->beginTransaction();
-        $recycleContent = $model->sBookTitle . "  \n时间：" .$model->sDate. "  \n" . $model->tSummary;
+        $recycleContent = $model->sConfigName ."  \n". $model->sConfigKey ."  \n". $model->tConfigContent;
         $recycle = new Recycle();
-        $recycle->Category = Recycle::CATEGORY_BOOK;
+        $recycle->Category = Recycle::CATEGORY_CONFIG;
         $recycle->tRecycleContent = $recycleContent;
         if ($recycle->validate()&&$recycle->save(false)) {
             try {
