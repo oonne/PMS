@@ -34,15 +34,15 @@ $this->title = $isNewRecord ? '添加' : $model->sConfigName;
 </div>
 <?php
 $id = $model->uConfigID;
-$saveUrl = Url::to(['/notesuper/save-note?id='.$id]);
+$saveUrl = Url::to(['/configsuper/save-config?id='.$id]);
 $js = <<<JS
 document.addEventListener("keydown", function(e) {
     if ('{$isNewRecord}') reutrn
     if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
         e.preventDefault();
-        var sConfigName = $('#note-sconfigname').val();
-        var sConfigKey = $('#note-sconfigkey').val();
-        var tConfigValue = $('#note-tconfigvalue').val();
+        var sConfigName = $('#config-sconfigname').val();
+        var sConfigKey = $('#config-sconfigkey').val();
+        var tConfigValue = $('#config-tconfigvalue').val();
         $.ajax({
             url: '{$saveUrl}',
             type: 'post',
