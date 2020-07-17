@@ -33,7 +33,7 @@ $this->title = $isNewRecord ? '添加' : $model->sConfigName;
     </div>
 </div>
 <?php
-$id = $model->uCoinfigID;
+$id = $model->uConfigID;
 $saveUrl = Url::to(['/notesuper/save-note?id='.$id]);
 $js = <<<JS
 document.addEventListener("keydown", function(e) {
