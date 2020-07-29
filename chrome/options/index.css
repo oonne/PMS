@@ -7,11 +7,37 @@ body {
 }
 
 .form {
+  width: 300px;
+  margin: 100px auto;
   padding: 30px;
 }
 .input {
-
+  display: block;
+  width: 100%;
+  height: 16px;
+  padding: 10px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  appearance: none;
+  outline:0;
+  border: transparent;
+  border-radius: 4px;
+  font-size: 16px;
 }
 .save-btn {
+  width: 100%;
+  height: 16px;
+  padding: 10px;
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+  cursor: pointer;
+}
 
+.save-btn:hover, .save-btn:active {
+  background-color: #4cae4c;
 }
