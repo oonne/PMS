@@ -6,10 +6,12 @@ const updateBookmarks = () => {
       if (!token) return;
 
       let api = 'https://api.pms.oonne.com';
+      let value = JSON.stringify(bookmarks)
       let configValue = JSON.stringify({
         sConfigKey: 'bookmarks',
-        tConfigValue: bookmarks
+        tConfigValue: value
       });
+
       let reqOpitons = {
         method: 'POST',
         headers: {
@@ -17,7 +19,6 @@ const updateBookmarks = () => {
           'Content-Type': 'application/json',
           'X-Auth-Token': token
         },
-        mode: 'no-cors',
         body: configValue
       }
       fetch(`${api}/config/update`, reqOpitons);
