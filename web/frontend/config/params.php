@@ -3,7 +3,8 @@ return [
     /**
      * CORS域名配置
      */
-    'apiOrigin' => ['https://apms.oonne.com', 'http://apms.oonne.local'],
+    // 'apiOrigin' => ['https://apms.oonne.com', 'http://apms.oonne.local'],
+    'apiOrigin' => ['*'],
 
     /**
      * 错误码和提示

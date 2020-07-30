@@ -5,7 +5,22 @@ const updateBookmarks = () => {
       const { token } = items;
       if (!token) return;
 
-      console.log(bookmarks);
+      let api = 'https://api.pms.oonne.com';
+      let configValue = JSON.stringify({
+        sConfigKey: 'bookmarks',
+        tConfigValue: bookmarks
+      });
+      let reqOpitons = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
+        },
+        mode: 'no-cors',
+        body: configValue
+      }
+      fetch(`${api}/config/update`, reqOpitons);
     });
   });
 };
