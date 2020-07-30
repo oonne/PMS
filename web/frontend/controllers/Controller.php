@@ -22,8 +22,7 @@ class Controller extends \yii\rest\Controller
                 'Access-Control-Max-Age' => 3600,
                 'Access-Control-Request-Method' => ['POST', 'GET'],
                 'Access-Control-Request-Headers' => ['Content-Type', 'X-Auth-Token'],
-                // 'Origin' => Yii::$app->params['apiOrigin'],
-                'Origin' => '*',
+                'Origin' => Yii::$app->params['apiOrigin'],
             ]
         ];
         $behaviors['verbFilter'] = [
