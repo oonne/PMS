@@ -8,6 +8,7 @@
   },
   "permissions": [
     "https://api.pms.oonne.com/",
+    "notifications",
     "bookmarks",
     "storage"
   ],

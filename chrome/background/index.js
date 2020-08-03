@@ -3,7 +3,15 @@ const updateBookmarks = () => {
   chrome.bookmarks.getTree((bookmarks)=>{
     chrome.storage.sync.get((items) => {
       const { token } = items;
-      if (!token) return;
+      if (!token) {
+        chrome.notifications.create(null, {
+          type: 'basic',
+          title: '未设置 PMS token',
+          iconUrl: '../icon.png',
+          message: 'Chrome extensions',
+        });
+        return;
+      }
 
       let api = 'https://api.pms.oonne.com';
       let value = JSON.stringify(bookmarks)
