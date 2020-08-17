@@ -3,7 +3,7 @@
   padding: 0;
 }
 body {
-  background-color: #ddd;
+  background-color: #eee;
 }
 @font-face {
   font-family: "MFBenHei";
@@ -11,27 +11,32 @@ body {
   font-weight: normal;
   font-style: normal;
 }
-
-
-.links {
-  display: flex;
-  margin: 30px;
+@font-face {
+  font-family: "Deng";
+  src: url("./Deng.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
-.links-list{
-  margin-right: 10px;
+@font-face {
+  font-family: "Dengl";
+  src: url("./Dengl.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
-.links-item{
-  display: block;
-  background-color: #555;
-  border-radius: 5px;
-  width: 220px;
-  height: 90px;
-  line-height: 90px;
-  color: #eee;
+
+.time{
+  width: 400px;
+  margin: 160px auto;
+}
+.clock{
+  color: #ccc;
   text-align: center;
-  font-family: "MFBenHei";
+  font-family: 'Dengl';
+  font-size: 72px;
+}
+.calendar{
+  color: #ccc;
+  text-align: center;
+  font-family: 'Deng';
   font-size: 24px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  text-decoration: none;
 }
