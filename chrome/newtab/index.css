@@ -42,8 +42,13 @@ body {
 .links{
   width: 300px;
   margin: 40px auto;
+}
+.links-icon-list{
+  width: 300px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 12px;
 }
 .links-icon{
   width: 50px;
@@ -61,4 +66,22 @@ body {
   width: 62px;
   height: 62px;
   padding: 0;
+}
+
+.links-work-list{
+  width: 300px;
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid #ccc;
+}
+.links-text{
+  text-decoration: none;
+  color: #ccc;
+  font-size: 20px;
+  line-height: 36px;
+  transition: 0.1s;
+}
+.links-text:hover{
+  font-size: 22px;
 }

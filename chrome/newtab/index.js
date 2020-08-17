@@ -19,3 +19,13 @@ const refreshTime = () => {
 refreshTime();
 setInterval(refreshTime, 1000);
 
+/*
+ * 链接显示
+ */ 
+$('#work-icon-list').hide();
+$('#work-icon').mouseover(()=>{
+  $('#work-icon-list').slideDown(200);
+})
+$('#links').mouseleave(()=>{
+  $('#work-icon-list').slideUp(200);
+})
