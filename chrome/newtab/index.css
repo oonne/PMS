@@ -20,20 +20,45 @@ body {
 
 /* 钟表 */
 .time{
-  width: 400px;
-  margin: 160px auto;
+  width: 300px;
+  margin: 280px auto 40px;
 }
 .clock{
   color: #ccc;
   text-align: center;
   font-family: 'Dengl';
-  font-size: 72px;
+  font-size: 84px;
+  line-height: 88px;
 }
 .calendar{
   color: #ccc;
   text-align: center;
   font-family: 'Deng';
-  font-size: 24px;
+  font-size: 28px;
+  line-height: 30px;
 }
 
 /* 链接 */
+.links{
+  width: 300px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.links-icon{
+  width: 50px;
+  height: 62px;
+  padding: 6px 0;
+  transition: 0.1s;
+  cursor: pointer;
+}
+.links-icon img{
+  width: 50px;
+  height: 50px;
+  transition: 0.1s;
+}
+.links-icon:hover, .links-icon:hover img{
+  width: 62px;
+  height: 62px;
+  padding: 0;
+}

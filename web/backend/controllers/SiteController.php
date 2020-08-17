@@ -54,13 +54,14 @@ class SiteController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        // 每次登录的时候，刷新最后登录时间
+        // 每次进入首页的时候，刷新最后登录时间
         $model = Config::find()
                     ->where(['sConfigKey' => 'LAST_ACCESS'])
                     ->one();
-        $model->tConfigValue = time();
+        $model->tConfigValue = 'ALIVE';
         $model->uLastAccountID = Yii::$app->user->id;
         $model->save(false);
+
         return $this->render('/site/index');
     }
 
