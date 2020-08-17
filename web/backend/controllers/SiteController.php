@@ -5,6 +5,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\models\LoginForm;
+use common\models\Config;
 use yii\web\HttpException;
 use yii\base\UserException;
 

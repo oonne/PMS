@@ -16,7 +16,7 @@ const updateBookmarks = () => {
       let api = 'https://api.pms.oonne.com';
       let value = JSON.stringify(bookmarks)
       let configValue = JSON.stringify({
-        sConfigKey: 'bookmarks',
+        sConfigKey: 'BOOKMARKS',
         tConfigValue: value
       });
 

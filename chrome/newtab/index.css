@@ -6,12 +6,6 @@ body {
   background-color: #eee;
 }
 @font-face {
-  font-family: "MFBenHei";
-  src: url("./MFBenHei.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: "Deng";
   src: url("./Deng.ttf");
   font-weight: normal;
@@ -24,6 +18,7 @@ body {
   font-style: normal;
 }
 
+/* 钟表 */
 .time{
   width: 400px;
   margin: 160px auto;
@@ -40,3 +35,5 @@ body {
   font-family: 'Deng';
   font-size: 24px;
 }
+
+/* 链接 */
