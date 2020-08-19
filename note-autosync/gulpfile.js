@@ -8,7 +8,7 @@ gulp.task('download', function () {
   let options = {
     hostname: config.apiUrl,
     port: 443,
-    path: '/note/index',
+    path: '/note/all',
     method: 'GET',
     headers: {
       'X-Auth-Token': config.token,

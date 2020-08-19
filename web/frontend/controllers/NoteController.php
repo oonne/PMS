@@ -37,6 +37,7 @@ class NoteController extends Controller
     {
         return [
             'index' => ['get'],
+            'all' => ['get'],
             'add' => ['post'],
             'update' => ['post'],
             'delete' => ['post'],
@@ -65,6 +66,23 @@ class NoteController extends Controller
             'Ret' => 0,
             'Data' => $data,
             'Meta' => $meta,
+        ];
+    }
+
+    public function actionAll()
+    {
+        $notes = Note::find()
+            ->select(['uNoteID', 'sNoteTitle', 'tNoteContent'])
+            ->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['uUpdatedTime' => SORT_DESC]]
+        ]);
+        
+        return [
+            'Ret' => 0,
+            'Data' => $notes,
         ];
     }
 
