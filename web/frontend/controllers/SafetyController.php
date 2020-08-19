@@ -55,7 +55,7 @@ class SafetyController extends Controller
             return exportMsg::error('101000');
         }
 
-        $model->tConfigValue = 'ALIVE';
+        $model->tConfigValue = 'ALIVE-'.time();
         $model->uLastAccountID = Yii::$app->user->id;
         if ($model->save(false)) {
             return exportMsg::ok();
