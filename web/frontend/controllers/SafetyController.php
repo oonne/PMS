@@ -46,7 +46,6 @@ class SafetyController extends Controller
      */ 
     public function actionRefresh()
     {
-        $key = $config['sConfigKey'];
         $model = Config::find()
                     ->where(['sConfigKey' => 'LAST_ACCESS'])
                     ->one();
@@ -55,7 +54,7 @@ class SafetyController extends Controller
             return exportMsg::error('101000');
         }
 
-        $model->tConfigValue = 'ALIVE-'.time();
+        $model->tConfigValue = 'ALIVE '.time();
         $model->uLastAccountID = Yii::$app->user->id;
         if ($model->save(false)) {
             return exportMsg::ok();
@@ -71,7 +70,6 @@ class SafetyController extends Controller
      */ 
     public function actionCheck()
     {
-        $key = $config['sConfigKey'];
         $model = Config::find()
                     ->where(['sConfigKey' => 'LAST_ACCESS'])
                     ->one();
