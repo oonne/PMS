@@ -75,11 +75,6 @@ class NoteController extends Controller
             ->select(['uNoteID', 'sNoteTitle', 'tNoteContent'])
             ->all();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => ['defaultOrder' => ['uUpdatedTime' => SORT_DESC]]
-        ]);
-        
         return [
             'Ret' => 0,
             'Data' => $notes,
