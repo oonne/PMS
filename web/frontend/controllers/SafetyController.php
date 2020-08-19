@@ -65,7 +65,7 @@ class SafetyController extends Controller
 
     /*
      * 检查最后登录时间
-     * 如果登录时间超过72小时，则设置为 DANGER （危险）
+     * 如果登录时间超过3，则设置为 DANGER （危险）
      * 如果登录时间超过20天，则设置为 DEAD （死亡）
      */ 
     public function actionCheck()
@@ -81,6 +81,15 @@ class SafetyController extends Controller
         $lastAccess = strtotime($model->uUpdatedTime);
         $now = time();
 
-        return $now - $lastAccess;
+        if ($now-$lastAccess>60*2) {
+            $model->tConfigValue = 'DANGER';
+            if ($model->save(false)) {
+                return exportMsg::ok();
+            } else {
+                return exportMsg::error('101003');
+            }           
+        } else {
+            return $now - $lastAccess;
+        }
     }
 }
