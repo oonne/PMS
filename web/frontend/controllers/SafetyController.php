@@ -54,7 +54,7 @@ class SafetyController extends Controller
             return exportMsg::error('101000');
         }
 
-        $model->tConfigValue = 'ALIVE '.time();
+        $model->tConfigValue = 'ALIVE '.date('Y-m-d H:i:s', time());
         $model->uLastAccountID = Yii::$app->user->id;
         if ($model->save(false)) {
             return exportMsg::ok();
@@ -78,6 +78,9 @@ class SafetyController extends Controller
             return exportMsg::error('101000');
         }
 
-        return $model->toArray();
+        $lastAccess = strtotime($model->uUpdatedTime);
+        $now = time();
+
+        return $now - $lastAccess;
     }
 }
