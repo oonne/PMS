@@ -23,7 +23,7 @@ $this->title = $model->isNewRecord ? '创建用户' : '更新用户';
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'sUserName') ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'sAccessToken') ?>
+        <?= $model->isNewRecord ? null : $form->field($model, 'sAccessToken') ?>
         <div class="form-group">
             <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
         </div>

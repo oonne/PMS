@@ -44,6 +44,8 @@ class UserAccount extends ActiveRecord implements IdentityInterface
             [['password'], 'match', 'pattern' => '/^\S+$/'],
             [['password'], 'string', 'length' => [6, 32]],
             [['password'], 'default'],
+
+            [['sAccessToken'], 'string', 'max' => 64],
         ];
     }
 
