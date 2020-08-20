@@ -5,6 +5,7 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use common\models\UserAccount;
+use common\models\Congig;
 
 /**
  * Login form
@@ -41,11 +42,21 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $account = $this->getAccount();
-            if ($account->Type != UserAccount::ACCOUNT_WEB) {
-                $this->addError($attribute, '无登录权限');
-            }
             if (!$account || !$account->validatePassword($this->password)) {
                 $this->addError($attribute, '帐号密码错误');
+            }
+
+            if ($account->Type == UserAccount::ACCOUNT_HERITAGE) {
+                // 遗产继承人登录
+                $config = Config::find()
+                        ->where(['sConfigKey' => 'LAST_ACCESS'])
+                        ->one();
+                if ($config->tConfigValue != 'DANGER' && $config->tConfigValue != 'DEAD') {
+                    $this->addError($attribute, '加一还活着，最后登录时间：'.$config->tConfigValue);
+                }
+            } else if ($account->Type != UserAccount::ACCOUNT_WEB) {
+                // 只有web账户可以登录
+                $this->addError($attribute, '无登录权限');
             }
         } else {
             return $this->goHome();
