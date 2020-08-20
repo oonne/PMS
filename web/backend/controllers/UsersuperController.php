@@ -78,6 +78,7 @@ class UsersuperController extends Controller
             if ($model->validate()) {
                 if ($model->password !== null) {
                     $model->setPassword($model->password);
+                    $model->generateAuthKey();
                 }
 
                 if ($model->save(false)) {

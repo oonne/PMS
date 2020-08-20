@@ -60,7 +60,7 @@ $menu = [
 
 <?php $this->beginContent('@app/views/layouts/base.php'); ?>
     <div id="wrapper">
-         <nav class="sidebar">
+        <nav class="sidebar">
             <?= Html::a('<img src="/img/aura.png" class="logo-rotation">', Yii::$app->homeUrl, ['class' => 'sidebar-logo']) ?>
             <?= Menu::widget([
                 'encodeLabels' => false,
