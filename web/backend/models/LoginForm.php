@@ -41,6 +41,9 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $account = $this->getAccount();
+            if ($account->Type != UserAccount::ACCOUNT_WEB) {
+                $this->addError($attribute, '无登录权限');
+            }
             if (!$account || !$account->validatePassword($this->password)) {
                 $this->addError($attribute, '帐号密码错误');
             }
