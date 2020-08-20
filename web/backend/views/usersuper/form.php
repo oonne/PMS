@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use backend\widgets\Alert;
+use common\models\UserAccount;
 
 $this->title = $model->isNewRecord ? '创建用户' : '更新用户';
 ?>
@@ -24,6 +25,7 @@ $this->title = $model->isNewRecord ? '创建用户' : '更新用户';
         <?= $form->field($model, 'sUserName') ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $model->isNewRecord ? null : $form->field($model, 'sAccessToken') ?>
+        <?= $form->field($model, 'Type')->dropDownList(UserAccount::getAccountTypeList()) ?>
         <div class="form-group">
             <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
         </div>

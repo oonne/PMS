@@ -4,8 +4,9 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use backend\widgets\Alert;
+use common\models\UserAccount;
 
-$this->title = '用户管理';
+$this->title = '账户管理';
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -14,7 +15,7 @@ $this->title = '用户管理';
 </div>
 <p>
     <?= Html::beginForm(['/site/logout']) ?>
-    <?= Html::a('创建用户', ['usersuper/create-account'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('创建账户', ['usersuper/create-account'], ['class' => 'btn btn-success']) ?>
     <?= Html::submitButton('退出', ['class' => 'btn btn-danger']) ?>
     <?= Html::endForm() ?>
 </p>
@@ -48,6 +49,15 @@ $this->title = '用户管理';
                     'attribute' => 'sAccessToken',
                     'headerOptions' => ['class' => 'col-md-2'],
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
+                ],
+                [
+                    'attribute' => 'Type',
+                    'filter' => UserAccount::getAccountTypeList(),
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->accountTypeMsg;
+                    }
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',

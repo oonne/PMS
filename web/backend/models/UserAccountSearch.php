@@ -12,7 +12,7 @@ class UserAccountSearch extends UserAccount
     {
         // only fields in rules() are searchable
         return [
-            [['sUserName', 'sAccessToken'], 'safe']
+            [['sUserName', 'sAccessToken', 'Type'], 'safe']
         ];
     }
 
@@ -32,7 +32,8 @@ class UserAccountSearch extends UserAccount
 
         // adjust the query by adding the filters
         $query->andFilterWhere(['like', 'sUserName', $this->sUserName])
-              ->andFilterWhere(['like', 'sAccessToken', $this->sAccessToken]);
+              ->andFilterWhere(['like', 'sAccessToken', $this->sAccessToken])
+              ->andFilterWhere(['Type' => $this->Type]);
 
         return $dataProvider;
     }

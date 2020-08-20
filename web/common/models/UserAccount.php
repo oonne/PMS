@@ -19,6 +19,12 @@ use yii\web\IdentityInterface;
 class UserAccount extends ActiveRecord implements IdentityInterface
 {
     public $password;
+    
+    const ACCOUNT_WEB = 'web';
+    const ACCOUNT_API = 'api';
+    const ACCOUNT_HERITAGE = 'heritage';
+
+    private static $_accountTypeList;
 
     /**
      * @inheritdoc
@@ -46,6 +52,7 @@ class UserAccount extends ActiveRecord implements IdentityInterface
             [['password'], 'default'],
 
             [['sAccessToken'], 'string', 'max' => 64],
+            [['Type'], 'in', 'range' => [self::ACCOUNT_WEB, self::ACCOUNT_API, self::ACCOUNT_HERITAGE]],
         ];
     }
 
@@ -61,6 +68,7 @@ class UserAccount extends ActiveRecord implements IdentityInterface
             'sPasswordHash' => '密码hash',
             'sAccessToken' => 'Token',
             'sAuthKey' => '记住密码key',
+            'Type' => '账户类型',
         ];
     }
 
@@ -160,8 +168,23 @@ class UserAccount extends ActiveRecord implements IdentityInterface
         $this->sAccessToken = null;
     }
 
-    public function __toString()
+    public static function getAccountTypeList()
     {
-        return $this->sUserName;
+        if (self::$_accountTypeList === null) {
+            self::$_accountTypeList = [
+                static::ACCOUNT_WEB => 'Web',
+                static::ACCOUNT_API => 'API',
+                static::ACCOUNT_HERITAGE => '遗产继承人'
+            ];
+        }
+
+        return self::$_accountTypeList;
+    }
+
+    public function getAccountTypeMsg()
+    {
+        $list = static::getAccountTypeList();
+
+        return $list[$this->Type] ?? null;
     }
 }
