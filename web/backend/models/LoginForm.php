@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use common\models\UserAccount;
-use common\models\Congig;
+use common\models\Config;
 
 /**
  * Login form
@@ -45,7 +45,6 @@ class LoginForm extends Model
             if (!$account || !$account->validatePassword($this->password)) {
                 $this->addError($attribute, '帐号密码错误');
             }
-
             if ($account->Type == UserAccount::ACCOUNT_HERITAGE) {
                 // 遗产继承人登录
                 $config = Config::find()
