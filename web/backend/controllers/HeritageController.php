@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
+use common\models\Config;
 use backend\models\ConsumptionSearch;
 
 class RecyclesuperController extends Controller
@@ -28,13 +29,19 @@ class RecyclesuperController extends Controller
 
     public function actionConsumption()
     {
+        $config = Config::find()
+            ->where(['sConfigKey' => 'LAST_ACCESS'])
+            ->one();
+        $lastAccess = $config->tConfigValue;
+
         $searchModel = new ConsumptionSearch();
         $data = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('consumption', [
             'searchModel' => $searchModel,
             'dataProvider' => $data['dataProvider'],
             'summary' => $data['summary'],
+            'lastAccess' => $lastAccess,
         ]);
     }
 }

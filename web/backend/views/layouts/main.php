@@ -86,10 +86,10 @@ if ($accountType == 'web') {
                 'label' => '数据',
                 'url' => '#',
                 'items' => [
-                    'consumptionsuper' => ['label' => '个人消费', 'url' => ['consumptionsuper/index'], 'active' => in_array($route, ['consumptionsuper/index'])],
-                    'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
-                    'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
-                    'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                    'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
+                    // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
+                    // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
+                    // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
                 ]
             ],
         ];
