@@ -104,12 +104,12 @@ class HeritageController extends Controller
     }
 
     // 密码
-    public function actionPassowrdIndex()
+    public function actionPasswordIndex()
     {
-        $searchModel = new PassowrdSearch();
+        $searchModel = new PasswordSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('passowrd-index', [
+        return $this->render('password-index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -123,7 +123,7 @@ class HeritageController extends Controller
             throw new BadRequestHttpException('请求错误！');
         }
 
-        return $this->render('passowrd-view', [
+        return $this->render('password-view', [
             'model' => $model
         ]);
     }
