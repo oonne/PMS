@@ -86,10 +86,10 @@ if ($accountType == 'web') {
                 'label' => '数据',
                 'url' => '#',
                 'items' => [
-                    'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
                     // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
-                    // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
                     // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                    'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
+                    // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
                 ]
             ],
         ];
@@ -108,14 +108,14 @@ if ($accountType == 'web') {
                 'label' => '遗产',
                 'url' => '#',
                 'items' => [
-                    'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
-                    'estoversparents' => ['label' => '赡养父母', 'url' => ['heritage/estoversparents'], 'active' => in_array($route, ['heritage/estoversparents'])],
-                    'income' => ['label' => '收入', 'url' => ['heritage/income'], 'active' => in_array($route, ['heritage/income'])],
-                    // 'notesuper' => ['label' => '记事本', 'url' => ['notesuper/index'], 'active' => in_array($route, ['notesuper/index', 'notesuper/add-note', 'notesuper/view-note', 'notesuper/update-note'])],
+                    'note' => ['label' => '记事本', 'url' => ['heritage/note-index'], 'active' => in_array($route, ['heritage/note-index', 'heritage/note-view'])],
+                    // 'passwordsuper' => ['label' => '密码', 'url' => ['passwordsuper/index'], 'active' => in_array($route, ['passwordsuper/index', 'passwordsuper/add-password', 'passwordsuper/view-password', 'passwordsuper/update-password'])],
                     // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
                     // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
-                    // 'passwordsuper' => ['label' => '密码', 'url' => ['passwordsuper/index'], 'active' => in_array($route, ['passwordsuper/index', 'passwordsuper/add-password', 'passwordsuper/view-password', 'passwordsuper/update-password'])],
                     // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                    'income' => ['label' => '收入', 'url' => ['heritage/income'], 'active' => in_array($route, ['heritage/income'])],
+                    'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
+                    'estoversparents' => ['label' => '赡养父母', 'url' => ['heritage/estoversparents'], 'active' => in_array($route, ['heritage/estoversparents'])],
                 ]
             ],
         ];
