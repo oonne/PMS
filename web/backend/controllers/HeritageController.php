@@ -139,12 +139,11 @@ class HeritageController extends Controller
         $lastAccess = $config->tConfigValue;
 
         $searchModel = new DiarySearch();
-        $data = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('diary-index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $data['dataProvider'],
-            'summary' => $data['summary'],
+            'dataProvider' => $dataProvider,
             'lastAccess' => $lastAccess,
         ]);
     }
