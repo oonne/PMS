@@ -30,9 +30,6 @@ $this->title = '收入';
             'filterModel' => $searchModel,
             'tableOptions' => ['class' => 'table table-striped table-bordered table-center'],
             'summary' => Html::tag('p', '<b>{totalCount}</b>条数据，共计<b>' .$summary. '</b>元.', ['class' => 'text-right text-muted']),
-            'pager' => [
-                'options' => ['class' => $lastAccess=='DEAD' ? 'pagination' : 'hidden']
-            ],
             'columns' => [
                 [
                     'class' => 'yii\grid\SerialColumn',

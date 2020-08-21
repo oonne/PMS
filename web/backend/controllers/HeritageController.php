@@ -49,11 +49,6 @@ class HeritageController extends Controller
 
     public function actionEstoversparents()
     {
-        $config = Config::find()
-            ->where(['sConfigKey' => 'LAST_ACCESS'])
-            ->one();
-        $lastAccess = $config->tConfigValue;
-
         $searchModel = new EstoversParentsSearch();
         $data = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,17 +56,11 @@ class HeritageController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $data['dataProvider'],
             'summary' => $data['summary'],
-            'lastAccess' => $lastAccess,
         ]);
     }
 
     public function actionIncome()
     {
-        $config = Config::find()
-            ->where(['sConfigKey' => 'LAST_ACCESS'])
-            ->one();
-        $lastAccess = $config->tConfigValue;
-
         $searchModel = new IncomeSearch();
         $data = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -79,7 +68,6 @@ class HeritageController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $data['dataProvider'],
             'summary' => $data['summary'],
-            'lastAccess' => $lastAccess,
         ]);
     }
 }
