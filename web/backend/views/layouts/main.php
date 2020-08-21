@@ -7,7 +7,7 @@ AppAsset::register($this);
 $this->registerMetaTag(array("name"=>"viewport", "content"=>"width=device-width, initial-scale=1, user-scalable=no, minimal-ui"));
 
 $route = Yii::$app->requestedAction->uniqueId;
-$type = Yii::$app->user->identity->type;
+$type = Yii::$app->user->identity->Type;
 
 $menu = [
     [
