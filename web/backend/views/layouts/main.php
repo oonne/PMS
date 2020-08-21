@@ -109,7 +109,7 @@ if ($accountType == 'web') {
                 'url' => '#',
                 'items' => [
                     'note' => ['label' => '记事本', 'url' => ['heritage/note-index'], 'active' => in_array($route, ['heritage/note-index', 'heritage/note-view'])],
-                    // 'passwordsuper' => ['label' => '密码', 'url' => ['passwordsuper/index'], 'active' => in_array($route, ['passwordsuper/index', 'passwordsuper/add-password', 'passwordsuper/view-password', 'passwordsuper/update-password'])],
+                    'passwordsuper' => ['label' => '密码', 'url' => ['heritage/password-index'], 'active' => in_array($route, ['heritage/password-index', 'heritage/password-view'])],
                     // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
                     // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
                     // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],

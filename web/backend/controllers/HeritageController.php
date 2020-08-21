@@ -10,8 +10,10 @@ use common\models\Config;
 use backend\models\ConsumptionSearch;
 use backend\models\EstoversParentsSearch;
 use backend\models\IncomeSearch;
-use backend\models\NoteSearch;
 use common\models\Note;
+use backend\models\NoteSearch;
+use common\models\Password;
+use backend\models\PasswordSearch;
 
 class HeritageController extends Controller
 {
@@ -97,6 +99,31 @@ class HeritageController extends Controller
         }
 
         return $this->render('note-view', [
+            'model' => $model
+        ]);
+    }
+
+    // 密码
+    public function actionPassowrdIndex()
+    {
+        $searchModel = new PassowrdSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('passowrd-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionPasswordView($id)
+    {
+        $model = Password::findOne($id);
+
+        if (!$model) {
+            throw new BadRequestHttpException('请求错误！');
+        }
+
+        return $this->render('passowrd-view', [
             'model' => $model
         ]);
     }
