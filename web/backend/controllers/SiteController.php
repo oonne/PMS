@@ -54,13 +54,16 @@ class SiteController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        // 每次进入首页的时候，刷新最后登录时间
-        $model = Config::find()
+        // 每次进入首页的时候，如果是web用户，则刷新最后登录时间。遗产继承人则不用刷新
+        $accountType = Yii::$app->user->identity->Type;
+        if ($accountType == 'web') {
+            $model = Config::find()
                     ->where(['sConfigKey' => 'LAST_ACCESS'])
                     ->one();
-        $model->tConfigValue = date('Y-m-d H:i:s', time());
-        $model->uLastAccountID = Yii::$app->user->id;
-        $model->save(false);
+            $model->tConfigValue = date('Y-m-d H:i:s', time());
+            $model->uLastAccountID = Yii::$app->user->id;
+            $model->save(false);
+        }
 
         return $this->render('/site/index');
     }
