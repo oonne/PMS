@@ -7,10 +7,11 @@ AppAsset::register($this);
 $this->registerMetaTag(array("name"=>"viewport", "content"=>"width=device-width, initial-scale=1, user-scalable=no, minimal-ui"));
 
 $route = Yii::$app->requestedAction->uniqueId;
+$type = Yii::$app->user->identity->type;
 
 $menu = [
     [
-        'label' => '系统',
+        'label' => '系统'.$type,
         'url' => '#',
         'items' => [
             'home' => ['label' => '系统信息', 'url' => ['site/index'], 'active' => in_array($route, ['site/index'])],
@@ -55,7 +56,6 @@ $menu = [
         ]
     ],
 ];
-
 ?>
 
 <?php $this->beginContent('@app/views/layouts/base.php'); ?>
@@ -76,7 +76,5 @@ $menu = [
         <div id='page-wrapper'>
             <?= $content ?>
         </div>
-
     </div>
-
 <?php $this->endContent() ?>

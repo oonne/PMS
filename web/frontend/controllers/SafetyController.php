@@ -54,7 +54,7 @@ class SafetyController extends Controller
             return exportMsg::error('101000');
         }
 
-        $model->tConfigValue = 'ALIVE '.date('Y-m-d H:i:s', time());
+        $model->tConfigValue = date('Y-m-d H:i:s', time());
         $model->uLastAccountID = Yii::$app->user->id;
         if ($model->save(false)) {
             return exportMsg::ok();
@@ -81,7 +81,7 @@ class SafetyController extends Controller
         $lastAccess = strtotime($model->uUpdatedTime);
         $now = time();
 
-        if ($now-$lastAccess>3600*24*20) {
+        if ($now-$lastAccess>3600*24*17) { //此处需要从修改为 DANGER 的时间点开始计算
             $model->tConfigValue = 'DEAD';
             if ($model->save(false)) {
                 return 'DEAD';

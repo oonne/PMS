@@ -58,7 +58,7 @@ class SiteController extends \yii\web\Controller
         $model = Config::find()
                     ->where(['sConfigKey' => 'LAST_ACCESS'])
                     ->one();
-        $model->tConfigValue = 'ALIVE '.date('Y-m-d H:i:s', time());
+        $model->tConfigValue = date('Y-m-d H:i:s', time());
         $model->uLastAccountID = Yii::$app->user->id;
         $model->save(false);
 

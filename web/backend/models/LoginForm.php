@@ -51,7 +51,7 @@ class LoginForm extends Model
                         ->where(['sConfigKey' => 'LAST_ACCESS'])
                         ->one();
                 if ($config->tConfigValue != 'DANGER' && $config->tConfigValue != 'DEAD') {
-                    $this->addError($attribute, '加一还活着，最后登录时间：'.$config->tConfigValue);
+                    $this->addError($attribute, '加一最后登录时间：'.$config->tConfigValue);
                 }
             } else if ($account->Type != UserAccount::ACCOUNT_WEB) {
                 // 只有web账户可以登录
