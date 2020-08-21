@@ -80,10 +80,10 @@ $this->title = '记事本';
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
                     'headerOptions' => ['class' => 'col-md-2'],
-                    'template' => '{view} {update} {delete}',
+                    'template' => '{view}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
-                            return Html::a('查看', ['view-note', 'id' => $key], ['class' => 'btn btn-info btn-xs']);
+                            return Html::a('查看', ['note-view', 'id' => $key], ['class' => 'btn btn-info btn-xs']);
                         },
                     ]
                 ]
