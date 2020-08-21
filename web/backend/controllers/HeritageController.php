@@ -9,7 +9,7 @@ use yii\web\BadRequestHttpException;
 use common\models\Config;
 use backend\models\ConsumptionSearch;
 
-class RecyclesuperController extends Controller
+class HeritageController extends Controller
 {
     
     public function behaviors()
