@@ -71,20 +71,6 @@ $this->title = '收入';
                     'attribute' => 'sRemark',
                     'headerOptions' => ['class' => 'col-md-2'],
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
-                ],
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'header' => '操作',
-                    'headerOptions' => ['class' => 'col-md-2'],
-                    'template' => '{update} {delete}',
-                    'buttons' => [
-                        'update' => function ($url, $model, $key) {
-                            return Html::a('修改', ['update-income', 'id' => $key], ['class' => 'btn btn-warning btn-xs']);
-                        },
-                        'delete' => function ($url, $model, $key) {
-                            return Html::a('删除', ['delete-income', 'id' => $key], ['class' => 'btn btn-danger btn-xs']);
-                        },
-                    ]
                 ]
             ]
         ]) ?>
