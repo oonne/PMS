@@ -109,8 +109,8 @@ if ($accountType == 'web') {
                 'url' => '#',
                 'items' => [
                     'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
-                    // 'estoversparentssuper' => ['label' => '赡养父母', 'url' => ['estoversparentssuper/index'], 'active' => in_array($route, ['estoversparentssuper/index', 'estoversparentssuper/add-estovers', 'estoversparentssuper/update-estovers'])],
-                    // 'incomesuper' => ['label' => '收入', 'url' => ['incomesuper/index'], 'active' => in_array($route, ['incomesuper/index', 'incomesuper/add-income', 'incomesuper/update-income'])],
+                    'estoversparents' => ['label' => '赡养父母', 'url' => ['heritage/estoversparents'], 'active' => in_array($route, ['heritage/estoversparents'])],
+                    'income' => ['label' => '收入', 'url' => ['heritage/income'], 'active' => in_array($route, ['heritage/income'])],
                     // 'notesuper' => ['label' => '记事本', 'url' => ['notesuper/index'], 'active' => in_array($route, ['notesuper/index', 'notesuper/add-note', 'notesuper/view-note', 'notesuper/update-note'])],
                     // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
                     // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
