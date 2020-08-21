@@ -10,7 +10,15 @@ $this->registerMetaTag(array("name"=>"viewport", "content"=>"width=device-width,
 $route = Yii::$app->requestedAction->uniqueId;
 $accountType = Yii::$app->user->identity->Type;
 
-$menu = [];
+$menu = [
+    [
+        'label' => '系统',
+        'url' => '#',
+        'items' => [
+            'home' => ['label' => '系统信息', 'url' => ['site/index'], 'active' => in_array($route, ['site/index'])],
+        ]
+    ],
+];
 if ($accountType == 'web') {
     // 正常用户登录
     $menu = [
@@ -60,7 +68,7 @@ if ($accountType == 'web') {
             ]
         ],
     ];
-} else {
+} else if ($accountType == 'heritage') {
     $config = Config::find()
         ->where(['sConfigKey' => 'LAST_ACCESS'])
         ->one();
@@ -74,9 +82,18 @@ if ($accountType == 'web') {
                     'home' => ['label' => '系统信息', 'url' => ['site/index'], 'active' => in_array($route, ['site/index'])],
                 ]
             ],
+            [
+                'label' => '数据',
+                'url' => '#',
+                'items' => [
+                    'consumptionsuper' => ['label' => '个人消费', 'url' => ['consumptionsuper/index'], 'active' => in_array($route, ['consumptionsuper/index'])],
+                    'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
+                    'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
+                    'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                ]
+            ],
         ];
-    }
-    if ($config->tConfigValue == 'DEAD') {
+    } else if ($config->tConfigValue == 'DEAD') {
         // 已经可以展示所有遗产了
         $menu = [
             [
@@ -87,8 +104,22 @@ if ($accountType == 'web') {
                     'recyclesuper' => ['label' => '回收站', 'url' => ['recyclesuper/index'], 'active' => in_array($route, ['recyclesuper/index', 'recyclesuper/view-recycle'])],
                 ]
             ],
+            [
+                'label' => '遗产',
+                'url' => '#',
+                'items' => [
+                    'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
+                    // 'estoversparentssuper' => ['label' => '赡养父母', 'url' => ['estoversparentssuper/index'], 'active' => in_array($route, ['estoversparentssuper/index', 'estoversparentssuper/add-estovers', 'estoversparentssuper/update-estovers'])],
+                    // 'incomesuper' => ['label' => '收入', 'url' => ['incomesuper/index'], 'active' => in_array($route, ['incomesuper/index', 'incomesuper/add-income', 'incomesuper/update-income'])],
+                    // 'notesuper' => ['label' => '记事本', 'url' => ['notesuper/index'], 'active' => in_array($route, ['notesuper/index', 'notesuper/add-note', 'notesuper/view-note', 'notesuper/update-note'])],
+                    // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
+                    // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
+                    // 'passwordsuper' => ['label' => '密码', 'url' => ['passwordsuper/index'], 'active' => in_array($route, ['passwordsuper/index', 'passwordsuper/add-password', 'passwordsuper/view-password', 'passwordsuper/update-password'])],
+                    // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                ]
+            ],
         ];
-    }
+    } 
 }
 
 ?>
