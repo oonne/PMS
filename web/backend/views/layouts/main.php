@@ -86,7 +86,7 @@ if ($accountType == 'web') {
                 'label' => '数据',
                 'url' => '#',
                 'items' => [
-                    // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
+                    'diary' => ['label' => '日记', 'url' => ['heritage/diary-index'], 'active' => in_array($route, ['heritage/diary-index', 'heritage/diary-view'])],
                     // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
                     'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
                     // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
@@ -110,7 +110,7 @@ if ($accountType == 'web') {
                 'items' => [
                     'note' => ['label' => '记事本', 'url' => ['heritage/note-index'], 'active' => in_array($route, ['heritage/note-index', 'heritage/note-view'])],
                     'passwordsuper' => ['label' => '密码', 'url' => ['heritage/password-index'], 'active' => in_array($route, ['heritage/password-index', 'heritage/password-view'])],
-                    // 'diarysuper' => ['label' => '日记', 'url' => ['diarysuper/index'], 'active' => in_array($route, ['diarysuper/index', 'diarysuper/add-diary', 'diarysuper/view-diary', 'diarysuper/update-diary'])],
+                    'diary' => ['label' => '日记', 'url' => ['heritage/diary-index'], 'active' => in_array($route, ['heritage/diary-index', 'heritage/diary-view'])],
                     // 'booksuper' => ['label' => '读书', 'url' => ['booksuper/index'], 'active' => in_array($route, ['booksuper/index', 'booksuper/add-book', 'booksuper/view-book', 'booksuper/update-book'])],
                     // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
                     'income' => ['label' => '收入', 'url' => ['heritage/income'], 'active' => in_array($route, ['heritage/income'])],

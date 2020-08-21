@@ -14,6 +14,8 @@ use common\models\Note;
 use backend\models\NoteSearch;
 use common\models\Password;
 use backend\models\PasswordSearch;
+use common\models\Diary;
+use backend\models\DiarySearch;
 
 class HeritageController extends Controller
 {
@@ -124,6 +126,38 @@ class HeritageController extends Controller
         }
 
         return $this->render('password-view', [
+            'model' => $model
+        ]);
+    }
+
+    // 日记
+    public function actionDiaryIndex()
+    {
+        $config = Config::find()
+            ->where(['sConfigKey' => 'LAST_ACCESS'])
+            ->one();
+        $lastAccess = $config->tConfigValue;
+
+        $searchModel = new DiarySearch();
+        $data = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('diary-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $data['dataProvider'],
+            'summary' => $data['summary'],
+            'lastAccess' => $lastAccess,
+        ]);
+    }
+
+    public function actionDiaryView($id)
+    {
+        $model = Diary::findOne($id);
+
+        if (!$model) {
+            throw new BadRequestHttpException('请求错误！');
+        }
+
+        return $this->render('diary-view', [
             'model' => $model
         ]);
     }
