@@ -18,10 +18,18 @@ body {
   font-style: normal;
 }
 
+.content{
+  height: 260px;
+  position: absolute;
+  top: 50%;
+  margin-top: -140px;
+  width: 100%;
+  
+}
 /* 钟表 */
 .time{
   width: 300px;
-  margin: 280px auto 40px;
+  margin: 0 auto 40px;
 }
 .clock{
   color: #ccc;
