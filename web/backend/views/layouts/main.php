@@ -89,7 +89,6 @@ if ($accountType == 'web') {
                     'diary' => ['label' => '日记', 'url' => ['heritage/diary-index'], 'active' => in_array($route, ['heritage/diary-index', 'heritage/diary-view'])],
                     'pedometer' => ['label' => '计步器', 'url' => ['heritage/pedometer'], 'active' => in_array($route, ['heritage/pedometer'])],
                     'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
-                    'book' => ['label' => '读书', 'url' => ['heritage/book-index'], 'active' => in_array($route, ['heritage/book-index', 'heritage/book-view'])],
                 ]
             ],
         ];
