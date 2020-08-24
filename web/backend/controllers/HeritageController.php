@@ -10,6 +10,7 @@ use common\models\Config;
 use backend\models\ConsumptionSearch;
 use backend\models\EstoversParentsSearch;
 use backend\models\IncomeSearch;
+use backend\models\PedometerSearch;
 use common\models\Note;
 use backend\models\NoteSearch;
 use common\models\Password;
@@ -185,6 +186,19 @@ class HeritageController extends Controller
 
         return $this->render('book-view', [
             'model' => $model
+        ]);
+    }
+
+    // 计步器
+    public function actionPedometer()
+    {
+        $searchModel = new PedometerSearch();
+        $data = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('pedometer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $data['dataProvider'],
+            'summary' => $data['summary'],
         ]);
     }
 }

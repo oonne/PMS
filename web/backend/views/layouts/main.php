@@ -87,7 +87,7 @@ if ($accountType == 'web') {
                 'url' => '#',
                 'items' => [
                     'diary' => ['label' => '日记', 'url' => ['heritage/diary-index'], 'active' => in_array($route, ['heritage/diary-index', 'heritage/diary-view'])],
-                    // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                    'pedometer' => ['label' => '计步器', 'url' => ['heritage/pedometer'], 'active' => in_array($route, ['heritage/pedometer'])],
                     'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
                     'book' => ['label' => '读书', 'url' => ['heritage/book-index'], 'active' => in_array($route, ['heritage/book-index', 'heritage/book-view'])],
                 ]
@@ -112,7 +112,7 @@ if ($accountType == 'web') {
                     'passwordsuper' => ['label' => '密码', 'url' => ['heritage/password-index'], 'active' => in_array($route, ['heritage/password-index', 'heritage/password-view'])],
                     'diary' => ['label' => '日记', 'url' => ['heritage/diary-index'], 'active' => in_array($route, ['heritage/diary-index', 'heritage/diary-view'])],
                     'book' => ['label' => '读书', 'url' => ['heritage/book-index'], 'active' => in_array($route, ['heritage/book-index', 'heritage/book-view'])],
-                    // 'pedometersuper' => ['label' => '计步器', 'url' => ['pedometersuper/index'], 'active' => in_array($route, ['pedometersuper/index', 'pedometersuper/add-pedometer', 'pedometersuper/update-pedometer'])],
+                    'pedometer' => ['label' => '计步器', 'url' => ['heritage/pedometer'], 'active' => in_array($route, ['heritage/pedometer'])],
                     'income' => ['label' => '收入', 'url' => ['heritage/income'], 'active' => in_array($route, ['heritage/income'])],
                     'consumption' => ['label' => '个人消费', 'url' => ['heritage/consumption'], 'active' => in_array($route, ['heritage/consumption'])],
                     'estoversparents' => ['label' => '赡养父母', 'url' => ['heritage/estoversparents'], 'active' => in_array($route, ['heritage/estoversparents'])],
