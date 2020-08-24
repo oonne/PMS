@@ -16,6 +16,8 @@ use common\models\Password;
 use backend\models\PasswordSearch;
 use common\models\Diary;
 use backend\models\DiarySearch;
+use common\models\Book;
+use backend\models\BookSearch;
 
 class HeritageController extends Controller
 {
@@ -157,6 +159,31 @@ class HeritageController extends Controller
         }
 
         return $this->render('diary-view', [
+            'model' => $model
+        ]);
+    }
+
+    // 读书
+    public function actionBookIndex()
+    {
+        $searchModel = new BookSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('book-index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionBookView($id)
+    {
+        $model = Book::findOne($id);
+
+        if (!$model) {
+            throw new BadRequestHttpException('请求错误！');
+        }
+
+        return $this->render('book-view', [
             'model' => $model
         ]);
     }
