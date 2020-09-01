@@ -48,7 +48,7 @@
     }
   },
   "display": {
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#000000",
     "fullScreen": false,
     "titleBar": false,
     "menu": false,

@@ -1,52 +1,39 @@
 <template>
-  <div class="index">
-
-     随便写点东西
+  <div>
+    <text class="tt">随便写点东西</text>
   </div>
 </template>
 
 <script>
 import prompt from '@system.prompt'
+import shortcut from '@system.shortcut'
 
 export default {
   private: {
   },
-  onInit() {
-    console.log(123)  
-    prompt.showToast({
-      message: '已创建桌面图标'
-    })
-  },
   onReady() {
-    console.log('onReady')  
+    this.createShortcut()
   },
   /* 保存桌面图标 */
   createShortcut () {
-
-    // const prompt = require('@system.prompt')
-    // const shortcut = require('@system.shortcut')
-    // shortcut.hasInstalled({
-    //   success: function (ret) {
-    //     if (ret) {
-    //       prompt.showToast({
-    //         message: '已创建桌面图标'
-    //       })
-    //     } else {
-    //       shortcut.install({
-    //         success: function () {
-    //           prompt.showToast({
-    //             message: '成功创建桌面图标'
-    //           })
-    //         },
-    //         fail: function (errmsg, errcode) {
-    //           prompt.showToast({
-    //             message: `${errcode}: ${errmsg}`
-    //           })
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
+    shortcut.hasInstalled({
+      success: function (ret) {
+        if (!ret) {
+          shortcut.install({
+            success: function () {
+              prompt.showToast({
+                message: '已创建桌面图标'
+              })
+            },
+            fail: function (errmsg, errcode) {
+              prompt.showToast({
+                message: `${errcode}: ${errmsg}`
+              })
+            }
+          })
+        }
+      }
+    })
   }
 
 
@@ -54,4 +41,8 @@ export default {
 </script>
 
 <style>
+.tt{
+  color: #fff;
+  font-size: 99px;
+}
 </style>
