@@ -1,0 +1,59 @@
+{
+  "package": "PMS",
+  "name": "PMS",
+  "versionName": "1.0.0",
+  "versionCode": "1",
+  "minPlatformVersion": "1060",
+  "icon": "/Common/logo.png",
+  "features": [
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.shortcut"
+    },
+    {
+      "name": "system.resident"
+    }
+  ],
+  "permissions": [
+    {
+      "origin": "*"
+    }
+  ],
+  "config": {
+    "designWidth": 1080,
+    "logLevel": "off",
+    "background": {
+      "features":[
+        "system.request",
+        "system.geolocation"
+      ]
+    },
+    "network": {
+      "connectTimeout": 10000,
+      "readTimeout": 10000,
+      "writeTimeout": 10000
+    }
+  },
+  "router": {
+    "entry": "Index",
+    "pages": {
+      "Index": {
+        "component": "index"
+      }
+    }
+  },
+  "display": {
+    "backgroundColor": "#ffffff",
+    "fullScreen": false,
+    "titleBar": false,
+    "menu": false,
+    "menuBarData": {
+      "menuBar": false
+    }
+  }
+}

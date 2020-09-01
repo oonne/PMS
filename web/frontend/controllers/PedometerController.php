@@ -83,7 +83,6 @@ class PedometerController extends Controller
 
             $transaction->commit();
             return exportMsg::ok();
-            
         } catch (\Exception $e) {
             $transaction->rollBack();
             return exportMsg::error('101003');
