@@ -1,6 +1,6 @@
 <template>
   <div>
-    <text class="tt">随便写点东西</text>
+    <text class="tt">测试小写开头</text>
   </div>
 </template>
 

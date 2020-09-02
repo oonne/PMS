@@ -1,10 +1,10 @@
 {
-  "package": "PMS",
+  "package": "PMS.quickapp",
   "name": "PMS",
   "versionName": "1.0.0",
   "versionCode": "1",
   "minPlatformVersion": "1060",
-  "icon": "/Common/logo.png",
+  "icon": "/assets/logo.png",
   "features": [
     {
       "name": "system.prompt"
@@ -43,7 +43,8 @@
     "entry": "Index",
     "pages": {
       "Index": {
-        "component": "index"
+        "component": "index",
+        "path": "/pages/index"
       }
     }
   },
