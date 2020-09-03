@@ -1,15 +1,38 @@
 <template>
   <div>
-    <text class="tt">233</text>
+    <div show="{{loggedIn}}">
+      <text class="tt">已登录</text>
+    </div>
+    <text class="tt">{{token}}</text>
   </div>
 </template>
 
 <script>
 import prompt from '@system.prompt'
+import router from '@system.router'
 import shortcut from '@system.shortcut'
+import storage from '@system.storage'
 
 export default {
   private: {
+    loggedIn: false,
+    token: ''
+  },
+  onInit() {
+    // 判断是否已经登录
+    storage.get({
+      key: 'token',
+      success: (data) => {
+        if (!data) {
+          router.replace({
+            uri: '/Login'
+          })
+        } else {
+          this.$set('loggedIn', true)
+          this.$set('token', data)
+        }
+      },
+    })
   },
   onReady() {
     this.createShortcut()
@@ -34,8 +57,9 @@ export default {
         }
       }
     })
+  },
+  test () {
   }
-
 
 }
 </script>

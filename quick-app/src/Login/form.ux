@@ -1,42 +1,24 @@
 <template>
   <div>
-    <text class="tt">测试小写开头233</text>
+    <input type="text" @change="changeInput" name="userName"/>
+    <input type="text" @change="changeInput" name="password"/>
+    <input class="btn" type="button" value="登录3" @click="login" />
   </div>
 </template>
 
 <script>
-import prompt from '@system.prompt'
-import shortcut from '@system.shortcut'
-
 export default {
   private: {
+    status: '',
+    userName: '',
+    password: '',
   },
-  onReady() {
-    this.createShortcut()
+  changeInput(e){
+    this.$set(e._target._attr.name, e.value)
   },
-  /* 保存桌面图标 */
-  createShortcut () {
-    shortcut.hasInstalled({
-      success: function (ret) {
-        if (!ret) {
-          shortcut.install({
-            success: function () {
-              prompt.showToast({
-                message: '已创建桌面图标'
-              })
-            },
-            fail: function (errmsg, errcode) {
-              prompt.showToast({
-                message: `${errcode}: ${errmsg}`
-              })
-            }
-          })
-        }
-      }
-    })
+  login(){
+    console.log(this)
   }
-
-
 }
 </script>
 
