@@ -43,8 +43,7 @@
     "entry": "Index",
     "pages": {
       "Index": {
-        "component": "index",
-        "path": "/pages/index"
+        "component": "index"
       }
     }
   },

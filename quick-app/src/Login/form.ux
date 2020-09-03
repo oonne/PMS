@@ -1,0 +1,48 @@
+<template>
+  <div>
+    <text class="tt">测试小写开头233</text>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+import shortcut from '@system.shortcut'
+
+export default {
+  private: {
+  },
+  onReady() {
+    this.createShortcut()
+  },
+  /* 保存桌面图标 */
+  createShortcut () {
+    shortcut.hasInstalled({
+      success: function (ret) {
+        if (!ret) {
+          shortcut.install({
+            success: function () {
+              prompt.showToast({
+                message: '已创建桌面图标'
+              })
+            },
+            fail: function (errmsg, errcode) {
+              prompt.showToast({
+                message: `${errcode}: ${errmsg}`
+              })
+            }
+          })
+        }
+      }
+    })
+  }
+
+
+}
+</script>
+
+<style>
+.tt{
+  color: #fff;
+  font-size: 99px;
+}
+</style>
