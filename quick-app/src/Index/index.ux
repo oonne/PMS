@@ -1,23 +1,28 @@
 <template>
-  <div>
-    <div show="{{loggedIn}}">
-      <text class="tt">已登录</text>
+  <div class="page" show="{{loggedIn}}">
+    
+    
+    <div if="{{network}}">
+      <text class="white">内容</text>
+    </div>
+    <div else>
+      <!-- 重连按钮 -->
+      <text class="white" @click="initIndex">刷新按钮</text>
     </div>
   </div>
 </template>
 
 <script>
-import prompt from '@system.prompt'
 import router from '@system.router'
-import shortcut from '@system.shortcut'
 import storage from '@system.storage'
+import req from '../Common/api/index'
 
 export default {
   private: {
-    loggedIn: false,
-    token: ''
+    loggedIn: false, //是否登录
+    network: false, //是否连网
   },
-  onInit() {
+  onShow() {
     // 判断是否已经登录
     storage.get({
       key: 'token',
@@ -28,42 +33,27 @@ export default {
           })
         } else {
           this.$set('loggedIn', true)
-          this.$set('token', data)
-          this.init()
+          this.initIndex()
         }
       },
     })
   },
-  init() {
-    this.createShortcut()
-  },
-  /* 保存桌面图标 */
-  createShortcut () {
-    shortcut.hasInstalled({
-      success: function (ret) {
-        if (!ret) {
-          shortcut.install({
-            success: function () {
-              prompt.showToast({
-                message: '已创建桌面图标'
-              })
-            },
-            fail: function (errmsg, errcode) {
-              prompt.showToast({
-                message: `${errcode}: ${errmsg}`
-              })
-            }
-          })
-        }
-      }
-    })
+  // 刷新当前页面
+  initIndex(){
+    let networkType = this.$app.$def.store.networkType
+    this.$set('network', networkType != 'none')
+    if (networkType == 'wifi') {
+      req.safetyRefresh()
+    }
   }
 }
 </script>
 
-<style>
-.tt{
+<style lang="less">
+@import '../Common/style/base.less';
+
+.white{
   color: #fff;
-  font-size: 99px;
+  font-size: 100px;
 }
 </style>
