@@ -29,7 +29,6 @@
     "logLevel": "log",
     "background": {
       "features":[
-        "system.request",
         "system.geolocation"
       ]
     },

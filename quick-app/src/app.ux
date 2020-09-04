@@ -1,4 +1,13 @@
 <script>
+import resident from '@system.resident'
 export default {
+  start(){
+    resident.start({
+      desc: 'PMS'
+    })
+  },
+  end(){
+    resident.stop()
+  }
 }
 </script>
