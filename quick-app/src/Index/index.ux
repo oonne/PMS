@@ -30,11 +30,12 @@ export default {
         } else {
           this.$set('loggedIn', true)
           this.$set('token', data)
+          this.init()
         }
       },
     })
   },
-  onReady() {
+  init() {
     this.createShortcut()
   },
   /* 保存桌面图标 */

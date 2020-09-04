@@ -1,22 +1,38 @@
 <template>
-  <div class="page">
-    <input class="input" type="text" @change="changeInput" name="userName" value="Android" />
+  <div class="page {{pageClass}}">
+    <input class="input" type="text" @change="changeInput" name="userName"/>
     <input class="input" type="password" @change="changeInput" name="password"/>
     <input class="btn" type="button" value="Login" @click="login" />
   </div>
 </template>
 
 <script>
+import fetch from '@system.fetch'
+
 export default {
   private: {
     status: '',
     userName: '',
     password: '',
+    pageClass: '',
   },
   changeInput(e){
     this.$set(e._target._attr.name, e.value)
   },
   login(){
+    const {userName, password} = this
+    if (!userName || !password) {
+      this.shake()
+      return 
+    }
+    console.log(userName, password)
+  },
+  /* 出错时页面抖动动画 */ 
+  shake(){
+    this.$set('pageClass', 'shake')
+    setTimeout(()=>{
+      this.$set('pageClass', '')
+    }, 500)
   }
 }
 </script>
@@ -46,4 +62,29 @@ export default {
   margin: 20px;
   border-radius: 10px;
 }
+.shake {
+  animation-name: shake;
+  animation-duration: 400ms;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(-50px);
+  }
+  20% {
+    transform: translateX(40px);
+  }
+  40% {
+    transform: translateX(-30px);
+  }
+  60% {
+    transform: translateX(20px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 </style>
