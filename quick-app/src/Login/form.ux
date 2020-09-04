@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <input type="text" @change="changeInput" name="userName"/>
-    <input type="text" @change="changeInput" name="password"/>
-    <input class="btn" type="button" value="登录3" @click="login" />
+  <div class="page">
+    <input class="input" type="text" @change="changeInput" name="userName" value="Android" />
+    <input class="input" type="password" @change="changeInput" name="password"/>
+    <input class="btn" type="button" value="Login" @click="login" />
   </div>
 </template>
 
@@ -17,14 +17,33 @@ export default {
     this.$set(e._target._attr.name, e.value)
   },
   login(){
-    console.log(this)
   }
 }
 </script>
 
-<style>
-.tt{
+<style lang="less">
+@import '../Common/style/base.less';
+.page{
+  padding-top: 260px;
+}
+.input{
+  display: block;
+  width: 667px;
+  height: 120px;
+  padding: 20px 30px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: #222;
   color: #fff;
-  font-size: 99px;
+  caret-color: #fff;
+  font-size: 48px;
+  line-height: 80px;
+}
+.btn{
+  .btn-save();
+  width: 667px;
+  height: 120px;
+  margin: 20px;
+  border-radius: 10px;
 }
 </style>

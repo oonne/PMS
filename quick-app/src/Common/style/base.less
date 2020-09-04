@@ -1,0 +1,32 @@
+/* 颜色 */ 
+@saveColor: #4d4;
+@saveActiveColor: #4c4;
+@deleteColor: #f00;
+@deleteActiveColor: #e00;
+@editColor: #ff0;
+@editActiveColor: #ee0;
+
+.btn-save{
+  background-color: @saveColor;
+  &:active{
+    background-color: @saveActiveColor;
+  }
+}
+.btn-delete{
+  background-color: @deleteColor;
+  &:active{
+    background-color: @deleteActiveColor;
+  }
+}
+.btn-edit{
+  background-color: @editColor;
+  &:active{
+    background-color: @editActiveColor;
+  }
+}
+
+/* 全局样式 */
+.page{
+  flex-direction: column;
+  align-items: center;
+}

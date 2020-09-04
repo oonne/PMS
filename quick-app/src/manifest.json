@@ -51,6 +51,8 @@
     }
   },
   "display": {
+    "themeMode": 1,
+    "forceDark": false,
     "backgroundColor": "#000000",
     "fullScreen": false,
     "titleBar": false,
