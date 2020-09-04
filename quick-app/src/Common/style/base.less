@@ -33,3 +33,29 @@
   flex-direction: column;
   align-items: center;
 }
+
+/* 动画 */
+.shake {
+  animation-name: shake;
+  animation-duration: 400ms;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(-50px);
+  }
+  20% {
+    transform: translateX(40px);
+  }
+  40% {
+    transform: translateX(-30px);
+  }
+  60% {
+    transform: translateX(20px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

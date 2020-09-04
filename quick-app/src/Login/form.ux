@@ -1,18 +1,20 @@
 <template>
   <div class="page {{pageClass}}">
-    <input class="input" type="text" @change="changeInput" name="userName"/>
+    <input class="input" type="text" @change="changeInput" name="username"/>
     <input class="input" type="password" @change="changeInput" name="password"/>
     <input class="btn" type="button" value="Login" @click="login" />
   </div>
 </template>
 
 <script>
-import fetch from '@system.fetch'
+import storage from '@system.storage'
+import router from '@system.router'
+import req from '../Common/api/index'
 
 export default {
   private: {
     status: '',
-    userName: '',
+    username: '',
     password: '',
     pageClass: '',
   },
@@ -20,12 +22,40 @@ export default {
     this.$set(e._target._attr.name, e.value)
   },
   login(){
-    const {userName, password} = this
-    if (!userName || !password) {
+    const {username, password} = this
+    if (!username || !password) {
       this.shake()
       return 
     }
-    console.log(userName, password)
+    // 发起请求
+    req.login({
+      username,
+      password,
+    }).then(res=>{
+      if (res.Ret == 0) {
+        this.setToken(res.Data.sAccessToken)
+        router.replace({
+          uri: '/Index'
+        })
+      } else {
+        this.shake()
+      }
+    })
+  },
+  /* 登录成功储存token */ 
+  setToken(toekn) {
+    return new Promise((resolve, reject) => {
+      storage.set({
+        key: 'token',
+        value: toekn,
+        success: (data) => {
+          resolve(data)
+        },
+        fail: (e) => {
+          reject(e)
+        },
+      })
+    })
   },
   /* 出错时页面抖动动画 */ 
   shake(){
@@ -61,30 +91,6 @@ export default {
   height: 120px;
   margin: 20px;
   border-radius: 10px;
-}
-.shake {
-  animation-name: shake;
-  animation-duration: 400ms;
-}
-@keyframes shake {
-  0% {
-    transform: translateX(-50px);
-  }
-  20% {
-    transform: translateX(40px);
-  }
-  40% {
-    transform: translateX(-30px);
-  }
-  60% {
-    transform: translateX(20px);
-  }
-  80% {
-    transform: translateX(-10px);
-  }
-  to {
-    transform: translateX(0);
-  }
 }
 
 </style>
