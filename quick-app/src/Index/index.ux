@@ -1,7 +1,9 @@
+<import name="todat-step" src="../Common/components/today-step"></import>
+
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <text class="white">{{todayStep}}</text>
+      <todat-step step="{{todayStep}}"></todat-step>
 
       <!-- <div if="{{network}}">
         <text class="white">内容</text>
@@ -50,7 +52,6 @@ export default {
     }
 
     /* 步数统计 */
-    let weekSteps = []
     utils.getSteps().then(data=>{
       this.$set('todayStep', data.stepsList[6].steps)
       if (networkType == 'wifi') {

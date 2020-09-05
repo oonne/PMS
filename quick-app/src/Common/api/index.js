@@ -1,7 +1,7 @@
 import request from './request'
 
 export default {
-  // 登录
+  /* 登录 */ 
   login(data){
     return request({
       method: 'POST',
@@ -9,7 +9,7 @@ export default {
       data: data
     })
   },
-  // 刷新最后登录时间
+  /* 刷新最后登录时间 */
   safetyRefresh(data){
     return request({
       method: 'POST',
@@ -17,7 +17,7 @@ export default {
       data: data
     })
   },
-  // 更新步数信息
+  /* 计步器 */
   pedometerUpdate(data){
     return request({
       method: 'POST',
@@ -25,4 +25,9 @@ export default {
       data: data
     })
   },
+  /* 消费 */
+  /* 收入 */
+  /* 记事本 */
+  /* 密码 */
+  /* 日记 */
 }
