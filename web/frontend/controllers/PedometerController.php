@@ -71,7 +71,7 @@ class PedometerController extends Controller
                 }
 
                 $stepData = [
-                    'uStep' => $stepInfo['step'],
+                    'uStep' => $stepInfo['steps'],
                     // 'sDate' => date("Y-m-d", $stepInfo['timestamp'])
                     'sDate' => $stepInfo['date']
                 ];
