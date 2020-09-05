@@ -15,5 +15,6 @@
             "action": "org.hapjs.debugger.action.MAIN"
         },
         "apkDir": "C:\\Users\\Will\\AppData\\Roaming\\QuickAppIDE\\Apks\\quickapp-apk"
-    }
+    },
+    "hap.typesVersion": "1070"
 }

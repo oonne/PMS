@@ -17,6 +17,9 @@
     },
     {
       "name": "system.resident"
+    },
+    {
+      "name": "service.health"
     }
   ],
   "permissions": [

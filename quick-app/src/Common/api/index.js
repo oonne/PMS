@@ -13,7 +13,15 @@ export default {
   safetyRefresh(data){
     return request({
       method: 'POST',
-      url: '/safry/refresh',
+      url: '/safety/refresh',
+      data: data
+    })
+  },
+  // 更新步数信息
+  pedometerUpdate(data){
+    return request({
+      method: 'POST',
+      url: '/pedometer/update',
       data: data
     })
   },

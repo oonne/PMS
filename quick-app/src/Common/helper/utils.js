@@ -1,7 +1,9 @@
 
 import prompt from '@system.prompt'
 import shortcut from '@system.shortcut'
+import health from '@service.health'
 import geolocation from '@system.geolocation'
+import req from '../api/index'
 
 const Utils = {
   /* 创建桌面图标 */ 
@@ -25,15 +27,38 @@ const Utils = {
       }
     })
   },
+  /* 获取计步器数据 */
+  getSteps(){
+    return new Promise((resolve, reject) => {
+      health.getLastWeekSteps({
+        success: (data) => {
+          resolve(data)
+        },
+        fail: (errmsg, errcode) => {
+          prompt.showToast({
+            message: `${errcode}: ${errmsg}`
+          })
+          reject(errmsg)
+        }
+      })
+    })
+  },
+  /* 刷新步数 */
+  updateSteps(data){
+    console.log(data)
+  },
   /* 获取定位 */
   getLoacl(){
     return new Promise((resolve, reject) => {
       geolocation.getLocation({
-        success: function(data) {
+        success: (data) => {
           resolve(data)
         },
-        fail: function(data, code) {
-          reject(code)
+        fail: (errmsg, errcode) => {
+          prompt.showToast({
+            message: `${errcode}: ${errmsg}`
+          })
+          reject(errmsg)
         }
       })
     })
