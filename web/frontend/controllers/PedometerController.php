@@ -62,7 +62,6 @@ class PedometerController extends Controller
         $transaction = Yii::$app->db->beginTransaction();
         try {
             foreach ($stepInfoList as $key => $stepInfo) {
-                // $date = date("Y-m-d", $stepInfo['timestamp']);
                 $model = Pedometer::findOne(['sDate' => $stepInfo['date']]);
 
                 if (!$model) {
@@ -72,7 +71,6 @@ class PedometerController extends Controller
 
                 $stepData = [
                     'uStep' => $stepInfo['steps'],
-                    // 'sDate' => date("Y-m-d", $stepInfo['timestamp'])
                     'sDate' => $stepInfo['date']
                 ];
 

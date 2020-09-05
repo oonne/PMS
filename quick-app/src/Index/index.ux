@@ -1,13 +1,14 @@
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <div if="{{network}}">
-        <text class="white">{{todayStep}}</text>
+      <text class="white">{{todayStep}}</text>
+
+      <!-- <div if="{{network}}">
+        <text class="white">内容</text>
       </div>
       <div else>
-        <!-- 重连按钮 -->
         <text class="white" @click="initIndex">重启</text>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -53,7 +54,9 @@ export default {
     utils.getSteps().then(data=>{
       this.$set('todayStep', data.stepsList[6].steps)
       if (networkType == 'wifi') {
-        utils.updateSteps(data.stepsList)
+        req.pedometerUpdate({
+          stepInfoList: data.stepsList
+        })
       }
     })
   }

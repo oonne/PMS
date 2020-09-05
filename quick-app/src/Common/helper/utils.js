@@ -3,7 +3,6 @@ import prompt from '@system.prompt'
 import shortcut from '@system.shortcut'
 import health from '@service.health'
 import geolocation from '@system.geolocation'
-import req from '../api/index'
 
 const Utils = {
   /* 创建桌面图标 */ 
@@ -12,12 +11,12 @@ const Utils = {
       success: (ret) => {
         if (!ret) {
           shortcut.install({
-            success: function () {
+            success: () => {
               prompt.showToast({
                 message: '已创建桌面图标'
               })
             },
-            fail: function (errmsg, errcode) {
+            fail: (errmsg, errcode) => {
               prompt.showToast({
                 message: `${errcode}: ${errmsg}`
               })
@@ -42,10 +41,6 @@ const Utils = {
         }
       })
     })
-  },
-  /* 刷新步数 */
-  updateSteps(data){
-    console.log(data)
   },
   /* 获取定位 */
   getLoacl(){
