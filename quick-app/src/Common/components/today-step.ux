@@ -1,13 +1,14 @@
 <template>
   <div class="today-step">
     <canvas class="step-canvas" id="step-canvas"></canvas>
+    <text class="step-num">{{stepNum}}</text>
   </div>
 </template>
 
 <script>
 import config from '../config/config'
 let drawingChart = null //当前动画
-const maxFrame = 60 //动画总帧数（按照每秒60帧计算）
+const maxFrame = 40 //动画总帧数（按照每秒60帧计算）
 
 export default {
   props: {
@@ -15,6 +16,9 @@ export default {
       type: Number,
       default: 0
     }
+  },
+  data: {
+    stepNum: 0,
   },
   onReady(){
     this.showTodayChart(this.step)
@@ -48,32 +52,38 @@ export default {
    */
   drawTodayChart(ctx, i, step){
     const width = 1080 //画布宽
-    const height = 1080 //画布高
+    const height = 960 //画布高
     const start = 0.7 //起点角度
     const end =  2.3 //终点角度
+
+    // 清屏
+    ctx.clearRect(0,0, width, height)
     
     // 绘制底图
     ctx.beginPath()
-    ctx.arc(width/2, height/2, 300, start*Math.PI, end*Math.PI, false)
+    ctx.arc(width/2, height/2, 320, start*Math.PI, end*Math.PI, false)
     ctx.lineCap = "round"
-    ctx.lineWidth = 30
+    ctx.lineWidth = 24
     const bgGradient = ctx.createLinearGradient(0, height, 0, 0)
-    bgGradient.addColorStop(0, '#999999')
-    bgGradient.addColorStop(1, '#999999')
+    bgGradient.addColorStop(0, 'rgba(255,140,28, 0.38)')
+    bgGradient.addColorStop(1, 'rgba(255,3,33, 0.38)')
     ctx.strokeStyle = bgGradient
     ctx.stroke()
 
     // 绘制实际数据
     let endAngle = (i/maxFrame)*(end-start)*(step/config.dailySteps)+start
     ctx.beginPath()
-    ctx.arc(width/2, height/2, 300, start*Math.PI, endAngle*Math.PI, false)
+    ctx.arc(width/2, height/2, 320, start*Math.PI, endAngle*Math.PI, false)
     ctx.lineCap = "round"
-    ctx.lineWidth = 30
+    ctx.lineWidth = 24
     const fillGradient = ctx.createLinearGradient(0, height, 0, 0)
     fillGradient.addColorStop(0, '#ff8c1c')
     fillGradient.addColorStop(1, '#ff0321')
     ctx.strokeStyle = fillGradient
     ctx.stroke()
+
+    // 刷新数字
+    this.$set('stepNum', parseInt((i/maxFrame)*step))
   }
 }
 </script>
@@ -83,15 +93,17 @@ export default {
 
 .today-step{
   width: 1080px;
-  height: 1080px;
+  height: 960px;
 }
 .step-canvas{
+  position: absolute;
   width: 1080px;
-  height: 1080px;
+  height: 960px;
 }
-
-.white{
+.step-num{
+  width: 100%;
   color: #fff;
-  font-size: 50px;
+  font-size: 120px;
+  text-align: center;
 }
 </style>
