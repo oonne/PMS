@@ -3,8 +3,9 @@
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <todat-step step="{{todayStep}}"></todat-step>
-
+      <div @click="toPage('/Steps')">
+        <todat-step step="{{todayStep}}"></todat-step>
+      </div>
       <!-- <div if="{{network}}">
         <text class="white">内容</text>
       </div>
@@ -43,7 +44,7 @@ export default {
       },
     })
   },
-  initIndex(){
+  initIndex() {
     /* 如果有wifi则同步数据 */
     let networkType = this.$app.$def.store.networkType
     this.$set('network', networkType != 'none')
@@ -59,6 +60,14 @@ export default {
           stepInfoList: data.stepsList
         })
       }
+    })
+
+    // 临时跳转
+    this.toPage('/Steps')
+  },
+  toPage(page) {
+    router.push({
+      uri: page,
     })
   }
 }

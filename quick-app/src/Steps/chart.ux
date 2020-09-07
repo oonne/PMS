@@ -1,0 +1,46 @@
+<import name="todat-step" src="../Common/components/today-step"></import>
+
+<template>
+  <div class="page">
+    <todat-step step="{{todayStep}}"></todat-step>
+  </div>
+</template>
+
+<script>
+import req from '../Common/api/index'
+import utils from '../Common/helper/utils'
+
+export default {
+  private: {
+    todayStep: 0,
+    stepsList: [],
+  },
+  onShow() {
+    this.initData()
+  },
+  initData(){
+    let networkType = this.$app.$def.store.networkType
+    /* 步数统计 */
+    utils.getSteps().then(data=>{
+      this.$set('stepsList', data.stepsList)
+      this.$set('todayStep', data.stepsList[6].steps)
+      if (networkType == 'wifi') {
+        req.pedometerUpdate({
+          stepInfoList: data.stepsList
+        })
+      }
+    })
+  }
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+
+.content{
+  width: @screenWidth;
+  height: @screenHeight;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

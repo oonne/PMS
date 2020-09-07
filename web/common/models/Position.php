@@ -12,6 +12,7 @@ namespace common\models;
  * @property string $sWifi
  * @property string $sTime
  * @property string $Place
+ * @property string $sRemark
  * @property string $sCreatedTime
  * @property string $uUpdatedTime
  * @property string $uLastAccountID
@@ -22,6 +23,7 @@ class Pedometer extends ActiveRecord
     const PLACE_HOME = 'home';
     const PLACE_COMPANY = 'company';
     const PLACE_METRO = 'metro';
+    const PLACE_CAR = 'CAR';
     const PLACE_OTHER = 'other';
 
     private static $_placeList;
@@ -69,6 +71,7 @@ class Pedometer extends ActiveRecord
             'sWifi' => 'wifi',
             'sTime' => '时间',
             'Place' => '地点',
+            'sRemark' => '备注',
             'sCreatedTime' => '创建时间',
             'uUpdatedTime' => '更新时间',
             'uLastAccountID' => '最后更新帐号',
@@ -83,6 +86,7 @@ class Pedometer extends ActiveRecord
                 static::PLACE_HOME => '家',
                 static::PLACE_COMPANY => '公司',
                 static::PLACE_METRO => '地铁',
+                static::PLACE_CAR => '开车',
                 static::PLACE_OTHER => '其他'
             ];
         }
