@@ -105,5 +105,6 @@ export default {
   color: #fff;
   font-size: 120px;
   text-align: center;
+  font-family: "Futura-Heavy";
 }
 </style>

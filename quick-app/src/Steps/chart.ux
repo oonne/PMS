@@ -71,8 +71,8 @@ export default {
   align-items: center;
 }
 .average{
-  margin-top: 160px;
-  width: @screenWidth;
+  margin-top: 200px;
+  width: 960px;
   justify-content: space-around;
 }
 .average-item{
@@ -80,11 +80,13 @@ export default {
   align-items: center;
 }
 .average-attr{
-  font-size: 60px;
-  color: #888;
+  font-size: 54px;
+  color: #c29500;
+  font-family: "Futura-Light";
 }
 .average-num{
-  font-size: 88px;
-  color: #bbb;
+  font-size: 60px;
+  color: rgb(148, 35, 0);
+  font-family: "Futura-Medium";
 }
 </style>
