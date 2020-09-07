@@ -28,7 +28,6 @@ if ($accountType == 'web') {
             'items' => [
                 'home' => ['label' => '系统信息', 'url' => ['site/index'], 'active' => in_array($route, ['site/index'])],
                 'usersuper' => ['label' => '用户管理', 'url' => ['usersuper/index'], 'active' => in_array($route, ['usersuper/index', 'usersuper/create-account', 'usersuper/update-account'])],
-                'wxskeysuper' => ['label' => '微信Skey', 'url' => ['wxskeysuper/index'], 'active' => in_array($route, ['wxskeysuper/index'])],
                 'recyclesuper' => ['label' => '回收站', 'url' => ['recyclesuper/index'], 'active' => in_array($route, ['recyclesuper/index', 'recyclesuper/view-recycle'])],
             ]
         ],
