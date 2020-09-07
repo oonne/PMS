@@ -39,13 +39,12 @@ const request = (params) => {
         'x-auth-token': token,
         'content-type': 'application/json',
       },
-      responseType: 'json',
       data: params.data,
     }).then(res=>{
       if (res.data.code == 200) {
-        return res.data.data
+        return JSON.parse(res.data.data)
       } else if (res.data.code == 401) {
-        return deleteToken()
+        return deleteToken().then(Promise.reject)
       } else {
         return Promise.reject(res)
       }
