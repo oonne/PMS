@@ -2,6 +2,20 @@
 
 <template>
   <div class="page">
+    <div class="average">
+      <div class="average-item">
+        <text class="average-attr">Weekly</text>
+        <text class="average-num">{{weekly}}</text>
+      </div>
+      <div class="average-item">
+        <text class="average-attr">Monthly</text>
+        <text class="average-num">{{monthly}}</text>
+      </div>
+      <div class="average-item">
+        <text class="average-attr">Total</text>
+        <text class="average-num">{{total}}</text>
+      </div>
+    </div>
     <todat-step step="{{todayStep}}"></todat-step>
   </div>
 </template>
@@ -13,22 +27,35 @@ import utils from '../Common/helper/utils'
 export default {
   private: {
     todayStep: 0,
-    stepsList: [],
+    weekly: 0,
+    monthly: 0,
+    total: 0,
   },
   onShow() {
     this.initData()
   },
   initData(){
-    let networkType = this.$app.$def.store.networkType
-    /* 步数统计 */
+    // 获取步数
     utils.getSteps().then(data=>{
-      this.$set('stepsList', data.stepsList)
       this.$set('todayStep', data.stepsList[6].steps)
-      if (networkType == 'wifi') {
-        req.pedometerUpdate({
-          stepInfoList: data.stepsList
-        })
-      }
+      // 上传
+      req.pedometerUpdate({
+        stepInfoList: data.stepsList
+      }).then(()=>{
+        // 获取历史数据
+        return req.pedometerIndex()
+      }).then(res=>{
+        if (res.Ret == 0) {
+          // 计算本周平均、本月平均、总平均
+          let stepInfoList = res.Data
+          let weekly = stepInfoList.slice(0, 7).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/7
+          let monthly = stepInfoList.slice(0, 30).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/30
+          let total = stepInfoList.map(a=>Number(a.uStep)).reduce((a, b) => a + b)/stepInfoList.length
+          this.$set('weekly', parseInt(weekly))
+          this.$set('monthly', parseInt(monthly))
+          this.$set('total', parseInt(total))
+        }
+      })
     })
   }
 }
@@ -42,5 +69,22 @@ export default {
   height: @screenHeight;
   flex-direction: column;
   align-items: center;
+}
+.average{
+  margin-top: 160px;
+  width: @screenWidth;
+  justify-content: space-around;
+}
+.average-item{
+  flex-direction: column;
+  align-items: center;
+}
+.average-attr{
+  font-size: 60px;
+  color: #888;
+}
+.average-num{
+  font-size: 88px;
+  color: #bbb;
 }
 </style>

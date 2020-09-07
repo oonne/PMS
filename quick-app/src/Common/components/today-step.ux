@@ -62,7 +62,7 @@ export default {
     // 绘制底图
     ctx.beginPath()
     ctx.arc(width/2, height/2, 320, start*Math.PI, end*Math.PI, false)
-    ctx.lineCap = "round"
+    ctx.lineCap = 'round'
     ctx.lineWidth = 24
     const bgGradient = ctx.createLinearGradient(0, height, 0, 0)
     bgGradient.addColorStop(0, 'rgba(255,140,28, 0.38)')
@@ -74,7 +74,7 @@ export default {
     let endAngle = (i/maxFrame)*(end-start)*(step/config.dailySteps)+start
     ctx.beginPath()
     ctx.arc(width/2, height/2, 320, start*Math.PI, endAngle*Math.PI, false)
-    ctx.lineCap = "round"
+    ctx.lineCap = 'round'
     ctx.lineWidth = 24
     const fillGradient = ctx.createLinearGradient(0, height, 0, 0)
     fillGradient.addColorStop(0, '#ff8c1c')
