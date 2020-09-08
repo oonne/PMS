@@ -3,9 +3,9 @@
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <div @click="pushOnlinePage('/Steps')">
+      <!-- <div @click="pushOnlinePage('/Steps')">
         <todat-step step="{{todayStep}}"></todat-step>
-      </div>
+      </div> -->
       <!-- <div if="{{network}}">
         <text class="white">内容</text>
       </div>
@@ -40,12 +40,13 @@ export default {
           })
         } else {
           this.$set('loggedIn', true)
-          this.initIndex()
+          this.initData()
         }
       },
     })
   },
-  initIndex() {
+  /* 初始化数据 */
+  initData() {
     /* 如果有wifi则同步数据 */
     let networkType = this.$app.$def.store.networkType
     this.$set('network', networkType != 'none')

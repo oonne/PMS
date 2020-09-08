@@ -3,7 +3,7 @@ return [
     /**
      * CORS域名配置
      */
-    'apiOrigin' => ['https://apms.oonne.com', 'http://apms.oonne.local'],
+    'apiOrigin' => ['https://apms.oonne.com'],
 
     /**
      * 错误码和提示
@@ -21,14 +21,5 @@ return [
 
         // 登录态
         '102000' => '用户登录失败',
-
-        // 微信小程序
-        '103001' => '使用code获取sessionKey失败',
-        '103010' => '解码失败：未知错误',
-        '103011' => '解码失败：sessionKey长度错误',
-        '103012' => '解码失败：iv长度错误',
-        '103013' => '解码失败：解码结果错误',
-        '103014' => '解码失败：解码错误',
-        '103015' => '解码失败：缺少sessionKey',
     ]
 ];

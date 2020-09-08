@@ -186,5 +186,6 @@ export default {
 .chart-canvas{
   width: 1080px;
   height: 540px;
+  margin-top: 80px;
 }
 </style>
