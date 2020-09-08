@@ -28,19 +28,19 @@ export default {
       return 
     }
     // 发起请求
-    req.login({
-      username,
-      password,
-    }).then(res=>{
-      if (res.Ret == 0) {
-        this.setToken(res.Data.sAccessToken)
-        router.replace({
-          uri: '/Index'
-        })
-      } else {
-        this.shake()
-      }
-    })
+    // req.login({
+    //   username,
+    //   password,
+    // }).then(res=>{
+    //   if (res.Ret == 0) {
+    //     this.setToken(res.Data.sAccessToken)
+    //     router.replace({
+    //       uri: '/Index'
+    //     })
+    //   } else {
+    //     this.shake()
+    //   }
+    // })
   },
   /* 登录成功储存token */ 
   setToken(toekn) {
@@ -73,6 +73,7 @@ export default {
   padding-top: 260px;
 }
 .input{
+  display: block;
   width: 667px;
   height: 120px;
   padding: 20px 30px;

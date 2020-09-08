@@ -4,15 +4,15 @@
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <block @click="toSteps">
+      <div @click="toSteps">
         <todat-step step="{{todayStep}}"></todat-step>
-      </block>
-      <block if="{{network}}">
+      </div>
+      <!-- <block if="{{network}}">
         <menu-btns step="{{todayStep}}"></menu-btns>
       </block>
       <block else>
         <text class="refresh-btn" @click="initData">刷新</text>
-      </block>
+      </block> -->
     </div>
   </div>
 </template>
