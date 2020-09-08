@@ -1,0 +1,52 @@
+<template>
+  <div class="btns">
+    <a href="/Steps" class="btn btn-consumption">消费</a>
+    <a href="/Steps" class="btn btn-income">支出</a>
+    <a href="/Steps" class="btn btn-diary">笔记</a>
+    <a href="/Steps" class="btn btn-note">日记</a>
+    <a href="/Steps" class="btn btn-password">密码</a>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+  }
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+
+.btns{
+  width: 920px;
+  justify-content: space-around;
+}
+.btn{
+  width: 128px;
+  height: 128px;
+  font-size: 32px;
+  text-align: center;
+  border-radius: 64px;
+}
+.btn-consumption{
+  color: @colorConsumption;
+  border: 2px solid @colorConsumption;
+}
+.btn-income{
+  color: @colorIncome;
+  border: 2px solid @colorIncome;
+}
+.btn-diary{
+  color: @colorDiary;
+  border: 2px solid @colorDiary;
+}
+.btn-note{
+  color: @colorNote;
+  border: 2px solid @colorNote;
+}
+.btn-password{
+  color: @colorPassword;
+  border: 2px solid @colorPassword;
+}
+</style>

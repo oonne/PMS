@@ -1,17 +1,18 @@
 <import name="todat-step" src="../Common/components/today-step"></import>
+<import name="menu-btns" src="./menu-btns"></import>
 
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <!-- <div @click="pushOnlinePage('/Steps')">
+      <block @click="toSteps">
         <todat-step step="{{todayStep}}"></todat-step>
-      </div> -->
-      <!-- <div if="{{network}}">
-        <text class="white">内容</text>
-      </div>
-      <div else>
-        <text class="white" @click="initIndex">重启</text>
-      </div> -->
+      </block>
+      <block if="{{network}}">
+        <menu-btns step="{{todayStep}}"></menu-btns>
+      </block>
+      <block else>
+        <text class="refresh-btn" @click="initData">刷新</text>
+      </block>
     </div>
   </div>
 </template>
@@ -65,13 +66,12 @@ export default {
     })
   },
   /* 
-   * 如果有连网，跳转到某个页面
-   * @param  {string} page 跳转页面的uri 
+   * 如果有连网，跳转到计步器页面
    */
-  pushOnlinePage(page) {
+  toSteps() {
     if (this.network) {
       router.push({
-        uri: page,
+        uri: '/Steps',
       })
     } else {
       prompt.showToast({
@@ -91,9 +91,13 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
-.white{
-  color: #fff;
-  font-size: 100px;
+.refresh-btn{
+  width: 300px;
+  height: 90px;
+  border-radius: 30px;
+  color: #eee;
+  text-align: center;
+  font-size: 48px;
+  border: 2px solid #eee;
 }
 </style>
