@@ -17,12 +17,16 @@
       </div>
     </div>
     <todat-step step="{{todayStep}}"></todat-step>
+    <canvas class="chart-canvas" id="chart-canvas"></canvas>
   </div>
 </template>
 
 <script>
 import req from '../Common/api/index'
 import utils from '../Common/helper/utils'
+import dateUtils from '../Common/helper/date-utils'
+let drawingChart = null //当前动画
+const maxFrame = 40 //动画总帧数（按照每秒60帧计算）
 
 export default {
   private: {
@@ -38,6 +42,7 @@ export default {
     // 获取步数
     utils.getSteps().then(data=>{
       this.$set('todayStep', data.stepsList[6].steps)
+      this.showWeekChart(data.stepsList)
       // 上传
       req.pedometerUpdate({
         stepInfoList: data.stepsList
@@ -57,6 +62,78 @@ export default {
         }
       })
     })
+  },
+  
+  /* 绘制动画 */ 
+  showWeekChart(stepsList){
+    // 停止掉上一个动画
+    if (drawingChart) {
+      clearInterval(drawingChart)
+    }
+
+    const canvas = this.$element('chart-canvas')
+    const ctx = canvas.getContext('2d')
+
+    let frame = 0
+    drawingChart = setInterval(() => {
+      frame ++
+      if(frame >= maxFrame){
+        clearInterval(drawingChart)
+        drawingChart = null;
+      }
+      this.drawWeekChart(ctx, frame, stepsList)
+    }, 17)
+  },
+  /* 
+   * 绘制帧
+   * @param  {canvas.context} ctx 画布上下文 
+   * @param  {int} frame 第几帧 
+   * @param  {array} stepsList 本周步数 
+   */
+  drawWeekChart(ctx, i, stepsList){
+    const width = 1080 //画布宽
+    const height = 540 //画布高
+    const barWidht = 30 //柱状图宽度
+
+    // 清屏
+    ctx.clearRect(0, 0, width, height)
+
+    // 绘制X轴
+    ctx.beginPath()
+    ctx.moveTo(0, (height-40))
+    ctx.lineTo(width, (height-40))
+    ctx.lineWidth = 4
+    ctx.strokeStyle = '#af8600'
+    ctx.stroke()
+
+    // 先求出最大值
+    const list = stepsList.map(step=>step.steps)
+    const maxSetp = Math.max(...list) 
+    // 绘制每一条柱形
+    stepsList.map((stepInfo, j) => {
+      const step = stepInfo.steps
+      const day = dateUtils.getDay(stepInfo.date)
+      let baseLine = (j+1)*width/8
+
+      // 绘制柱状图
+      let maxHeight = (height-80)
+      let barHeight = (i/maxFrame)*maxHeight*step/maxSetp
+      let x = baseLine-barWidht/2
+      let y = (height-40)-barHeight
+      let w = barWidht
+      let h = barHeight
+      const barGradient = ctx.createLinearGradient(height, 0, 0, 0)
+      barGradient.addColorStop(0, '#c96100')
+      barGradient.addColorStop(1, '#af8600')
+      ctx.fillStyle = barGradient
+      ctx.font = '36px sans-serif'
+      ctx.textAlign = 'center'
+      ctx.fillRect(x, y, w, h)
+      // 显示步数
+      ctx.fillText(step, baseLine, y-10)
+      // 显示日期
+      ctx.fillText(day, baseLine, height)
+    })
   }
 }
 </script>
@@ -70,6 +147,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+/* 统计 */
 .average{
   margin-top: 200px;
   width: 960px;
@@ -81,12 +159,17 @@ export default {
 }
 .average-attr{
   font-size: 54px;
-  color: #c29500;
+  color: #af8600;
   font-family: "Futura-Light";
 }
 .average-num{
-  font-size: 60px;
-  color: rgb(148, 35, 0);
+  font-size: 64px;
+  color: #af5500;
   font-family: "Futura-Medium";
+}
+/* 图表 */
+.chart-canvas{
+  width: 1080px;
+  height: 540px;
 }
 </style>

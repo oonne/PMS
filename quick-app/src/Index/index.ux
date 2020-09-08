@@ -3,7 +3,7 @@
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <div @click="toPage('/Steps')">
+      <div @click="toOnlinePage('/Steps')">
         <todat-step step="{{todayStep}}"></todat-step>
       </div>
       <!-- <div if="{{network}}">
@@ -19,6 +19,7 @@
 <script>
 import router from '@system.router'
 import storage from '@system.storage'
+import prompt from '@system.prompt'
 import req from '../Common/api/index'
 import utils from '../Common/helper/utils'
 
@@ -63,12 +64,22 @@ export default {
     })
 
     // 临时跳转
-    this.toPage('/Steps')
+    this.toOnlinePage('/Steps')
   },
-  toPage(page) {
-    router.push({
-      uri: page,
-    })
+  /* 
+   * 如果有连网，跳转到某个页面
+   * @param  {string} page 跳转页面的uri 
+   */
+  toOnlinePage(page) {
+    if (this.network) {
+      router.push({
+        uri: page,
+      })
+    } else {
+      prompt.showToast({
+        message: '无网络'
+      })
+    }
   }
 }
 </script>

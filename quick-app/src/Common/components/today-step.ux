@@ -57,7 +57,7 @@ export default {
     const end =  2.3 //终点角度
 
     // 清屏
-    ctx.clearRect(0,0, width, height)
+    ctx.clearRect(0, 0, width, height)
     
     // 绘制底图
     ctx.beginPath()
