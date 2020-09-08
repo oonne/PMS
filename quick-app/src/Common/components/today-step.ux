@@ -30,10 +30,9 @@ export default {
     if (drawingChart) {
       clearInterval(drawingChart)
     }
-
+    // 开始绘制动画
     const canvas = this.$element('step-canvas')
     const ctx = canvas.getContext('2d')
-
     let frame = 0
     drawingChart = setInterval(() => {
       frame ++

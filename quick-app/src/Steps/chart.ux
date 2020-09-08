@@ -56,24 +56,20 @@ export default {
           let weekly = stepInfoList.slice(0, 7).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/7
           let monthly = stepInfoList.slice(0, 30).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/30
           let total = stepInfoList.map(a=>Number(a.uStep)).reduce((a, b) => a + b)/stepInfoList.length
-          this.$set('weekly', parseInt(weekly))
-          this.$set('monthly', parseInt(monthly))
-          this.$set('total', parseInt(total))
+          this.drawAverage(weekly, monthly, total)
         }
       })
     })
   },
-  
   /* 绘制动画 */ 
   showWeekChart(stepsList){
     // 停止掉上一个动画
     if (drawingChart) {
       clearInterval(drawingChart)
     }
-
+    // 开始绘制动画
     const canvas = this.$element('chart-canvas')
     const ctx = canvas.getContext('2d')
-
     let frame = 0
     drawingChart = setInterval(() => {
       frame ++
@@ -130,10 +126,29 @@ export default {
       ctx.textAlign = 'center'
       ctx.fillRect(x, y, w, h)
       // 显示步数
-      ctx.fillText(step, baseLine, y-10)
+      ctx.fillText(parseInt((i/maxFrame)*step), baseLine, y-10)
       // 显示日期
       ctx.fillText(day, baseLine, height)
     })
+  },
+  
+  /* 
+   * 刷新统计值
+   * @param  {number} weekly 本周平均值
+   * @param  {number} monthly 本月平均值
+   * @param  {number} total 总平均值
+   */
+  drawAverage(weekly, monthly, total){
+    let frame = 0
+    let drawingAverage = setInterval(() => {
+      frame ++
+      if(frame >= maxFrame){
+        clearInterval(drawingAverage)
+      }
+      this.$set('weekly', parseInt(weekly*(frame/maxFrame)))
+      this.$set('monthly', parseInt(monthly*(frame/maxFrame)))
+      this.$set('total', parseInt(total*(frame/maxFrame)))
+    }, 17)
   }
 }
 </script>

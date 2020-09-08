@@ -3,7 +3,7 @@
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
-      <div @click="toOnlinePage('/Steps')">
+      <div @click="pushOnlinePage('/Steps')">
         <todat-step step="{{todayStep}}"></todat-step>
       </div>
       <!-- <div if="{{network}}">
@@ -62,15 +62,12 @@ export default {
         })
       }
     })
-
-    // 临时跳转
-    this.toOnlinePage('/Steps')
   },
   /* 
    * 如果有连网，跳转到某个页面
    * @param  {string} page 跳转页面的uri 
    */
-  toOnlinePage(page) {
+  pushOnlinePage(page) {
     if (this.network) {
       router.push({
         uri: page,
