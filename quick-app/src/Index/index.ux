@@ -7,12 +7,12 @@
       <div @click="toSteps">
         <todat-step step="{{todayStep}}"></todat-step>
       </div>
-      <!-- <block if="{{network}}">
+      <block if="{{network}}">
         <menu-btns step="{{todayStep}}"></menu-btns>
       </block>
       <block else>
         <text class="refresh-btn" @click="initData">刷新</text>
-      </block> -->
+      </block>
     </div>
   </div>
 </template>
