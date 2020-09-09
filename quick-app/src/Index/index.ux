@@ -64,6 +64,11 @@ export default {
         })
       }
     })
+
+    // 临时跳转
+    router.push({
+      uri: '/NoteList',
+    })
   },
   /* 
    * 如果有连网，跳转到计步器页面

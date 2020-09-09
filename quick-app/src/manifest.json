@@ -20,6 +20,18 @@
     },
     {
       "name": "service.health"
+    },
+    {
+      "name": "service.network"
+    },
+    {
+      "name": "service.storage"
+    },
+    {
+      "name": "service.geolocation"
+    },
+    {
+      "name": "service.fetch"
     }
   ],
   "permissions": [
@@ -52,6 +64,12 @@
       },
       "Steps": {
         "component": "chart"
+      },
+      "NoteList": {
+        "component": "index"
+      },
+      "NoteDetail": {
+        "component": "form"
       }
     }
   },
