@@ -1,5 +1,7 @@
 <template>
   <div class="page {{pageClass}}">
+    <input class="input" type="text" value="{{title}}" @change="changeInput('title')" name="title"/>
+    <textarea class="textarea" @change="changeInput('content')" >{{content}}</textarea>
   </div>
 </template>
 
@@ -7,6 +9,11 @@
 export default {
   private: {
     pageClass: '',
+    title: '',
+    content: '',
+  },
+  changeInput(key, e) {
+    this.$set(key, e.value)
   },
   /* 出错时页面抖动动画 */ 
   shake(){
