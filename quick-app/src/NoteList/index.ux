@@ -27,8 +27,11 @@ export default {
     pageCount: 1, //总页数
   },
   /* 进入页面时刷新数据 */ 
-  onShow: () => {
+  onInit: () => {
     this.initData()
+  }, 
+  onLoad: () => {
+    this.fetchData()
   },
   /* 初始化数据 */ 
   initData(){
