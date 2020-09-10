@@ -1,8 +1,14 @@
 <template>
   <div class="page">
     <!-- 搜索框、新增按钮 -->
+    
+    <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}">
-      
+      <list scrollbottom="fetchData">
+        <list-item type="item" for="{{list}}" tid="uNoteId">
+          <text>内容TODO{{$item.sNoteTitle}}</text>
+        </list-item>
+      </list>
     </refresh>
   </div>
 </template>

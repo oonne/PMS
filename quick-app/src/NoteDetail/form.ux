@@ -1,12 +1,20 @@
 <template>
-  <div class="page">
+  <div class="page {{pageClass}}">
   </div>
 </template>
 
 <script>
 export default {
   private: {
+    pageClass: '',
   },
+  /* 出错时页面抖动动画 */ 
+  shake(){
+    this.$set('pageClass', 'shake')
+    setTimeout(()=>{
+      this.$set('pageClass', '')
+    }, 500)
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="page {{pageClass}}">
     <input class="input" type="text" @change="changeInput('username')" name="username"/>
     <input class="input" type="password" @change="changeInput('password')" name="password"/>
-    <input class="btn" type="button" value="Login" @click="login" />
+    <input class="btn" type="button" value="{{loginBtnMsg}}" @click="login" />
   </div>
 </template>
 
@@ -18,10 +18,27 @@ export default {
     password: '',
     pageClass: '',
   },
-  changeInput(key, e){
+  computed: {
+    loginBtnMsg() {
+      let msg = 'Login'
+      if (this.status == 'pending') {
+        msg = 'Logining'
+      }
+      if (this.status == 'success') {
+        msg = 'Success'
+      }
+      return msg
+    }
+  },
+  changeInput(key, e) {
     this.$set(key, e.value)
   },
-  login(){
+  login() {
+    if (this.status=='pending') {
+      return
+    }
+    this.$set('status', 'pending')
+
     const {username, password} = this
     if (!username || !password) {
       this.shake()
@@ -37,8 +54,10 @@ export default {
         router.replace({
           uri: '/Index'
         })
+        this.$set('status', 'success')
       } else {
         this.shake()
+        this.$set('status', 'error')
       }
     })
   },
@@ -58,7 +77,7 @@ export default {
     })
   },
   /* 出错时页面抖动动画 */ 
-  shake(){
+  shake() {
     this.$set('pageClass', 'shake')
     setTimeout(()=>{
       this.$set('pageClass', '')
