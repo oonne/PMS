@@ -1,15 +1,9 @@
 <template>
   <div class="page">
     <!-- 搜索框、新增按钮 -->
-    <!-- <refresh class="refresh" onrefresh="refresh" refreshing="{{isRefreshing}}" type="{{refreshType}}">
-      <div class="page-title-wrap">
-          <text class="page-title ">{{componentName}}</text>
-      </div>
-      <div class="item-container">
-        <input class="btn" type="button" value="停止刷新" onclick="stopRefresh"/>
-        <input class="btn" type="button" value="{{refreshType === 'auto' ? '开启下拉回弹效果' : '关闭下拉回弹效果'}}" onclick="changeType"/>
-      </div>
-    </refresh> -->
+    <refresh onrefresh="initData" refreshing="{{loading}}">
+      
+    </refresh>
   </div>
 </template>
 
@@ -28,12 +22,16 @@ export default {
   },
   /* 进入页面时刷新数据 */ 
   onShow: () => {
+    this.initData()
+  },
+  /* 初始化数据 */ 
+  initData(){
     this.$set('currentPage', 0)
     this.$set('pageCount', 1)
-    this.getData()
+    this.fetchData()
   },
   /* 拉取一页的数据 */ 
-  getData: () => {
+  fetchData: () => {
     let {loading, currentPage, pageCount, list} = this
     // 防止重复刷新
     if (loading) {
