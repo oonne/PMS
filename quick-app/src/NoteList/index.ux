@@ -1,16 +1,68 @@
 <template>
   <div class="page">
+    <!-- 搜索框、新增按钮 -->
+    <!-- <refresh class="refresh" onrefresh="refresh" refreshing="{{isRefreshing}}" type="{{refreshType}}">
+      <div class="page-title-wrap">
+          <text class="page-title ">{{componentName}}</text>
+      </div>
+      <div class="item-container">
+        <input class="btn" type="button" value="停止刷新" onclick="stopRefresh"/>
+        <input class="btn" type="button" value="{{refreshType === 'auto' ? '开启下拉回弹效果' : '关闭下拉回弹效果'}}" onclick="changeType"/>
+      </div>
+    </refresh> -->
   </div>
 </template>
 
 <script>
 import router from '@system.router'
+import prompt from '@system.prompt'
 import req from '../Common/api/index'
+import config from '../Common/config/config'
 
 export default {
   private: {
     loading: false,
+    list: [],
+    currentPage: 0, //当前页数
+    pageCount: 1, //总页数
   },
+  /* 进入页面时刷新数据 */ 
+  onShow: () => {
+    this.$set('currentPage', 0)
+    this.$set('pageCount', 1)
+    this.getData()
+  },
+  /* 拉取一页的数据 */ 
+  getData: () => {
+    let {loading, currentPage, pageCount, list} = this
+    // 防止重复刷新
+    if (loading) {
+      return
+    }
+    // 最后一页不再刷新
+    if (currentPage >= pageCount) {
+      return
+    }
+    currentPage++
+    this.$set('loading', true)
+    let params = {
+      'page': this.currentPage,
+      'per-page': config.pageSize,
+    }
+    req.noteIndex(params).then(res=>{
+      if (res.Ret == 0) {
+        this.$set('list', currentPage==1 ? res.Data : list.concat(res.Data))
+        this.$set('currentPage', res.Meta.currentPage)
+        this.$set('pageCount', res.Meta.pageCount)
+        this.$set('loading', false)
+      } else {
+        this.$set('loading', false)
+        prompt.showToast({
+          message: res.Data.errors[0]
+        })
+      }
+    })
+  }
 }
 </script>
 
