@@ -65,7 +65,7 @@ export default {
       }
     })
 
-    // 临时跳转
+    // 临时调试
     router.push({
       uri: '/NoteList',
     })

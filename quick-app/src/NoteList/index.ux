@@ -1,12 +1,13 @@
+<import name="note-item" src="./note-item"></import>
 <template>
   <div class="page">
     <!-- 搜索框、新增按钮 -->
     
     <!-- 列表 -->
-    <refresh onrefresh="initData" refreshing="{{loading}}">
-      <list scrollbottom="fetchData">
+    <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
+      <list @scrollbottom="fetchData">
         <list-item type="item" for="{{list}}" tid="uNoteId">
-          <text>内容TODO{{$item.sNoteTitle}}</text>
+          <note-item item="{{$item}}"></note-item>
         </list-item>
       </list>
     </refresh>
@@ -26,8 +27,8 @@ export default {
     currentPage: 0, //当前页数
     pageCount: 1, //总页数
   },
-  /* 进入页面时刷新数据 */ 
-  onInit: () => {
+  // /* 进入页面时刷新数据 */ 
+  onInit() {
     this.initData()
   }, 
   onLoad: () => {
@@ -40,7 +41,7 @@ export default {
     this.fetchData()
   },
   /* 拉取一页的数据 */ 
-  fetchData: () => {
+  fetchData() {
     let {loading, currentPage, pageCount, list} = this
     // 防止重复刷新
     if (loading) {
@@ -53,7 +54,7 @@ export default {
     currentPage++
     this.$set('loading', true)
     let params = {
-      'page': this.currentPage,
+      'page': currentPage,
       'per-page': config.pageSize,
     }
     req.noteIndex(params).then(res=>{

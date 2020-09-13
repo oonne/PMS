@@ -1,0 +1,51 @@
+<template>
+  <div class="item">
+    <text class="title">{{item.sNoteTitle}}</text>
+    <text class="preview">{{content}}</text>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    item: {
+      type: Object
+    }
+  },
+  computed: {
+    content() {
+      let content = this.item.tNoteContent
+      if (content.length > 100) {
+        content = content.substr(0,100)
+      }
+      return content
+    }
+  },
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+
+.item{
+  flex-direction: column;
+  height: 280px;
+  padding: 24px 36px;
+  overflow: hidden;
+  border-bottom: 1px solid #999;
+  width: 100%;
+}
+.title{
+  font-size: 60px;
+  color: @colorNote;
+  height: 80px;
+  line-height: 80px;
+  word-wrap: none;
+}
+.preview{
+  padding-top: 80px;
+  font-size: 36px;
+  color: #999;
+  align-items: flex-start;
+}
+</style>
