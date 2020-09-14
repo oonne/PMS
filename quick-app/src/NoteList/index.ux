@@ -2,7 +2,7 @@
 <template>
   <div class="page">
     <!-- 搜索框、新增按钮 -->
-    
+    <div class="search-bar"></div>
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import router from '@system.router'
 import prompt from '@system.prompt'
 import req from '../Common/api/index'
 import config from '../Common/config/config'
@@ -77,4 +76,7 @@ export default {
 <style lang="less">
 @import '../Common/style/base.less';
 
+.search-bar{
+  height: 200px;
+}
 </style>
