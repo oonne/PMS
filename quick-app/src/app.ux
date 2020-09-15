@@ -3,20 +3,45 @@ import network from '@system.network'
 import utils from './Common/helper/utils'
 
 export default {
-  store: {
-    networkType: 'none', //网络类型： 4g或wifi
-  },
-  onCreate(){
+  onCreate() {
+    // 初始化全局数据
+    this.initStore()
+    // 监听网络状态
     this.subNetwork()
     // 检查桌面图标
     utils.createShortcut()
   },
+
+  /**
+   * 初始化全局缓存数据
+   */
+  initStore() {
+    this.store = {
+      networkType: 'none', //网络类型： 4g或wifi
+    }
+  },
+  /**
+   * 设置全局缓存的数据
+   * @param {string} key
+   * @param {any} val
+   */
+  setStore(key, val) {
+    this.store[key] = val
+  },
+  /**
+   * 获取全局缓存数据
+   * @param {string} key
+   */
+  getStore(key) {
+    return this.store[key]
+  },
+
   /* 监听网络状态 */ 
-  subNetwork(){
+  subNetwork() {
     network.subscribe({
       reserved: true,
       callback: (data) => {
-        this.$def.store.networkType = data.type
+        this.setStore('networkType', data.type)
       }
     })
   }

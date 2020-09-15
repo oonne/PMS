@@ -26,15 +26,19 @@ export default {
     currentPage: 0, //当前页数
     pageCount: 1, //总页数
   },
-  // /* 进入页面时刷新数据 */ 
+  /* 进入页面时刷新数据 */ 
   onInit() {
     this.initData()
   }, 
-  onLoad: () => {
-    this.fetchData()
+  /* 重新进入页面时，TODO */
+  onShow() {
+    let noteList = this.$app.getStore('noteList')
+    if (noteList) {
+      this.$set('list', noteList)
+    }
   },
   /* 初始化数据 */ 
-  initData(){
+  initData() {
     this.$set('currentPage', 0)
     this.$set('pageCount', 1)
     this.fetchData()
@@ -58,10 +62,12 @@ export default {
     }
     req.noteIndex(params).then(res=>{
       if (res.Ret == 0) {
-        this.$set('list', currentPage==1 ? res.Data : list.concat(res.Data))
+        const noteList = currentPage==1 ? res.Data : list.concat(res.Data)
+        this.$set('list', noteList)
         this.$set('currentPage', res.Meta.currentPage)
         this.$set('pageCount', res.Meta.pageCount)
         this.$set('loading', false)
+        this.$app.setStore('noteList', noteList)
       } else {
         this.$set('loading', false)
         prompt.showToast({

@@ -1,19 +1,17 @@
 <template>
-  <div class="item">
+  <a class="item" href="/NoteDetail?id={{item.uNoteID}}">
     <text class="title">{{item.sNoteTitle}}</text>
     <text class="preview" lines="2">{{item.tNoteContent}}</text>
-  </div>
+  </a>
 </template>
 
 <script>
-import router from '@system.router'
-
 export default {
   props: {
     item: {
       type: Object
     }
-  },
+  }
 }
 </script>
 

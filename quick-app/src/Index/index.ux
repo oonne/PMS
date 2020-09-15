@@ -49,7 +49,7 @@ export default {
   /* 初始化数据 */
   initData() {
     /* 如果有wifi则同步数据 */
-    let networkType = this.$app.$def.store.networkType
+    let networkType = this.$app.getStore('networkType')
     this.$set('network', networkType != 'none')
     if (networkType == 'wifi') {
       req.safetyRefresh()
