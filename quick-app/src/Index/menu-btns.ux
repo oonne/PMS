@@ -2,8 +2,8 @@
   <div class="btns">
     <a href="/NoteList" class="btn btn-consumption">消费</a>
     <a href="/NoteList" class="btn btn-income">支出</a>
-    <a href="/NoteList" class="btn btn-diary">笔记</a>
-    <a href="/NoteList" class="btn btn-note">日记</a>
+    <a href="/NoteList" class="btn btn-note">笔记</a>
+    <a href="/NoteList" class="btn btn-diary">日记</a>
     <a href="/NoteList" class="btn btn-password">密码</a>
   </div>
 </template>
