@@ -118,9 +118,9 @@ export default {
       let y = (height-40)-barHeight
       let w = barWidht
       let h = barHeight
-      const barGradient = ctx.createLinearGradient(height, 0, 0, 0)
-      barGradient.addColorStop(0, '#c96100')
-      barGradient.addColorStop(1, '#af8600')
+      const barGradient = ctx.createLinearGradient(0, height, 0, 0)
+      barGradient.addColorStop(0, '#af8600')
+      barGradient.addColorStop(1, '#c96100')
       ctx.fillStyle = barGradient
       ctx.font = '36px sans-serif'
       ctx.textAlign = 'center'

@@ -70,7 +70,8 @@ export default {
     ctx.stroke()
 
     // 绘制实际数据
-    let endAngle = (i/maxFrame)*(end-start)*(step/config.dailySteps)+start
+    let progress = step>=config.dailySteps ? 1 : step/config.dailySteps
+    let endAngle = (i/maxFrame)*(end-start)*progress+start
     ctx.beginPath()
     ctx.arc(width/2, height/2, 320, start*Math.PI, endAngle*Math.PI, false)
     ctx.lineCap = 'round'

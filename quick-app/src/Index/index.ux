@@ -66,9 +66,9 @@ export default {
     })
 
     // 临时调试
-    router.push({
-      uri: '/NoteList',
-    })
+    // router.push({
+    //   uri: '/NoteList',
+    // })
   },
   /* 
    * 如果有连网，跳转到计步器页面
