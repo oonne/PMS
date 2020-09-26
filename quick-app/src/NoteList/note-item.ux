@@ -1,16 +1,25 @@
 <template>
-  <a class="item" href="/NoteDetail?id={{item.uNoteID}}">
+  <div class="item" @click="toDetail(item.uNoteID)">
     <text class="title">{{item.sNoteTitle}}</text>
     <text class="preview" lines="2">{{item.tNoteContent}}</text>
-  </a>
+  </div>
 </template>
 
 <script>
+import router from '@system.router'
 export default {
   props: {
     item: {
       type: Object
     }
+  },
+  /* 
+   * 跳转到详情
+   */
+  toDetail(id) {
+    router.push({
+      uri: `/NoteDetail?id=${id}`,
+    })
   }
 }
 </script>

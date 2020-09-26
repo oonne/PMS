@@ -6,7 +6,7 @@
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
-        <list-item type="item" for="{{list}}" tid="uNoteId">
+        <list-item type="item" for="{{list}}" tid="uNoteID">
           <note-item item="{{$item}}"></note-item>
         </list-item>
       </list>

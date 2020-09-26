@@ -7,10 +7,29 @@
 
 <script>
 export default {
+  protected: {
+    id: '',
+  },
   private: {
+    newRecord: false, //是否是新建
     pageClass: '',
     title: '',
     content: '',
+  },
+  onShow() {
+    if (this.id) {
+      // 如果有id，则获取内容
+      const list = this.$app.getStore('noteList')
+      const detail = list.find(item=>item.uNoteID==this.id)
+      if (detail) {
+        this.$set('title', detail.sNoteTitle)
+        this.$set('content', detail.tNoteContent)
+      }
+    } else {
+      // 如果没有id，则
+
+    }
+    console.log(this.id)
   },
   changeInput(key, e) {
     this.$set(key, e.value)
