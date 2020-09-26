@@ -1,7 +1,7 @@
 <template>
   <div class="page {{pageClass}}">
-    <input class="input" type="text" value="{{title}}" @change="changeInput('title')" name="title"/>
-    <textarea class="textarea" @change="changeInput('content')" >{{content}}</textarea>
+    <input class="title" type="text" value="{{title}}" @change="changeInput('title')" name="title"/>
+    <textarea class="content" @change="changeInput('content')" >{{content}}</textarea>
   </div>
 </template>
 
@@ -27,9 +27,8 @@ export default {
       }
     } else {
       // 如果没有id，则
-
+      this.$set('title', detail.sNoteTitle)
     }
-    console.log(this.id)
   },
   changeInput(key, e) {
     this.$set(key, e.value)
@@ -46,4 +45,24 @@ export default {
 
 <style lang="less">
 @import '../Common/style/base.less';
+
+.page{
+  padding: 24px;
+}
+.title{
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  padding: 20px 32px;
+  margin-bottom: 36px;
+  font-size: 64px;
+  color: @colorNote;
+}
+.content{
+  width: 100%;
+  font-size: 44px;
+  line-height: 64px;
+  color: #ddd;
+  margin-bottom: 36px;
+}
 </style>
