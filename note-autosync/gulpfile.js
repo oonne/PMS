@@ -63,10 +63,9 @@ const update = (note, path) => {
   return new Promise((resolve, reject) => {
     const uNoteID = note.id;
     const sNoteTitle = note.name;
-    const tNoteContent = fs.readFileSync(path, 'UTF-8').toString();
+    const tNoteContent = fs.readFileSync(path, 'UTF-8');
     if (!tNoteContent) {
-      console.log(`${sNoteTitle} 读取内容为空 ${getTime()}`);
-      reject();
+      notice(`${sNoteTitle}<font color=\"warning\">读取内容为空</font>`);
     }
 
     const postData = JSON.stringify({
@@ -90,18 +89,42 @@ const update = (note, path) => {
       res.on('data', (chunk) => {
         if (JSON.parse(chunk).Ret == 0) {
           console.log(`${sNoteTitle} 同步成功 ${getTime()}`);
+          // notice(`${sNoteTitle}<font color=\"info\">同步成功</font>`);
         };
         resolve();
       });
     });
     req.on('error', (e) => {
       console.log(`${sNoteTitle} 同步失败 ${getTime()}`);
+      notice(`${sNoteTitle}<font color=\"warning\">同步接口报错</font>`);
       console.error(e);
       reject(e);
     });
     req.write(postData);
     req.end();
   });
+}
+/* notice */ 
+const notice = (content) => {
+  let postData = JSON.stringify({
+    "msgtype": "markdown",
+    "markdown": {
+      "content": content
+    }
+  });
+  let options = {
+    hostname: 'qyapi.weixin.qq.com',
+    port: 443,
+    path: config.noticeApi,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Length': Buffer.byteLength(postData),
+    },
+  };
+  let req = https.request(options);
+  req.write(postData);
+  req.end();
 }
 
 /* watch */ 
