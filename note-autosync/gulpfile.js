@@ -63,7 +63,12 @@ const update = (note, path) => {
   return new Promise((resolve, reject) => {
     const uNoteID = note.id;
     const sNoteTitle = note.name;
-    const tNoteContent = fs.readFileSync(path).toString();
+    const tNoteContent = fs.readFileSync(path, 'UTF-8').toString();
+    if (!tNoteContent) {
+      console.log(`${sNoteTitle} 读取内容为空 ${getTime()}`);
+      reject();
+    }
+
     const postData = JSON.stringify({
         'uNoteID' : uNoteID,
         'sNoteTitle' : sNoteTitle,
