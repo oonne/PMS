@@ -61,47 +61,52 @@ gulp.task('download', () => {
 /* update */ 
 const update = (note, path) => {
   return new Promise((resolve, reject) => {
-    const uNoteID = note.id;
-    const sNoteTitle = note.name;
-    const tNoteContent = fs.readFileSync(path, 'UTF-8');
-    if (!tNoteContent) {
-      notice(`${sNoteTitle}<font color=\"warning\">读取内容为空</font>`);
-    }
+    fs.readFile(path, 'UTF-8', (err, data) => {
+      if (err) {
+        return reject(err);
+      } else {
+        const uNoteID = note.id;
+        const sNoteTitle = note.name;
+        const tNoteContent = data;
+        const postData = JSON.stringify({
+            'uNoteID' : uNoteID,
+            'sNoteTitle' : sNoteTitle,
+            'tNoteContent' :tNoteContent
+          });
 
-    const postData = JSON.stringify({
-        'uNoteID' : uNoteID,
-        'sNoteTitle' : sNoteTitle,
-        'tNoteContent' :tNoteContent
-      });
-
-    const options = {
-      hostname: config.apiUrl,
-      port: 443,
-      path: '/note/update',
-      method: 'POST',
-      headers: {
-        'X-Auth-Token': config.token,
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Content-Length': Buffer.byteLength(postData)
-      },
-    };
-    let req = https.request(options, (res) => {
-      res.on('data', (chunk) => {
-        if (JSON.parse(chunk).Ret == 0) {
-          console.log(`${sNoteTitle} 同步成功 ${getTime()}`);
-          // notice(`${sNoteTitle}<font color=\"info\">同步成功</font>`);
+        const options = {
+          hostname: config.apiUrl,
+          port: 443,
+          path: '/note/update',
+          method: 'POST',
+          headers: {
+            'X-Auth-Token': config.token,
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Content-Length': Buffer.byteLength(postData)
+          },
         };
-        resolve();
-      });
+        let req = https.request(options, (res) => {
+          res.on('data', (chunk) => {
+            if (JSON.parse(chunk).Ret == 0) {
+              console.log(`${sNoteTitle} 同步成功 ${getTime()}`);
+              // notice(`${sNoteTitle}<font color=\"info\">同步成功</font>`);
+            };
+            resolve();
+          });
+        });
+        req.on('error', (e) => {
+          console.log(`${sNoteTitle} 同步失败 ${getTime()}`);
+          notice(`${sNoteTitle}<font color=\"warning\">同步接口报错</font>`);
+          reject(e);
+        });
+        req.write(postData);
+        req.end();
+      }
     });
-    req.on('error', (e) => {
-      console.log(`${sNoteTitle} 同步失败 ${getTime()}`);
-      notice(`${sNoteTitle}<font color=\"warning\">同步接口报错</font>`);
-      console.error(e);
-      reject(e);
-    });
-    req.write(postData);
-    req.end();
+
+
+  }).catch(error => {
+    console.error(error);
   });
 }
 /* notice */ 
@@ -131,7 +136,7 @@ const notice = (content) => {
 gulp.task('watch', () => {
   config.list.map((note)=>{
     let watcher = gulp.watch(`./notes/${note.name}.txt`);
-    watcher.on('change', (path)=>{
+    watcher.on('change', path=>{
       update(note, path);
     });
     console.log(`watching ${note.name}`);
