@@ -29,10 +29,37 @@ const updateBookmarks = () => {
         },
         body: configValue
       }
-      fetch(`${api}/config/update`, reqOpitons);
+      fetch(`${api}/config/update`, reqOpitons).then(res=>{
+        return res.json();
+      }).then(data => {
+        if (data.Ret==0) {
+          notice(`<font color=\"info\">同步成功</font>`);
+        } else {
+          notice(data.Data.errors[0]);
+        }
+      });
     });
   });
 };
+
+// 通知企业微信
+const notice = (content) => {
+  let postData = JSON.stringify({
+    "msgtype": "markdown",
+    "markdown": {
+      "content": content
+    }
+  });
+  let reqOpitons = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: postData
+  };
+  fetch('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=42511f33-f073-45ed-87bc-86292ffd0b58', reqOpitons);
+}
 
 
 // 新增、修改、删除书签都会触发

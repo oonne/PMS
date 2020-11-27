@@ -8,6 +8,7 @@
   },
   "permissions": [
     "https://api.pms.oonne.com/",
+    "https://qyapi.weixin.qq.com/",
     "notifications",
     "bookmarks",
     "storage"
