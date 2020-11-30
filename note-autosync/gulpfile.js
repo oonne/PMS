@@ -68,6 +68,11 @@ const update = (note, path) => {
         const uNoteID = note.id;
         const sNoteTitle = note.name;
         const tNoteContent = data;
+        if (!tNoteContent) {
+          notice(`${sNoteTitle}<font color=\"warning\">内容为空</font>`);
+          return reject('内容为空');
+        }
+
         const postData = JSON.stringify({
             'uNoteID' : uNoteID,
             'sNoteTitle' : sNoteTitle,
@@ -103,8 +108,6 @@ const update = (note, path) => {
         req.end();
       }
     });
-
-
   }).catch(error => {
     console.error(error);
   });
