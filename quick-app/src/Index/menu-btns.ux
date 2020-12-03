@@ -1,10 +1,10 @@
 <template>
   <div class="btns">
-    <a href="/NoteList" class="btn btn-consumption">消费</a>
-    <a href="/NoteList" class="btn btn-income">支出</a>
-    <a href="/NoteList" class="btn btn-note">笔记</a>
-    <a href="/NoteList" class="btn btn-diary">日记</a>
-    <a href="/NoteList" class="btn btn-password">密码</a>
+    <a href="/NoteList" class="btn btn-consumption">&#xeba0;</a>
+    <a href="/NoteList" class="btn btn-income">&#xeba1;</a>
+    <a href="/NoteList" class="btn btn-note">&#xeb4e;</a>
+    <a href="/NoteList" class="btn btn-diary">&#xeb4d;</a>
+    <a href="/NoteList" class="btn btn-password">&#xeb50;</a>
   </div>
 </template>
 
@@ -23,9 +23,10 @@ export default {
   justify-content: space-around;
 }
 .btn{
+  font-family: "iconfont";
   width: 128px;
   height: 128px;
-  font-size: 32px;
+  font-size: 64px;
   text-align: center;
   border-radius: 64px;
 }
