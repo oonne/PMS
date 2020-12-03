@@ -70,7 +70,7 @@ const update = (note, path) => {
         const tNoteContent = data;
         if (!tNoteContent) {
           notice(`${sNoteTitle}<font color=\"warning\">内容为空</font>`);
-          return reject('内容为空');
+          return reject(`内容为空 ${getTime()}`);
         }
 
         const postData = JSON.stringify({
@@ -100,9 +100,9 @@ const update = (note, path) => {
           });
         });
         req.on('error', (e) => {
-          console.log(`${sNoteTitle} 同步失败 ${getTime()}`);
+          console.error(e);
           notice(`${sNoteTitle}<font color=\"warning\">同步接口报错</font>`);
-          reject(e);
+          reject(`${sNoteTitle} 同步失败 ${getTime()}`);
         });
         req.write(postData);
         req.end();
