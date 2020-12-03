@@ -39,10 +39,6 @@
 		  "avoidEscape": true,
 		  "allowTemplateLiterals": true
 		}
-	  ],
-	  "linebreak-style": [
-		"warn",
-		"unix"
 	  ]
 	}
   }
