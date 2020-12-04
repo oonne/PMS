@@ -26,8 +26,8 @@ export default {
         this.$set('content', detail.tNoteContent)
       }
     } else {
-      // 如果没有id，则
-      this.$set('title', detail.sNoteTitle)
+      // 如果没有id，则新建 TODO
+      this.$set('title', '')
     }
   },
   changeInput(key, e) {

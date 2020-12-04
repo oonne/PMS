@@ -1,4 +1,8 @@
 <script>
+// async支持
+const injectRef = Object.getPrototypeOf(global) || global
+injectRef.regeneratorRuntime = require('@babel/runtime/regenerator')
+
 import network from '@system.network'
 import utils from './Common/helper/utils'
 
