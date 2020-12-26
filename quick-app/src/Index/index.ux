@@ -1,11 +1,11 @@
-<import name="todat-step" src="../Common/components/today-step"></import>
+<import name="today-step" src="../Common/components/today-step"></import>
 <import name="menu-btns" src="./menu-btns"></import>
 
 <template>
   <div class="page">
     <div class="content" show="{{loggedIn}}">
       <div @click="toSteps">
-        <todat-step step="{{todayStep}}"></todat-step>
+        <today-step step="{{todayStep}}"></today-step>
       </div>
       <block if="{{network}}">
         <menu-btns step="{{todayStep}}"></menu-btns>
@@ -63,6 +63,11 @@ export default {
           stepInfoList: data.stepsList
         })
       }
+    })
+    
+    // 临时调试代码
+    router.push({
+      uri: `/NoteList`,
     })
   },
   /* 

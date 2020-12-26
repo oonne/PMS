@@ -19,19 +19,19 @@
       "name": "system.resident"
     },
     {
+      "name": "system.network"
+    },
+    {
+      "name": "system.storage"
+    },
+    {
+      "name": "system.geolocation"
+    },
+    {
+      "name": "system.fetch"
+    },
+    {
       "name": "service.health"
-    },
-    {
-      "name": "service.network"
-    },
-    {
-      "name": "service.storage"
-    },
-    {
-      "name": "service.geolocation"
-    },
-    {
-      "name": "service.fetch"
     }
   ],
   "permissions": [

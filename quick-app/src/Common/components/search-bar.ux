@@ -1,0 +1,22 @@
+<template>
+  <div class="search-bar">
+    <text class="step-num">123</text>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+  }
+}
+</script>
+
+<style lang="less">
+@import '../style/base.less';
+
+.search-bar{
+  height: 200px;
+  width: 100%;
+  background-color: #000;
+}
+</style>

@@ -1,13 +1,14 @@
 <import name="note-item" src="./note-item"></import>
+<import name="search-bar" src="../Common/components/search-bar"></import>
 <template>
   <div class="page">
     <!-- 搜索框、新增按钮 -->
-    <div class="search-bar"></div>
+    <search-bar></search-bar>
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
         <list-item type="item" for="{{list}}" tid="uNoteID">
-          <note-item item="{{$item}}"></note-item>
+          <note-item item="{{$item}}" @longpress="toDeleteItem($item.uNoteID)"></note-item>
         </list-item>
       </list>
     </refresh>
@@ -74,6 +75,14 @@ export default {
           message: res.Data.errors[0]
         })
       }
+    })
+  },
+  /* 
+   * 删除
+   */
+  toDeleteItem(id) {
+    prompt.showToast({
+      message: id
     })
   }
 }

@@ -1,4 +1,4 @@
-<import name="todat-step" src="../Common/components/today-step"></import>
+<import name="today-step" src="../Common/components/today-step"></import>
 
 <template>
   <div class="page">
@@ -16,7 +16,7 @@
         <text class="average-num">{{total}}</text>
       </div>
     </div>
-    <todat-step step="{{todayStep}}"></todat-step>
+    <today-step step="{{todayStep}}"></today-step>
     <canvas class="chart-canvas" id="chart-canvas"></canvas>
   </div>
 </template>
