@@ -7,6 +7,7 @@
 
 <script>
 import router from '@system.router'
+
 export default {
   props: {
     item: {
@@ -37,7 +38,7 @@ export default {
 }
 .title{
   font-size: 56px;
-  color: @colorNote;
+  color: #fff;
   word-wrap: none;
 }
 .preview{

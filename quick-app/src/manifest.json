@@ -3,7 +3,7 @@
   "name": "PMS",
   "versionName": "1.0.0",
   "versionCode": "1",
-  "minPlatformVersion": "1060",
+  "minPlatformVersion": "1080",
   "icon": "/Common/assets/logo.png",
   "features": [
     {

@@ -1,16 +1,23 @@
 <template>
   <div class="btns">
-    <a href="/NoteList" class="btn btn-consumption">&#xeba0;</a>
-    <a href="/NoteList" class="btn btn-income">&#xeba1;</a>
-    <a href="/NoteList" class="btn btn-note">&#xeb4e;</a>
-    <a href="/NoteList" class="btn btn-diary">&#xeb4d;</a>
-    <a href="/NoteList" class="btn btn-password">&#xeb50;</a>
+    <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/consumption.png"></image>
+    <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/income.png"></image>
+    <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/diary.png"></image>
+    <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/note.png"></image>
+    <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/password.png"></image>
   </div>
 </template>
 
 <script>
+import router from '@system.router'
+
 export default {
-  data: {
+  props: {
+  },
+  toPage(uri) {
+    router.push({
+      uri,
+    })
   }
 }
 </script>
@@ -23,31 +30,18 @@ export default {
   justify-content: space-around;
 }
 .btn{
-  font-family: "iconfont";
   width: 128px;
   height: 128px;
   font-size: 64px;
-  text-align: center;
   border-radius: 64px;
+  border: 2px solid #fff;
 }
-.btn-consumption{
-  color: @colorConsumption;
-  border: 2px solid @colorConsumption;
-}
-.btn-income{
-  color: @colorIncome;
-  border: 2px solid @colorIncome;
-}
-.btn-diary{
-  color: @colorDiary;
-  border: 2px solid @colorDiary;
-}
-.btn-note{
-  color: @colorNote;
-  border: 2px solid @colorNote;
-}
-.btn-password{
-  color: @colorPassword;
-  border: 2px solid @colorPassword;
+.btn-icon{
+  width: 128px;
+  height: 128px;
+  padding: 20px;
+  font-size: 64px;
+  border-radius: 64px;
+  border: 2px solid #fff;
 }
 </style>

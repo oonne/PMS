@@ -1,13 +1,16 @@
 <template>
   <div class="search-bar">
-    <text class="step-num">123</text>
+    <input class="step-num" value="123456" @change="changeInput('title')"/>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-  }
+  },
+  protected: {
+    
+  },
 }
 </script>
 
@@ -17,6 +20,9 @@ export default {
 .search-bar{
   height: 200px;
   width: 100%;
-  background-color: #000;
+  background-color: #222;
+}
+.step-num{
+
 }
 </style>
