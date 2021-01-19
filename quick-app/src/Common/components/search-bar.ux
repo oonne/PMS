@@ -1,6 +1,7 @@
 <template>
   <div class="search-bar">
-    <input class="step-num" value="123456" @change="changeInput('title')"/>
+    <input class="search-input" enterkeytype="search" @enterkeyclick="onSearch"/>
+    <div class="add-btn" @click="onAdd"><text class="add-btn-icon">+</text></div>
   </div>
 </template>
 
@@ -8,9 +9,14 @@
 export default {
   props: {
   },
-  protected: {
-    
+  onSearch(val) {
+    this.$dispatch('search', {
+      word: val
+    })
   },
+  onAdd() {
+    this.$dispatch('add')
+  }
 }
 </script>
 
@@ -18,11 +24,29 @@ export default {
 @import '../style/base.less';
 
 .search-bar{
-  height: 200px;
+  height: 148px;
   width: 100%;
+  padding: 20px 30px;
+  justify-content: space-between;
+}
+.search-input{
+  background-color: #222;
+  width: 888px;
+  padding: 0 30px;
+}
+.search-input:focus{
+  background-color: #333;
+}
+.add-btn{
+  width: 108px;
+  height: 108px;
   background-color: #222;
 }
-.step-num{
-
+.add-btn-icon{
+  width: 108px;
+  height: 98px;
+  text-align: center;
+  color: #fff;
+  font-size: 100px;
 }
 </style>

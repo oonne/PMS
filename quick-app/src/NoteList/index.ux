@@ -30,6 +30,7 @@ export default {
   /* 进入页面时刷新数据 */ 
   onInit() {
     this.initData()
+    this.onEvent()
   }, 
   /* 重新进入页面时，TODO */
   onShow() {
@@ -37,6 +38,11 @@ export default {
     if (noteList) {
       this.$set('list', noteList)
     }
+  },
+  /* 监听数据 */ 
+  onEvent() {
+    this.$on('add', this.onAdd)
+    this.$on('search', this.onSearch)
   },
   /* 初始化数据 */ 
   initData() {
@@ -77,12 +83,22 @@ export default {
       }
     })
   },
-  /* 
-   * 删除
-   */
+  /* 删除 */
   toDeleteItem(id) {
     prompt.showToast({
       message: id
+    })
+  },
+  /* 新增 */
+  onAdd() {
+    prompt.showToast({
+      message: '新增'
+    })
+  },
+  /* 搜索 */
+  onSearch(e) {
+    prompt.showToast({
+      message: e.detail.word.value
     })
   }
 }
