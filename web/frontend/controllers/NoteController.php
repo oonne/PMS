@@ -98,7 +98,11 @@ class NoteController extends Controller
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
                 if ($model->save(false)) {
-                    return exportMsg::ok();
+                    $data = $model->toArray(['uNoteID', 'sNoteTitle', 'tNoteContent']);
+                    return [
+                        'Ret' => 0,
+                        'Data' => $data,
+                    ];
                 } else {
                     return exportMsg::error('101001');
                 }
