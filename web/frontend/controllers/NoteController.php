@@ -46,9 +46,15 @@ class NoteController extends Controller
 
     public function actionIndex($word='')
     {
-        $mm = $word || 'mm';
-        $query = Note::find()
-            ->select(['uNoteID', 'sNoteTitle', 'tNoteContent']);
+        if ($word) {
+            $query = Note::find()
+                ->where(['like', 'sNoteTitle', $word])
+                ->orWhere(['like', 'tNoteContent', $word])
+                ->select(['uNoteID', 'sNoteTitle', 'tNoteContent']);
+        } else {
+            $query = Note::find()
+                ->select(['uNoteID', 'sNoteTitle', 'tNoteContent']);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,7 +70,6 @@ class NoteController extends Controller
         ];
 
         return [
-            'word' => $mm,
             'Ret' => 0,
             'Data' => $data,
             'Meta' => $meta,
