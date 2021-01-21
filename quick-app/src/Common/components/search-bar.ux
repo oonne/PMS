@@ -31,7 +31,7 @@ export default {
 }
 .search-input{
   background-color: #222;
-  width: 888px;
+  width: @screenWidth - 190px;
   padding: 0 30px;
 }
 .search-input:focus{

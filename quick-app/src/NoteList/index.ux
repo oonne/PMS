@@ -17,6 +17,7 @@
 
 <script>
 import prompt from '@system.prompt'
+import router from '@system.router'
 import req from '../Common/api/index'
 import config from '../Common/config/config'
 
@@ -24,8 +25,8 @@ export default {
   private: {
     loading: false,
     list: [],
-    currentPage: 0, //当前页数
-    pageCount: 1, //总页数
+    currentPage: 0, // 当前页数
+    pageCount: 1, // 总页数
   },
   /* 进入页面时刷新数据 */ 
   onInit() {
@@ -91,12 +92,13 @@ export default {
   },
   /* 新增 */
   onAdd() {
-    prompt.showToast({
-      message: '新增'
+    router.push({
+      uri: `/NoteDetail`,
     })
   },
   /* 搜索 */
   onSearch(e) {
+    // TODO
     prompt.showToast({
       message: e.detail.word.value
     })
