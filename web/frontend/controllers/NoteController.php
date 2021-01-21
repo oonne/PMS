@@ -44,7 +44,7 @@ class NoteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($searchWord)
     {
         $query = Note::find()
             ->select(['uNoteID', 'sNoteTitle', 'tNoteContent']);
@@ -63,6 +63,7 @@ class NoteController extends Controller
         ];
 
         return [
+            'word' => $searchWord,
             'Ret' => 0,
             'Data' => $data,
             'Meta' => $meta,
