@@ -43,10 +43,17 @@ class IncomeController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($word='')
     {
-        $query = Income::find()
-            ->select(['uIncomeID', 'sIncomeItem', 'dMoney', 'sDate', 'sRemark']);
+        if ($word) {
+            $query = Income::find()
+                ->where(['like', 'sIncomeItem', $word])
+                ->orWhere(['like', 'sRemark', $word])
+                ->select(['uIncomeID', 'sIncomeItem', 'dMoney', 'sDate', 'sRemark']);
+        } else {
+            $query = Income::find()
+                ->select(['uIncomeID', 'sIncomeItem', 'dMoney', 'sDate', 'sRemark']);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

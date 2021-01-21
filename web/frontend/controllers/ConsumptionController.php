@@ -43,10 +43,17 @@ class ConsumptionController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($word='')
     {
-        $query = Consumption::find()
-            ->select(['uConsumptionID', 'sConsumptionItem', 'Category', 'dMoney', 'sDate', 'sRemark']);
+        if ($word) {
+            $query = Consumption::find()
+                ->where(['like', 'sConsumptionItem', $word])
+                ->orWhere(['like', 'sRemark', $word])
+                ->select(['uConsumptionID', 'sConsumptionItem', 'Category', 'dMoney', 'sDate', 'sRemark']);
+        } else {
+            $query = Consumption::find()
+                ->select(['uConsumptionID', 'sConsumptionItem', 'Category', 'dMoney', 'sDate', 'sRemark']);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

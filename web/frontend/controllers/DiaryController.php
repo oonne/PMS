@@ -43,10 +43,16 @@ class DiaryController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($word='')
     {
-        $query = Diary::find()
-            ->select(['uDiaryID', 'sDate', 'tDiaryContent']);
+        if ($word) {
+            $query = Diary::find()
+                ->where(['like', 'tDiaryContent', $word])
+                ->select(['uDiaryID', 'sDate', 'tDiaryContent']);
+        } else {
+            $query = Diary::find()
+                ->select(['uDiaryID', 'sDate', 'tDiaryContent']);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

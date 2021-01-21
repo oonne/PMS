@@ -43,10 +43,18 @@ class PasswordController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($word='')
     {
-        $query = Password::find()
-            ->select(['uPasswordID', 'sPasswordItem', 'sUserName', 'sPassword', 'tRemark']);
+        if ($word) {
+            $query = Password::find()
+                ->where(['like', 'sPasswordItem', $word])
+                ->orWhere(['like', 'sUserName', $word])
+                ->orWhere(['like', 'tRemark', $word])
+                ->select(['uPasswordID', 'sPasswordItem', 'sUserName', 'sPassword', 'tRemark']);
+        } else {
+            $query = Password::find()
+                ->select(['uPasswordID', 'sPasswordItem', 'sUserName', 'sPassword', 'tRemark']);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
