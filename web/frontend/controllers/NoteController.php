@@ -73,6 +73,7 @@ class NoteController extends Controller
     {
         $notes = Note::find()
             ->select(['uNoteID', 'sNoteTitle', 'tNoteContent'])
+            ->orderBy(['uUpdatedTime' => SORT_DESC])
             ->all();
 
         return [
