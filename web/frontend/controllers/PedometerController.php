@@ -58,9 +58,9 @@ class PedometerController extends Controller
     {
         $weeklyQuery = Pedometer::find()
             ->select(['uPedometerID', 'uStep', 'sDate'])
-            ->orderBy(['sDate' => SORT_DESC])
-            ->limit(7);
-        $weekly = $weeklyQuery->createCommand()->queryAll();
+            ->orderBy(['sDate' => SORT_DESC]);
+        $weekly = $weeklyQuery->limit(7)->createCommand()->queryAll();
+        // $weekAvg = $weeklyQuery->createCommand()->average();
 
         return [
             'Ret' => 0,
