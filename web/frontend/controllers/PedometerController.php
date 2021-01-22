@@ -56,17 +56,17 @@ class PedometerController extends Controller
 
     public function actionLatest()
     {
-        $weeklyQuery = Pedometer::find()
+        $query = Pedometer::find()
             ->select(['uPedometerID', 'uStep', 'sDate'])
             ->orderBy(['sDate' => SORT_DESC]);
-        $weekly = $weeklyQuery->limit(7)->createCommand()->queryAll();
-        // $weekAvg = $weeklyQuery->createCommand()->average();
+        $weekly = $query->limit(7)->createCommand()->queryAll();
+        $weekAvg = $query->limit(7)->createCommand()->average();
 
         return [
             'Ret' => 0,
             'Data' => [
                 'weekly' => $weekly,
-                'weekAvg' => $weekly,
+                'weekAvg' => $weekAvg,
                 'monthAvg' => $weekly,
                 'allAvg' => $weekly,
             ]
