@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import prompt from '@system.prompt'
 import router from '@system.router'
 import req from '../Common/api/index'
 
