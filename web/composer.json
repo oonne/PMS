@@ -34,7 +34,10 @@
         "yiisoft/yii2-imagine": "*"
     },
     "config": {
-        "process-timeout": 3600
+        "process-timeout": 1800,
+        "github-oauth": {
+            "github.com": "2a74caf499197ff9f3ea99b400707391dbe439c2"
+        }
     },
     "extra": {
         "asset-installer-paths": {
