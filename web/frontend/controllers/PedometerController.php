@@ -60,7 +60,7 @@ class PedometerController extends Controller
             ->select(['uPedometerID', 'uStep', 'sDate'])
             ->orderBy(['sDate' => SORT_DESC]);
         $weekly = $query->limit(7)->createCommand()->queryAll();
-        $weekAvg = $query->limit(7)->average();
+        $weekAvg = $query->limit(7)->average('uStep');
 
         return [
             'Ret' => 0,
