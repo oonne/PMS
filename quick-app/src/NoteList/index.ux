@@ -25,35 +25,41 @@ export default {
   private: {
     loading: false,
     list: [],
+    word: '', // 搜索词
     currentPage: 0, // 当前页数
     pageCount: 1, // 总页数
   },
-  /* 进入页面时刷新数据 */ 
+  /* 首次进入页面 */ 
   onInit() {
-    this.initData()
-    this.onEvent()
+    // 监听添加和搜索事件
+    this.$on('add', this.onAdd)
+    this.$on('search', this.onSearch)
   }, 
-  /* 重新进入页面时，TODO */
+  /* 进入页面 */
   onShow() {
     let noteList = this.$app.getStore('noteList')
     if (noteList) {
+      // 如果是修改后返回，直接显示刷新后的结果即可
       this.$set('list', noteList)
+    } else {
+      // 如果是新增后返回，由于分页发生改变，应当从头开始刷新
+      this.initData()
     }
   },
-  /* 监听数据 */ 
-  onEvent() {
-    this.$on('add', this.onAdd)
-    this.$on('search', this.onSearch)
+  /* 后退离开页面 */ 
+  onBackPress() {
+    this.$app.setStore('noteList', null)
   },
   /* 初始化数据 */ 
   initData() {
     this.$set('currentPage', 0)
     this.$set('pageCount', 1)
+    this.$set('list', [])
     this.fetchData()
   },
   /* 拉取一页的数据 */ 
   fetchData() {
-    let {loading, currentPage, pageCount, list} = this
+    let {loading, word, currentPage, pageCount, list} = this
     // 防止重复刷新
     if (loading) {
       return
@@ -65,6 +71,7 @@ export default {
     currentPage++
     this.$set('loading', true)
     let params = {
+      'word': word,
       'page': currentPage,
       'per-page': config.pageSize,
     }
@@ -86,6 +93,7 @@ export default {
   },
   /* 删除 */
   toDeleteItem(id) {
+    // TODO
     prompt.showToast({
       message: id
     })
@@ -98,10 +106,8 @@ export default {
   },
   /* 搜索 */
   onSearch(e) {
-    // TODO
-    prompt.showToast({
-      message: e.detail.word.value
-    })
+    this.$set('word', e.detail.word.value)
+    this.initData()
   }
 }
 </script>

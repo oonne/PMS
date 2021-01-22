@@ -3,12 +3,15 @@
     <input class="title" type="text" value="{{title}}" @change="changeInput('title')" name="title"/>
     <textarea class="content" @change="changeInput('content')" >{{content}}</textarea>
     <div class="save-btn-wrapper">
-      <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="save" />
+      <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
     </div>
   </div>
 </template>
 
 <script>
+import router from '@system.router'
+import req from '../Common/api/index'
+
 export default {
   protected: {
     id: '',
@@ -55,13 +58,66 @@ export default {
     this.$set(key, e.value)
   },
   /* 新增或保存 */
-  save(){
-    this.shake()
+  onSave(){
+    this.$set('status', 'loading')
     if (this.id) {
-      // 有id则修改
+      this.update()
     } else {
-      // 无id则新增
+      this.add()
     }
+  },
+  add(){
+    let params = {
+      'sNoteTitle': this.title,
+      'tNoteContent': this.content,
+    }
+    req.noteAdd(params).then(res=>{
+      if (res.Ret == 0) {
+        this.$set('status', 'success')
+        this.$app.setStore('noteList', [])
+        prompt.showToast({
+          message: '新增成功'
+        })
+        router.back()
+      } else {
+        this.$set('status', 'failed')
+        this.shake()
+        prompt.showToast({
+          message: res.Data.errors[0]
+        })
+      }
+    })
+  },
+  update(){
+    let params = {
+      'uNoteID': this.id,
+      'sNoteTitle': this.title,
+      'tNoteContent': this.content,
+    }
+    req.noteAdd(params).then(res=>{
+      if (res.Ret == 0) {
+        this.$set('status', 'success')
+        let list = this.$app.getStore('noteList')
+        list = list.map(item=>{
+          if (item.uNoteID==this.id) {
+            item.sNoteTitle = this.title
+            item.tNoteContent = this.content
+          }
+          return item
+        })
+        this.$app.setStore('noteList', list)
+        prompt.showToast({
+          message: '保存成功'
+        })
+        router.back()
+      } else {
+        this.$set('status', 'failed')
+        this.shake()
+        prompt.showToast({
+          message: res.Data.errors[0]
+        })
+      }
+    })
   },
   /* 出错时页面抖动动画 */ 
   shake(){
