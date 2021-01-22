@@ -35,22 +35,41 @@ class PedometerController extends Controller
     protected function verbs()
     {
         return [
-            'index' => ['get'],
+            'all' => ['get'],
+            'latest' => ['get'],
             'update' => ['post'],
         ];
     }
 
-    public function actionIndex()
+    public function actionAll()
     {
         $query = Pedometer::find()
             ->select(['uPedometerID', 'uStep', 'sDate'])
-            ->orderBy(['sDate' => SORT_DESC])
-            ->limit(1000);
+            ->orderBy(['sDate' => SORT_DESC]);
         $pedometer = $query->createCommand()->queryAll();
 
         return [
             'Ret' => 0,
             'Data' => $pedometer
+        ];
+    }
+
+    public function actionLatest()
+    {
+        $weeklyQuery = Pedometer::find()
+            ->select(['uPedometerID', 'uStep', 'sDate'])
+            ->orderBy(['sDate' => SORT_DESC])
+            ->limit(7);
+        $weekly = $query->createCommand()->queryAll();
+
+        return [
+            'Ret' => 0,
+            'Data' => [
+                'weekly' => $weekly,
+                'weekAvg' => $weekly,
+                'monthAvg' => $weekly,
+                'allAvg' => $weekly,
+            ]
         ];
     }
 
