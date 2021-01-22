@@ -60,7 +60,7 @@ class PedometerController extends Controller
             ->select(['uPedometerID', 'uStep', 'sDate'])
             ->orderBy(['sDate' => SORT_DESC])
             ->limit(7);
-        $weekly = $query->createCommand()->queryAll();
+        $weekly = $weeklyQuery->createCommand()->queryAll();
 
         return [
             'Ret' => 0,
