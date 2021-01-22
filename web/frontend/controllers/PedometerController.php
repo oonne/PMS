@@ -59,7 +59,7 @@ class PedometerController extends Controller
         $query = Pedometer::find()
             ->select(['uPedometerID', 'uStep', 'sDate'])
             ->orderBy(['sDate' => SORT_DESC]);
-        $monthly = $query->limit(30)->createCommand()->queryAll();
+        $monthly = $query->limit(30)->all();
         $avg = round($query->average('uStep'));
 
         return [
