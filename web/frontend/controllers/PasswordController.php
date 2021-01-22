@@ -85,7 +85,11 @@ class PasswordController extends Controller
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
                 if ($model->save(false)) {
-                    return exportMsg::ok();
+                    $data = $model->toArray(['uPasswordID', 'sPasswordItem', 'sUserName', 'sPassword', 'tRemark']);
+                    return [
+                        'Ret' => 0,
+                        'Data' => $data,
+                    ];
                 } else {
                     return exportMsg::error('101001');
                 }
@@ -115,7 +119,11 @@ class PasswordController extends Controller
         if ($model->load($note, '') && $model->validate()) {
             $model->uLastAccountID = Yii::$app->user->id;
             if ($model->save(false)) {
-                return exportMsg::ok();
+                $data = $model->toArray(['uPasswordID', 'sPasswordItem', 'sUserName', 'sPassword', 'tRemark']);
+                return [
+                    'Ret' => 0,
+                    'Data' => $data,
+                ];
             } else {
                 return exportMsg::error('101003');
             }

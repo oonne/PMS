@@ -54,7 +54,11 @@ class ConfigController extends Controller
         if ($model->load($config, '') && $model->validate()) {
             $model->uLastAccountID = Yii::$app->user->id;
             if ($model->save(false)) {
-                return exportMsg::ok();
+                $data = $model->toArray(['uConfigID', 'sConfigName', 'sConfigKey', 'tConfigValue']);
+                return [
+                    'Ret' => 0,
+                    'Data' => $data,
+                ];
             } else {
                 return exportMsg::error('101003');
             }

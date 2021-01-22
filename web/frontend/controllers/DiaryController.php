@@ -84,7 +84,11 @@ class DiaryController extends Controller
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
                 if ($model->save(false)) {
-                    return exportMsg::ok();
+                    $data = $model->toArray(['uDiaryID', 'sDate', 'tDiaryContent']);
+                    return [
+                        'Ret' => 0,
+                        'Data' => $data,
+                    ];
                 } else {
                     return exportMsg::error('101001');
                 }
@@ -114,7 +118,11 @@ class DiaryController extends Controller
         if ($model->load($diary, '') && $model->validate()) {
             $model->uLastAccountID = Yii::$app->user->id;
             if ($model->save(false)) {
-                return exportMsg::ok();
+                $data = $model->toArray(['uDiaryID', 'sDate', 'tDiaryContent']);
+                return [
+                    'Ret' => 0,
+                    'Data' => $data,
+                ];
             } else {
                 return exportMsg::error('101003');
             }

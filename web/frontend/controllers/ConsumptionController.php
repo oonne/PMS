@@ -85,7 +85,11 @@ class ConsumptionController extends Controller
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
                 if ($model->save(false)) {
-                    return exportMsg::ok();
+                    $data = $model->toArray(['uConsumptionID', 'sConsumptionItem', 'Category', 'dMoney', 'sDate', 'sRemark']);
+                    return [
+                        'Ret' => 0,
+                        'Data' => $data,
+                    ];
                 } else {
                     return exportMsg::error('101001');
                 }
@@ -115,7 +119,11 @@ class ConsumptionController extends Controller
         if ($model->load($consumption, '') && $model->validate()) {
             $model->uLastAccountID = Yii::$app->user->id;
             if ($model->save(false)) {
-                return exportMsg::ok();
+                $data = $model->toArray(['uConsumptionID', 'sConsumptionItem', 'Category', 'dMoney', 'sDate', 'sRemark']);
+                return [
+                    'Ret' => 0,
+                    'Data' => $data,
+                ];
             } else {
                 return exportMsg::error('101003');
             }

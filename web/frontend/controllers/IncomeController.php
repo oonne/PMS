@@ -85,7 +85,11 @@ class IncomeController extends Controller
             if ($model->validate()) {
                 $model->uLastAccountID = Yii::$app->user->id;
                 if ($model->save(false)) {
-                    return exportMsg::ok();
+                    $data = $model->toArray(['uIncomeID', 'sIncomeItem', 'dMoney', 'sDate', 'sRemark']);
+                    return [
+                        'Ret' => 0,
+                        'Data' => $data,
+                    ];
                 } else {
                     return exportMsg::error('101001');
                 }
@@ -115,7 +119,11 @@ class IncomeController extends Controller
         if ($model->load($consumption, '') && $model->validate()) {
             $model->uLastAccountID = Yii::$app->user->id;
             if ($model->save(false)) {
-                return exportMsg::ok();
+                $data = $model->toArray(['uIncomeID', 'sIncomeItem', 'dMoney', 'sDate', 'sRemark']);
+                return [
+                    'Ret' => 0,
+                    'Data' => $data,
+                ];
             } else {
                 return exportMsg::error('101003');
             }
