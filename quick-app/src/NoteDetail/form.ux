@@ -147,6 +147,7 @@ export default {
 }
 .content{
   width: 100%;
+  min-height: @screenHeight - 300px;
   font-size: 44px;
   line-height: 64px;
   color: #ddd;
