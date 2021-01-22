@@ -75,7 +75,7 @@ export default {
     req.noteAdd(params).then(res=>{
       if (res.Ret == 0) {
         this.$set('status', 'success')
-        this.$app.setStore('noteList', [])
+        this.$app.setStore('noteList', null)
         prompt.showToast({
           message: '新增成功'
         })
@@ -95,7 +95,7 @@ export default {
       'sNoteTitle': this.title,
       'tNoteContent': this.content,
     }
-    req.noteAdd(params).then(res=>{
+    req.noteUpdate(params).then(res=>{
       if (res.Ret == 0) {
         this.$set('status', 'success')
         let list = this.$app.getStore('noteList')
