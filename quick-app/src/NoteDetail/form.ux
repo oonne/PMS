@@ -1,7 +1,7 @@
 <template>
   <div class="page {{pageClass}}">
-    <input class="title" type="text" value="{{title}}" @change="changeInput('title')" name="title"/>
-    <textarea class="content" @change="changeInput('content')" >{{content}}</textarea>
+    <input class="title" type="text" value="{{title}}" @change="changeInput('title')" name="title" placeholder="标题" />
+    <textarea class="content" @change="changeInput('content')" placeholder="内容" >{{content}}</textarea>
     <div class="save-btn-wrapper">
       <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
     </div>

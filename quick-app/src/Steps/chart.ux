@@ -48,15 +48,14 @@ export default {
         stepInfoList: data.stepsList
       }).then(()=>{
         // 获取历史数据
-        return req.pedometerIndex()
+        return req.pedometerLatest()
       }).then(res=>{
         if (res.Ret == 0) {
           // 计算本周平均、本月平均、总平均
-          let stepInfoList = res.Data
-          let weekly = stepInfoList.slice(0, 7).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/7
-          let monthly = stepInfoList.slice(0, 30).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/30
-          let total = stepInfoList.map(a=>Number(a.uStep)).reduce((a, b) => a + b)/stepInfoList.length
-          this.drawAverage(weekly, monthly, total)
+          let {monthly, avg} = res.Data
+          let week = monthly.slice(0, 7).map(a=>Number(a.uStep)).reduce((a, b) => a + b)/7
+          let month = monthly.map(a=>Number(a.uStep)).reduce((a, b) => a + b)/30
+          this.drawAverage(week, month, avg)
         }
       })
     })

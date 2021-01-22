@@ -18,10 +18,10 @@ export default {
     })
   },
   /* 计步器 */
-  pedometerIndex(){
+  pedometerLatest(){
     return request({
       method: 'GET',
-      url: '/pedometer/index',
+      url: '/pedometer/latest',
       data: null
     })
   },
