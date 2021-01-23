@@ -87,7 +87,7 @@ export default {
       } else {
         this.$set('loading', false)
         prompt.showToast({
-          message: res.Data.errors[0]
+          message: Object.values(res.Data.errors)[0]
         })
       }
     })
@@ -126,7 +126,7 @@ export default {
         })
       } else {
         prompt.showToast({
-          message: res.Data.errors[0]
+          message: Object.values(res.Data.errors)[0]
         })
       }
     })
