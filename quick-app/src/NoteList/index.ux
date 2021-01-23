@@ -1,16 +1,14 @@
 <import name="note-item" src="./note-item"></import>
 <import name="search-bar" src="../Common/components/search-bar"></import>
-<import name="delete-bar" src="../Common/components/delete-bar"></import>
 <template>
   <div class="page">
-    <!-- 搜索框、新增按钮、删除弹框 -->
+    <!-- 搜索框、新增按钮 -->
     <search-bar></search-bar>
-    <delete-bar id="{{deleteId}}" text="{{deleteText}}"></delete-bar>
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
         <list-item type="item" for="{{list}}" tid="uNoteID">
-          <note-item item="{{$item}}" @longpress="toDeleteItem($item.uNoteID, $item.sNoteTitle)"></note-item>
+          <note-item item="{{$item}}" @longpress="toDeleteItem($item)"></note-item>
         </list-item>
       </list>
     </refresh>
@@ -30,17 +28,12 @@ export default {
     word: '', // 搜索词
     currentPage: 0, // 当前页数
     pageCount: 1, // 总页数
-
-    deleteId: '',
-    deleteText: '',
   },
   /* 首次进入页面 */ 
   onInit() {
     // 监听添加、搜索、删除事件
     this.$on('add', this.onAdd)
     this.$on('search', this.onSearch)
-    this.$on('confirmDelete', this.onDelete)
-    this.$on('cancelDelete', this.onCancelDelete)
   }, 
   /* 进入页面 */
   onShow() {
@@ -85,7 +78,9 @@ export default {
     req.noteIndex(params).then(res=>{
       if (res.Ret == 0) {
         const noteList = currentPage==1 ? res.Data : list.concat(res.Data)
+        console.log(noteList)
         this.$set('list', noteList)
+        console.log(this.list)
         this.$set('currentPage', res.Meta.currentPage)
         this.$set('pageCount', res.Meta.pageCount)
         this.$set('loading', false)
@@ -99,19 +94,43 @@ export default {
     })
   },
   /* 删除 */
-  toDeleteItem(id, title) {
-    this.$set('deleteId', id)
-    this.$set('deleteText', title)
-  },
-  onDelete(e) {
-    let id = e.detail.id.value
-    prompt.showToast({
-      message: id
+  toDeleteItem(item) {
+    prompt.showDialog({
+      title: `确定删除${item.sNoteTitle}`,
+      message: item.tNoteContent,
+      buttons: [
+        {
+          text: '删除',
+          color: '#bf0f0f'
+        },
+        {
+          text: '取消',
+          color: '#999'
+        }
+      ],
+      success: e => {
+        if (e.index == 0) {
+          this.delete(item.uNoteID)
+        }
+      }
     })
   },
-  onCancelDelete() {
-    this.$set('deleteId', '')
-    this.$set('deleteText', '')
+  delete(id) {
+    let params = {
+      'uNoteID': id,
+    }
+    req.noteDelete(params).then(res=>{
+      if (res.Ret == 0) {
+        this.initData()
+        prompt.showToast({
+          message: '已删除'
+        })
+      } else {
+        prompt.showToast({
+          message: res.Data.errors[0]
+        })
+      }
+    })
   },
   /* 新增 */
   onAdd() {
