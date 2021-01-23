@@ -67,6 +67,9 @@ export default {
     }
   },
   add(){
+    if (this.status == 'pending') {
+      return
+    }
     this.$set('status', 'pending')
     let params = {
       'sNoteTitle': this.title,
@@ -90,6 +93,9 @@ export default {
     })
   },
   update(){
+    if (this.status == 'pending') {
+      return
+    }
     this.$set('status', 'pending')
     let params = {
       'uNoteID': this.id,

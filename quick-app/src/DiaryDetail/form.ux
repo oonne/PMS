@@ -68,6 +68,9 @@ export default {
     }
   },
   add(){
+    if (this.status == 'pending') {
+      return
+    }
     this.$set('status', 'pending')
     let params = {
       'sDate': this.date,
@@ -91,6 +94,9 @@ export default {
     })
   },
   update(){
+    if (this.status == 'pending') {
+      return
+    }
     this.$set('status', 'pending')
     let params = {
       'uNoteID': this.id,
