@@ -23,7 +23,7 @@
 
 <script>
 import req from '../Common/api/index'
-import utils from '../Common/helper/utils'
+import helper from '../Common/helper/helper'
 import dateUtils from '../Common/helper/date-utils'
 let drawingChart = null //当前动画
 const maxFrame = 40 //动画总帧数（按照每秒60帧计算）
@@ -40,7 +40,7 @@ export default {
   },
   initData(){
     // 获取步数
-    utils.getSteps().then(data=>{
+    helper.getSteps().then(data=>{
       this.$set('todayStep', data.stepsList[6].steps)
       this.showWeekChart(data.stepsList)
       // 上传

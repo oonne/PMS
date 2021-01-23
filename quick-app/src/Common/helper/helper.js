@@ -1,4 +1,3 @@
-
 import prompt from '@system.prompt'
 import shortcut from '@system.shortcut'
 import health from '@service.health'

@@ -67,6 +67,7 @@ export default {
     }
   },
   add(){
+    this.$set('status', 'pending')
     let params = {
       'sNoteTitle': this.title,
       'tNoteContent': this.content,
@@ -83,12 +84,13 @@ export default {
         this.$set('status', 'failed')
         this.shake()
         prompt.showToast({
-          message: res.Data.errors[0]
+          message: Object.values(res.Data.errors)[0]
         })
       }
     })
   },
   update(){
+    this.$set('status', 'pending')
     let params = {
       'uNoteID': this.id,
       'sNoteTitle': this.title,
@@ -114,7 +116,7 @@ export default {
         this.$set('status', 'failed')
         this.shake()
         prompt.showToast({
-          message: res.Data.errors[0]
+          message: Object.values(res.Data.errors)[0]
         })
       }
     })

@@ -119,35 +119,6 @@ export default {
       data: data
     })
   },
-  /* 密码 */
-  passwordIndex(data){
-    return request({
-      method: 'GET',
-      url: '/password/index',
-      data: data
-    })
-  },
-  passwordAdd(data){
-    return request({
-      method: 'POST',
-      url: '/password/add',
-      data: data
-    })
-  },
-  passwordUpdate(data){
-    return request({
-      method: 'POST',
-      url: '/password/update',
-      data: data
-    })
-  },
-  passwordDelete(data){
-    return request({
-      method: 'POST',
-      url: '/password/delete',
-      data: data
-    })
-  },
   /* 日记 */
   diaryIndex(data){
     return request({
@@ -174,6 +145,35 @@ export default {
     return request({
       method: 'POST',
       url: '/diary/delete',
+      data: data
+    })
+  },
+  /* 密码 */
+  passwordIndex(data){
+    return request({
+      method: 'GET',
+      url: '/password/index',
+      data: data
+    })
+  },
+  passwordAdd(data){
+    return request({
+      method: 'POST',
+      url: '/password/add',
+      data: data
+    })
+  },
+  passwordUpdate(data){
+    return request({
+      method: 'POST',
+      url: '/password/update',
+      data: data
+    })
+  },
+  passwordDelete(data){
+    return request({
+      method: 'POST',
+      url: '/password/delete',
       data: data
     })
   },

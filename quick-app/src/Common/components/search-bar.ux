@@ -9,9 +9,9 @@
 export default {
   props: {
   },
-  onSearch(val) {
+  onSearch(e) {
     this.$dispatch('search', {
-      word: val
+      word: e.value
     })
   },
   onAdd() {

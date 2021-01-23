@@ -68,6 +68,7 @@ export default {
     }
   },
   add(){
+    this.$set('status', 'pending')
     let params = {
       'sDate': this.date,
       'tDiaryContent': this.content,
@@ -84,12 +85,13 @@ export default {
         this.$set('status', 'failed')
         this.shake()
         prompt.showToast({
-          message: res.Data.errors[0]
+          message: Object.values(res.Data.errors)[0]
         })
       }
     })
   },
   update(){
+    this.$set('status', 'pending')
     let params = {
       'uNoteID': this.id,
       'sDate': this.date,
@@ -115,7 +117,7 @@ export default {
         this.$set('status', 'failed')
         this.shake()
         prompt.showToast({
-          message: res.Data.errors[0]
+          message: Object.values(res.Data.errors)[0]
         })
       }
     })

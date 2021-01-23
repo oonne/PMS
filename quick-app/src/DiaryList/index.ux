@@ -139,7 +139,7 @@ export default {
   },
   /* 搜索 */
   onSearch(e) {
-    this.$set('word', e.detail.word.value)
+    this.$set('word', e.detail.word)
     this.initData()
   }
 }

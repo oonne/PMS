@@ -22,7 +22,7 @@ import router from '@system.router'
 import storage from '@system.storage'
 import prompt from '@system.prompt'
 import req from '../Common/api/index'
-import utils from '../Common/helper/utils'
+import helper from '../Common/helper/helper'
 
 export default {
   private: {
@@ -56,13 +56,17 @@ export default {
     }
 
     /* 步数统计 */
-    utils.getSteps().then(data=>{
+    helper.getSteps().then(data=>{
       this.$set('todayStep', data.stepsList[6].steps)
       if (networkType == 'wifi') {
         req.pedometerUpdate({
           stepInfoList: data.stepsList
         })
       }
+    })
+
+    router.push({
+      uri: '/NoteList',
     })
   },
   /* 
