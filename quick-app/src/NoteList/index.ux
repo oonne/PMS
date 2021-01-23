@@ -55,6 +55,7 @@ export default {
     this.$set('currentPage', 0)
     this.$set('pageCount', 1)
     this.$set('list', [])
+    this.$app.setStore('noteList', null)
     this.fetchData()
   },
   /* 拉取一页的数据 */ 
@@ -78,9 +79,7 @@ export default {
     req.noteIndex(params).then(res=>{
       if (res.Ret == 0) {
         const noteList = currentPage==1 ? res.Data : list.concat(res.Data)
-        console.log(noteList)
         this.$set('list', noteList)
-        console.log(this.list)
         this.$set('currentPage', res.Meta.currentPage)
         this.$set('pageCount', res.Meta.pageCount)
         this.$set('loading', false)
