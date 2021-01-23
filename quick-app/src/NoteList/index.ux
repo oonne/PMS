@@ -1,14 +1,16 @@
 <import name="note-item" src="./note-item"></import>
 <import name="search-bar" src="../Common/components/search-bar"></import>
+<import name="delete-bar" src="../Common/components/delete-bar"></import>
 <template>
   <div class="page">
-    <!-- 搜索框、新增按钮 -->
+    <!-- 搜索框、新增按钮、删除弹框 -->
     <search-bar></search-bar>
+    <delete-bar id="{{deleteId}}" text="{{deleteText}}"></delete-bar>
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
         <list-item type="item" for="{{list}}" tid="uNoteID">
-          <note-item item="{{$item}}" @longpress="toDeleteItem($item.uNoteID)"></note-item>
+          <note-item item="{{$item}}" @longpress="toDeleteItem($item.uNoteID, $item.sNoteTitle)"></note-item>
         </list-item>
       </list>
     </refresh>
@@ -28,12 +30,17 @@ export default {
     word: '', // 搜索词
     currentPage: 0, // 当前页数
     pageCount: 1, // 总页数
+
+    deleteId: '',
+    deleteText: '',
   },
   /* 首次进入页面 */ 
   onInit() {
-    // 监听添加和搜索事件
+    // 监听添加、搜索、删除事件
     this.$on('add', this.onAdd)
     this.$on('search', this.onSearch)
+    this.$on('confirmDelete', this.onDelete)
+    this.$on('cancelDelete', this.onCancelDelete)
   }, 
   /* 进入页面 */
   onShow() {
@@ -92,11 +99,19 @@ export default {
     })
   },
   /* 删除 */
-  toDeleteItem(id) {
-    // TODO
+  toDeleteItem(id, title) {
+    this.$set('deleteId', id)
+    this.$set('deleteText', title)
+  },
+  onDelete(e) {
+    let id = e.detail.id.value
     prompt.showToast({
       message: id
     })
+  },
+  onCancelDelete() {
+    this.$set('deleteId', '')
+    this.$set('deleteText', '')
   },
   /* 新增 */
   onAdd() {
