@@ -1,0 +1,48 @@
+<template>
+  <div class="item" @click="toDetail(item.uDiaryID)">
+    <text class="title">{{item.sDate}}</text>
+    <text class="preview" lines="2">{{item.tDiaryContent}}</text>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+
+export default {
+  props: {
+    item: {
+      type: Object
+    }
+  },
+  /* 
+   * 跳转到详情
+   */
+  toDetail(id) {
+    router.push({
+      uri: `/DiaryDetail?id=${id}`,
+    })
+  }
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+
+.item{
+  flex-direction: column;
+  height: 220px;
+  padding: 24px 36px;
+  overflow: hidden;
+  border-bottom: 1px solid #999;
+  width: 100%;
+}
+.title{
+  font-size: 56px;
+  color: #fff;
+  word-wrap: break-word;
+}
+.preview{
+  font-size: 32px;
+  color: #999;
+}
+</style>

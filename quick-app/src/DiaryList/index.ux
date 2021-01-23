@@ -1,4 +1,4 @@
-<import name="note-item" src="./note-item"></import>
+<import name="diary-item" src="./diary-item"></import>
 <import name="search-bar" src="../Common/components/search-bar"></import>
 <template>
   <div class="page">
@@ -7,8 +7,8 @@
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
-        <list-item type="item" for="{{list}}" tid="uNoteID">
-          <note-item item="{{$item}}" @longpress="toDeleteItem($item)"></note-item>
+        <list-item type="item" for="{{list}}" tid="uDiaryID">
+          <diary-item item="{{$item}}" @longpress="toDeleteItem($item)"></diary-item>
         </list-item>
       </list>
     </refresh>
@@ -37,10 +37,10 @@ export default {
   }, 
   /* 进入页面 */
   onShow() {
-    let noteList = this.$app.getStore('noteList')
-    if (noteList) {
+    let diaryList = this.$app.getStore('diaryList')
+    if (diaryList) {
       // 如果是修改后返回，直接显示刷新后的结果即可
-      this.$set('list', noteList)
+      this.$set('list', diaryList)
     } else {
       // 如果是新增后返回，由于分页发生改变，应当从头开始刷新
       this.initData()
@@ -48,14 +48,14 @@ export default {
   },
   /* 后退离开页面 */ 
   onBackPress() {
-    this.$app.setStore('noteList', null)
+    this.$app.setStore('diaryList', null)
   },
   /* 初始化数据 */ 
   initData() {
     this.$set('currentPage', 0)
     this.$set('pageCount', 1)
     this.$set('list', [])
-    this.$app.setStore('noteList', null)
+    this.$app.setStore('diaryList', null)
     this.fetchData()
   },
   /* 拉取一页的数据 */ 
@@ -76,14 +76,14 @@ export default {
       'page': currentPage,
       'per-page': config.pageSize,
     }
-    req.noteIndex(params).then(res=>{
+    req.diaryIndex(params).then(res=>{
       if (res.Ret == 0) {
-        const noteList = currentPage==1 ? res.Data : list.concat(res.Data)
-        this.$set('list', noteList)
+        const diaryList = currentPage==1 ? res.Data : list.concat(res.Data)
+        this.$set('list', diaryList)
         this.$set('currentPage', res.Meta.currentPage)
         this.$set('pageCount', res.Meta.pageCount)
         this.$set('loading', false)
-        this.$app.setStore('noteList', noteList)
+        this.$app.setStore('diaryList', diaryList)
       } else {
         this.$set('loading', false)
         prompt.showToast({
@@ -95,8 +95,8 @@ export default {
   /* 删除 */
   toDeleteItem(item) {
     prompt.showDialog({
-      title: `确定删除${item.sNoteTitle}`,
-      message: item.tNoteContent,
+      title: `确定删除${item.sDate}`,
+      message: item.tDiaryContent,
       buttons: [
         {
           text: '删除',
@@ -109,16 +109,16 @@ export default {
       ],
       success: e => {
         if (e.index == 0) {
-          this.delete(item.uNoteID)
+          this.delete(item.uDiaryID)
         }
       }
     })
   },
   delete(id) {
     let params = {
-      'uNoteID': id,
+      'uDiaryID': id,
     }
-    req.noteDelete(params).then(res=>{
+    req.diaryDelete(params).then(res=>{
       if (res.Ret == 0) {
         this.initData()
         prompt.showToast({
@@ -134,7 +134,7 @@ export default {
   /* 新增 */
   onAdd() {
     router.push({
-      uri: `/NoteDetail`,
+      uri: `/DiaryDetail`,
     })
   },
   /* 搜索 */

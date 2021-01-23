@@ -1,6 +1,6 @@
 <template>
   <div class="page {{pageClass}}">
-    <input class="title" type="text" value="{{title}}" @change="changeInput('title')" name="title" placeholder="标题" />
+    <input class="title" type="date" value="{{date}}" @change="changeInput('date')" name="date" />
     <textarea class="content" @change="changeInput('content')" placeholder="内容" >{{content}}</textarea>
     <div class="save-btn-wrapper">
       <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
@@ -20,7 +20,7 @@ export default {
   },
   private: {
     pageClass: '',
-    title: '',
+    date: '',
     content: '',
   },
   computed: {
@@ -44,14 +44,15 @@ export default {
   onShow() {
     if (this.id) {
       // 如果有id，则获取内容
-      const list = this.$app.getStore('noteList')
-      const detail = list.find(item=>item.uNoteID==this.id)
+      const list = this.$app.getStore('diaryList')
+      const detail = list.find(item=>item.uDiaryID==this.id)
       if (detail) {
-        this.$set('title', detail.sNoteTitle)
-        this.$set('content', detail.tNoteContent)
+        this.$set('date', detail.sDate)
+        this.$set('content', detail.tDiaryContent)
       }
     } else {
-      // 如果没有id，则新建
+      // 如果没有id，则新建今天
+      this.$set('date', '2021-1-1')
     }
   },
   changeInput(key, e) {
@@ -68,13 +69,13 @@ export default {
   },
   add(){
     let params = {
-      'sNoteTitle': this.title,
-      'tNoteContent': this.content,
+      'sDate': this.date,
+      'tDiaryContent': this.content,
     }
-    req.noteAdd(params).then(res=>{
+    req.diaryAdd(params).then(res=>{
       if (res.Ret == 0) {
         this.$set('status', 'success')
-        this.$app.setStore('noteList', null)
+        this.$app.setStore('diaryList', null)
         prompt.showToast({
           message: '新增成功'
         })
@@ -91,21 +92,21 @@ export default {
   update(){
     let params = {
       'uNoteID': this.id,
-      'sNoteTitle': this.title,
-      'tNoteContent': this.content,
+      'sDate': this.date,
+      'tDiaryContent': this.content,
     }
-    req.noteUpdate(params).then(res=>{
+    req.diaryUpdate(params).then(res=>{
       if (res.Ret == 0) {
         this.$set('status', 'success')
-        let list = this.$app.getStore('noteList')
+        let list = this.$app.getStore('diaryList')
         list = list.map(item=>{
           if (item.uNoteID==this.id) {
-            item.sNoteTitle = this.title
-            item.tNoteContent = this.content
+            item.sDate = this.date
+            item.tDiaryContent = this.content
           }
           return item
         })
-        this.$app.setStore('noteList', list)
+        this.$app.setStore('diaryList', list)
         prompt.showToast({
           message: '保存成功'
         })

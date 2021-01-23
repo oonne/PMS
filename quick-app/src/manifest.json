@@ -16,22 +16,22 @@
       "name": "system.shortcut"
     },
     {
-      "name": "system.resident"
-    },
-    {
       "name": "system.network"
     },
     {
       "name": "system.storage"
     },
     {
-      "name": "system.geolocation"
-    },
-    {
       "name": "system.fetch"
     },
     {
       "name": "service.health"
+    },
+    {
+      "name": "system.resident"
+    },
+    {
+      "name": "system.geolocation"
     }
   ],
   "permissions": [
@@ -69,6 +69,12 @@
         "component": "index"
       },
       "NoteDetail": {
+        "component": "form"
+      },
+      "DiaryList": {
+        "component": "index"
+      },
+      "DiaryDetail": {
         "component": "form"
       }
     }
