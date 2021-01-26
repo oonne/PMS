@@ -109,7 +109,7 @@ export default {
       ],
       success: e => {
         if (e.index == 0) {
-          this.delete(item.uDiaryID)
+          this._realParent.delete(item.uDiaryID)
         }
       }
     })
