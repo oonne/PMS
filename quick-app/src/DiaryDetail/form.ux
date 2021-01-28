@@ -1,6 +1,6 @@
 <template>
   <div class="page {{pageClass}}">
-    <input class="title" type="date" value="{{date}}" @change="changeInput('date')" name="date" />
+    <picker class="title" type="date" value="{{date}}" @change="changeInput('date')" />
     <textarea class="content" @change="changeInput('content')" placeholder="内容" >{{content}}</textarea>
     <div class="save-btn-wrapper">
       <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
@@ -12,6 +12,7 @@
 import prompt from '@system.prompt'
 import router from '@system.router'
 import req from '../Common/api/index'
+import dateUtils from '../Common/helper/date-utils'
 
 export default {
   protected: {
@@ -52,11 +53,15 @@ export default {
       }
     } else {
       // 如果没有id，则新建今天
-      this.$set('date', '2021-1-1')
+      this.$set('date', dateUtils.formatDate())
     }
   },
   changeInput(key, e) {
-    this.$set(key, e.value)
+    if (key=='date') {
+      this.$set('date', dateUtils.formatDate(`${e.year}-${e.month+1}-${e.day}`))
+    } else {
+      this.$set(key, e.value)
+    }
   },
   /* 新增或保存 */
   onSave(){
@@ -99,7 +104,7 @@ export default {
     }
     this.$set('status', 'pending')
     let params = {
-      'uNoteID': this.id,
+      'uDiaryID': this.id,
       'sDate': this.date,
       'tDiaryContent': this.content,
     }
@@ -108,7 +113,7 @@ export default {
         this.$set('status', 'success')
         let list = this.$app.getStore('diaryList')
         list = list.map(item=>{
-          if (item.uNoteID==this.id) {
+          if (item.uDiaryID==this.id) {
             item.sDate = this.date
             item.tDiaryContent = this.content
           }
@@ -152,6 +157,7 @@ export default {
   margin-bottom: 36px;
   font-size: 64px;
   color: #fff;
+  background-color: #222;
 }
 .content{
   width: 100%;
