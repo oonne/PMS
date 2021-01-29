@@ -1,0 +1,209 @@
+<template>
+  <div class="page {{pageClass}}">
+    <input class="input-cell" type="text" value="{{name}}" @change="changeInput('name')" placeholder="内容" />
+    <input class="input-cell" type="text" value="{{money}}" @change="changeInput('money')" placeholder="金额" />
+    <picker class="input-cell" type="date" value="{{date}}" @change="changeInput('date')" />
+    <textarea class="remark" @change="changeInput('remark')" placeholder="备注" >{{remark}}</textarea>
+    <div class="save-btn-wrapper">
+      <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
+    </div>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+import router from '@system.router'
+import req from '../Common/api/index'
+import dateUtils from '../Common/helper/date-utils'
+
+const consumptionCategory = {
+  'foot': '食物',
+  'living': '居住',
+  'travelling': '差旅',
+  'appliance': '物品',
+  'entertaniment': '应酬',
+  'selfimage': '个人形象',
+  'selfimprovement': '自我提升',
+  'recreation': '娱乐',
+  'losses': '意外损失',
+}
+
+export default {
+  protected: {
+    id: '',
+    status: '',
+  },
+  private: {
+    pageClass: '',
+    name: '',
+    money: '',
+    date: '',
+    category: '',
+    remark: '',
+  },
+  computed: {
+    saveBtnMsg() {
+      let msg = 'Save'
+      if (!this.id) {
+        msg = 'Add'
+      }
+      if (this.status == 'pending') {
+        msg = 'Saveing'
+      }
+      if (this.status == 'success') {
+        msg = 'Success'
+      }
+      if (this.status == 'failed') {
+        msg = 'Retry'
+      }
+      return msg
+    }
+  },
+  onShow() {
+    if (this.id) {
+      // 如果有id，则获取内容
+      const list = this.$app.getStore('consumptionList')
+      const detail = list.find(item=>item.uConsumptionID==this.id)
+      if (detail) {
+        this.$set('date', detail.sDate)
+        this.$set('remark', detail.tDiaryContent)
+      }
+    } else {
+      // 如果没有id，则新建今天
+      this.$set('date', dateUtils.formatDate())
+    }
+  },
+  changeInput(key, e) {
+    if (key=='date') {
+      this.$set('date', dateUtils.formatDate(`${e.year}-${e.month+1}-${e.day}`))
+    } else {
+      this.$set(key, e.value)
+    }
+  },
+  /* 新增或保存 */
+  onSave(){
+    this.$set('status', 'loading')
+    if (this.id) {
+      this.update()
+    } else {
+      this.add()
+    }
+  },
+  add(){
+    if (this.status == 'pending') {
+      return
+    }
+    this.$set('status', 'pending')
+    let params = {
+      'sDate': this.date,
+      'tDiaryContent': this.remark,
+    }
+    req.consumptionAdd(params).then(res=>{
+      if (res.Ret == 0) {
+        this.$set('status', 'success')
+        this.$app.setStore('consumptionList', null)
+        prompt.showToast({
+          message: '新增成功'
+        })
+        router.back()
+      } else {
+        this.$set('status', 'failed')
+        this.shake()
+        prompt.showToast({
+          message: Object.values(res.Data.errors)[0]
+        })
+      }
+    })
+  },
+  update(){
+    if (this.status == 'pending') {
+      return
+    }
+    this.$set('status', 'pending')
+    let params = {
+      'uConsumptionID': this.id,
+      'sDate': this.date,
+      'tDiaryContent': this.remark,
+    }
+    req.consumptionUpdate(params).then(res=>{
+      if (res.Ret == 0) {
+        this.$set('status', 'success')
+        let list = this.$app.getStore('consumptionList')
+        list = list.map(item=>{
+          if (item.uConsumptionID==this.id) {
+            item.sDate = this.date
+            item.tDiaryContent = this.remark
+          }
+          return item
+        })
+        this.$app.setStore('consumptionList', list)
+        prompt.showToast({
+          message: '保存成功'
+        })
+        router.back()
+      } else {
+        this.$set('status', 'failed')
+        this.shake()
+        prompt.showToast({
+          message: Object.values(res.Data.errors)[0]
+        })
+      }
+    })
+  },
+  /* 出错时页面抖动动画 */ 
+  shake(){
+    this.$set('pageClass', 'shake')
+    setTimeout(()=>{
+      this.$set('pageClass', '')
+    }, 500)
+  }
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+
+.page{
+  padding: 24px;
+}
+.input-cell{
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  padding: 20px 32px;
+  margin-bottom: 36px;
+  font-size: 64px;
+  color: #fff;
+  background-color: #222;
+}
+.remark{
+  width: 100%;
+  min-height: @screenHeight - 300px;
+  font-size: 44px;
+  line-height: 64px;
+  color: #ddd;
+  margin-bottom: 36px;
+  padding-bottom: 148px;
+}
+.save-btn-wrapper{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  width: @screenWidth;
+  height: 180px;
+}
+.save-btn{
+  margin: 30px;
+  width: 1020px;
+  height: 120px;
+  border-radius: 10px;
+  background-color: @saveBtn;
+  color: #fff;
+  font-size: 48px;
+  &:active{
+    background-color: @saveBtnActive;
+  }
+}
+</style>

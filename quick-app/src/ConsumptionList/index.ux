@@ -1,0 +1,154 @@
+<import name="consumption-item" src="./consumption-item"></import>
+<import name="search-bar" src="../Common/components/search-bar"></import>
+<template>
+  <div class="page">
+    <!-- 搜索框、新增按钮 -->
+    <search-bar></search-bar>
+    <!-- 列表 -->
+    <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
+      <list @scrollbottom="fetchData">
+        <list-item type="item" for="{{list}}" tid="uConsumptionID">
+          <consumption-item item="{{$item}}" @longpress="toDeleteItem($item)"></consumption-item>
+        </list-item>
+      </list>
+    </refresh>
+  </div>
+</template>
+
+<script>
+import prompt from '@system.prompt'
+import router from '@system.router'
+import req from '../Common/api/index'
+import config from '../Common/config/config'
+
+export default {
+  private: {
+    loading: false,
+    list: [],
+    word: '', // 搜索词
+    currentPage: 0, // 当前页数
+    pageCount: 1, // 总页数
+  },
+  /* 首次进入页面 */ 
+  onInit() {
+    // 监听添加、搜索、删除事件
+    this.$on('add', this.onAdd)
+    this.$on('search', this.onSearch)
+  }, 
+  /* 进入页面 */
+  onShow() {
+    let consumptionList = this.$app.getStore('consumptionList')
+    if (consumptionList) {
+      // 如果是修改后返回，直接显示刷新后的结果即可
+      this.$set('list', consumptionList)
+    } else {
+      // 如果是新增后返回，由于分页发生改变，应当从头开始刷新
+      this.initData()
+    }
+  },
+  /* 后退离开页面 */ 
+  onBackPress() {
+    this.$app.setStore('consumptionList', null)
+  },
+  /* 初始化数据 */ 
+  initData() {
+    this.$set('currentPage', 0)
+    this.$set('pageCount', 1)
+    this.$set('list', [])
+    this.$app.setStore('consumptionList', null)
+    this.fetchData()
+  },
+  /* 拉取一页的数据 */ 
+  fetchData() {
+    let {loading, word, currentPage, pageCount, list} = this
+    // 防止重复刷新
+    if (loading) {
+      return
+    }
+    // 最后一页不再刷新
+    if (currentPage >= pageCount) {
+      return
+    }
+    currentPage++
+    this.$set('loading', true)
+    let params = {
+      'word': word,
+      'page': currentPage,
+      'per-page': config.pageSize,
+    }
+    req.consumptionIndex(params).then(res=>{
+      if (res.Ret == 0) {
+        const consumptionList = currentPage==1 ? res.Data : list.concat(res.Data)
+        this.$set('list', consumptionList)
+        this.$set('currentPage', res.Meta.currentPage)
+        this.$set('pageCount', res.Meta.pageCount)
+        this.$set('loading', false)
+        this.$app.setStore('consumptionList', consumptionList)
+      } else {
+        this.$set('loading', false)
+        prompt.showToast({
+          message: Object.values(res.Data.errors)[0]
+        })
+      }
+    })
+  },
+  /* 删除 */
+  toDeleteItem(item) {
+    let msg = `时间：${item.sDate}\n金额：${item.dMoney}`
+    if (item.sRemark) {
+      msg = `${msg}\n备注：${item.sRemark}`
+    }
+    prompt.showDialog({
+      title: `确定删除${item.dMoney}`,
+      message: `时间：${item.sDate}\n金额：${item.dMoney}`,
+      buttons: [
+        {
+          text: '删除',
+          color: '#bf0f0f'
+        },
+        {
+          text: '取消',
+          color: '#999'
+        }
+      ],
+      success: e => {
+        if (e.index == 0) {
+          this._realParent.delete(item.uConsumptionID)
+        }
+      }
+    })
+  },
+  delete(id) {
+    let params = {
+      'uConsumptionID': id,
+    }
+    req.consumptionDelete(params).then(res=>{
+      if (res.Ret == 0) {
+        this.initData()
+        prompt.showToast({
+          message: '已删除'
+        })
+      } else {
+        prompt.showToast({
+          message: Object.values(res.Data.errors)[0]
+        })
+      }
+    })
+  },
+  /* 新增 */
+  onAdd() {
+    router.push({
+      uri: `/ConsumptionDetail`,
+    })
+  },
+  /* 搜索 */
+  onSearch(e) {
+    this.$set('word', e.detail.word)
+    this.initData()
+  }
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+</style>

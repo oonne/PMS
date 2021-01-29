@@ -65,16 +65,22 @@
       "Steps": {
         "component": "chart"
       },
-      "NoteList": {
+      "ConsumptionList": {
         "component": "index"
       },
-      "NoteDetail": {
+      "ConsumptionDetail": {
         "component": "form"
       },
       "DiaryList": {
         "component": "index"
       },
       "DiaryDetail": {
+        "component": "form"
+      },
+      "NoteList": {
+        "component": "index"
+      },
+      "NoteDetail": {
         "component": "form"
       }
     }

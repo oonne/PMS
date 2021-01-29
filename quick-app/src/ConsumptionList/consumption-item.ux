@@ -1,0 +1,72 @@
+<template>
+  <div class="item" @click="toDetail(item.uConsumptionID)">
+    <div class="item-content">
+      <text class="name">{{item.sConsumptionItem}}</text>
+      <text class="date">{{item.sDate}}</text>
+    </div>
+    <div class="item-money">
+      <text class="money">{{item.dMoney}}</text>
+    </div>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+
+export default {
+  props: {
+    item: {
+      type: Object
+    }
+  },
+  /* 
+   * 跳转到详情
+   */
+  toDetail(id) {
+    router.push({
+      uri: `/ConsumptionDetail?id=${id}`,
+    })
+  }
+}
+</script>
+
+<style lang="less">
+@import '../Common/style/base.less';
+
+.item{
+  height: 200px;
+  margin: 12px 30px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #222;
+  width: 100%;
+  justify-content: space-between;
+}
+.item-content{
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+}
+.name{
+  font-size: 56px;
+  color: #fff;
+  word-wrap: break-word;
+}
+.date{
+  font-size: 36px;
+  color: #999;
+}
+.item-money{
+  width: 24%;
+  background-color: #bbb;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.money{
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  font-size: 48px;
+}
+
+</style>
