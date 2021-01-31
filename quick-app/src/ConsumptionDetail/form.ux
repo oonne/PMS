@@ -1,8 +1,10 @@
 <template>
   <div class="page {{pageClass}}">
     <input class="input-cell" type="text" value="{{name}}" @change="changeInput('name')" placeholder="内容" />
-    <input class="input-cell" type="text" value="{{money}}" @change="changeInput('money')" placeholder="金额" />
+    <input class="input-cell" type="number" value="{{money}}" @change="changeInput('money')" placeholder="金额" />
     <picker class="input-cell" type="date" value="{{date}}" @change="changeInput('date')" />
+    <picker class="input-cell" type="text" value="{{categoryList}}" range= @change="changeInput('category')" />
+    
     <textarea class="remark" @change="changeInput('remark')" placeholder="备注" >{{remark}}</textarea>
     <div class="save-btn-wrapper">
       <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
@@ -34,11 +36,12 @@ export default {
     status: '',
   },
   private: {
+    categoryList: ['食物', '居住', '差旅', '应酬', '个人形象', '自我提升', '娱乐', '意外损失'],
     pageClass: '',
     name: '',
     money: '',
     date: '',
-    category: '',
+    category: 'foot',
     remark: '',
   },
   computed: {
@@ -172,18 +175,20 @@ export default {
   border-radius: 10px;
   padding: 20px 32px;
   margin-bottom: 36px;
-  font-size: 64px;
+  font-size: 48px;
+  line-height: 64px;
   color: #fff;
   background-color: #222;
 }
 .remark{
   width: 100%;
-  min-height: @screenHeight - 300px;
-  font-size: 44px;
+  font-size: 48px;
   line-height: 64px;
   color: #ddd;
   margin-bottom: 36px;
   padding-bottom: 148px;
+  border-radius: 10px;
+  background-color: #222;
 }
 .save-btn-wrapper{
   position: fixed;
