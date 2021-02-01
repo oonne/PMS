@@ -3,8 +3,7 @@
     <input class="input-cell" type="text" value="{{name}}" @change="changeInput('name')" placeholder="内容" />
     <input class="input-cell" type="number" value="{{money}}" @change="changeInput('money')" placeholder="金额" />
     <picker class="input-cell" type="date" value="{{date}}" @change="changeInput('date')" />
-    <picker class="input-cell" type="text" value="{{categoryList}}" range= @change="changeInput('category')" />
-    
+    <picker class="input-cell" type="text" value="{{category}}" range="{{categoryList}}" @change="changeInput('category')" />
     <textarea class="remark" @change="changeInput('remark')" placeholder="备注" >{{remark}}</textarea>
     <div class="save-btn-wrapper">
       <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
@@ -41,7 +40,7 @@ export default {
     name: '',
     money: '',
     date: '',
-    category: 'foot',
+    category: '食物',
     remark: '',
   },
   computed: {
@@ -68,8 +67,11 @@ export default {
       const list = this.$app.getStore('consumptionList')
       const detail = list.find(item=>item.uConsumptionID==this.id)
       if (detail) {
+        this.$set('name', detail.sConsumptionItem)
+        this.$set('category', consumptionCategory[detail.Category])
+        this.$set('money', detail.dMoney)
         this.$set('date', detail.sDate)
-        this.$set('remark', detail.tDiaryContent)
+        this.$set('remark', detail.sRemark)
       }
     } else {
       // 如果没有id，则新建今天
@@ -79,6 +81,8 @@ export default {
   changeInput(key, e) {
     if (key=='date') {
       this.$set('date', dateUtils.formatDate(`${e.year}-${e.month+1}-${e.day}`))
+    } else if (key=='category') {
+      this.$set('category', e.newValue)
     } else {
       this.$set(key, e.value)
     }
@@ -98,8 +102,11 @@ export default {
     }
     this.$set('status', 'pending')
     let params = {
+      'sConsumptionItem': this.name,
+      'Category': Object.keys(consumptionCategory)[Object.values(consumptionCategory).findIndex(name=>name==this.category)],
+      'dMoney': this.money,
       'sDate': this.date,
-      'tDiaryContent': this.remark,
+      'sRemark': this.remark,
     }
     req.consumptionAdd(params).then(res=>{
       if (res.Ret == 0) {
@@ -125,8 +132,11 @@ export default {
     this.$set('status', 'pending')
     let params = {
       'uConsumptionID': this.id,
+      'sConsumptionItem': this.name,
+      'Category': Object.keys(consumptionCategory)[Object.values(consumptionCategory).findIndex(name=>name==this.category)],
+      'dMoney': this.money,
       'sDate': this.date,
-      'tDiaryContent': this.remark,
+      'sRemark': this.remark,
     }
     req.consumptionUpdate(params).then(res=>{
       if (res.Ret == 0) {
@@ -182,11 +192,12 @@ export default {
 }
 .remark{
   width: 100%;
+  min-height: 300px;
   font-size: 48px;
   line-height: 64px;
   color: #ddd;
   margin-bottom: 36px;
-  padding-bottom: 148px;
+  padding: 20px;
   border-radius: 10px;
   background-color: #222;
 }
