@@ -130,10 +130,11 @@ export default {
       return
     }
     this.$set('status', 'pending')
+    let category = Object.keys(consumptionCategory)[Object.values(consumptionCategory).findIndex(name=>name==this.category)]
     let params = {
       'uConsumptionID': this.id,
       'sConsumptionItem': this.name,
-      'Category': Object.keys(consumptionCategory)[Object.values(consumptionCategory).findIndex(name=>name==this.category)],
+      'Category': category,
       'dMoney': this.money,
       'sDate': this.date,
       'sRemark': this.remark,
@@ -144,8 +145,11 @@ export default {
         let list = this.$app.getStore('consumptionList')
         list = list.map(item=>{
           if (item.uConsumptionID==this.id) {
+            item.sConsumptionItem = this.name
+            item.Category = category
+            item.dMoney = this.money
             item.sDate = this.date
-            item.tDiaryContent = this.remark
+            item.sRemark = this.remark
           }
           return item
         })

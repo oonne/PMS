@@ -100,7 +100,7 @@ export default {
     }
     prompt.showDialog({
       title: `确定删除${item.dMoney}`,
-      message: `时间：${item.sDate}\n金额：${item.dMoney}`,
+      message: msg,
       buttons: [
         {
           text: '删除',
