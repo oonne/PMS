@@ -99,7 +99,7 @@ export default {
       msg = `${msg}\n备注：${item.sRemark}`
     }
     prompt.showDialog({
-      title: `确定删除${item.dMoney}`,
+      title: `确定删除${item.sIncomeItem}`,
       message: msg,
       buttons: [
         {

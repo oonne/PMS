@@ -1,4 +1,4 @@
-<import name="consumption-item" src="./consumption-item"></import>
+<import name="password-item" src="./password-item"></import>
 <import name="search-bar" src="../Common/components/search-bar"></import>
 <template>
   <div class="page">
@@ -7,8 +7,8 @@
     <!-- 列表 -->
     <refresh onrefresh="initData" refreshing="{{loading}}" type="pulldown">
       <list @scrollbottom="fetchData">
-        <list-item type="item" for="{{list}}" tid="uConsumptionID">
-          <consumption-item item="{{$item}}" @longpress="toDeleteItem($item)"></consumption-item>
+        <list-item type="item" for="{{list}}" tid="uPasswordID">
+          <password-item item="{{$item}}" @longpress="toDeleteItem($item)"></password-item>
         </list-item>
       </list>
     </refresh>
@@ -37,10 +37,10 @@ export default {
   }, 
   /* 进入页面 */
   onShow() {
-    let consumptionList = this.$app.getStore('consumptionList')
-    if (consumptionList) {
+    let passwordList = this.$app.getStore('passwordList')
+    if (passwordList) {
       // 如果是修改后返回，直接显示刷新后的结果即可
-      this.$set('list', consumptionList)
+      this.$set('list', passwordList)
     } else {
       // 如果是新增后返回，由于分页发生改变，应当从头开始刷新
       this.initData()
@@ -48,14 +48,14 @@ export default {
   },
   /* 后退离开页面 */ 
   onBackPress() {
-    this.$app.setStore('consumptionList', null)
+    this.$app.setStore('passwordList', null)
   },
   /* 初始化数据 */ 
   initData() {
     this.$set('currentPage', 0)
     this.$set('pageCount', 1)
     this.$set('list', [])
-    this.$app.setStore('consumptionList', null)
+    this.$app.setStore('passwordList', null)
     this.fetchData()
   },
   /* 拉取一页的数据 */ 
@@ -76,14 +76,14 @@ export default {
       'page': currentPage,
       'per-page': config.pageSize,
     }
-    req.consumptionIndex(params).then(res=>{
+    req.passwordIndex(params).then(res=>{
       if (res.Ret == 0) {
-        const consumptionList = currentPage==1 ? res.Data : list.concat(res.Data)
-        this.$set('list', consumptionList)
+        const passwordList = currentPage==1 ? res.Data : list.concat(res.Data)
+        this.$set('list', passwordList)
         this.$set('currentPage', res.Meta.currentPage)
         this.$set('pageCount', res.Meta.pageCount)
         this.$set('loading', false)
-        this.$app.setStore('consumptionList', consumptionList)
+        this.$app.setStore('passwordList', passwordList)
       } else {
         this.$set('loading', false)
         prompt.showToast({
@@ -94,12 +94,12 @@ export default {
   },
   /* 删除 */
   toDeleteItem(item) {
-    let msg = `时间：${item.sDate}\n金额：${item.dMoney}`
-    if (item.sRemark) {
-      msg = `${msg}\n备注：${item.sRemark}`
+    let msg = `用户名：${item.sUserName}\n密码：${item.sPassword}`
+    if (item.tRemark) {
+      msg = `${msg}\n备注：${item.tRemark}`
     }
     prompt.showDialog({
-      title: `确定删除${item.sConsumptionItem}`,
+      title: `确定删除${item.sPasswordItem}`,
       message: msg,
       buttons: [
         {
@@ -113,16 +113,16 @@ export default {
       ],
       success: e => {
         if (e.index == 0) {
-          this._realParent.delete(item.uConsumptionID)
+          this._realParent.delete(item.uPasswordID)
         }
       }
     })
   },
   delete(id) {
     let params = {
-      'uConsumptionID': id,
+      'uPasswordID': id,
     }
-    req.consumptionDelete(params).then(res=>{
+    req.passwordDelete(params).then(res=>{
       if (res.Ret == 0) {
         this.initData()
         prompt.showToast({
@@ -138,7 +138,7 @@ export default {
   /* 新增 */
   onAdd() {
     router.push({
-      uri: `/ConsumptionDetail`,
+      uri: `/PasswordDetail`,
     })
   },
   /* 搜索 */
