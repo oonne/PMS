@@ -3,7 +3,6 @@
     <input class="input-cell" type="text" value="{{name}}" @change="changeInput('name')" placeholder="项目" />
     <input class="input-cell" type="number" value="{{money}}" @change="changeInput('money')" placeholder="金额" />
     <picker class="input-cell" type="date" value="{{date}}" @change="changeInput('date')" />
-    <picker class="input-cell" type="text" value="{{category}}" range="{{categoryList}}" @change="changeInput('category')" />
     <textarea class="remark" @change="changeInput('remark')" placeholder="备注" >{{remark}}</textarea>
     <div class="save-btn-wrapper">
       <input class="save-btn" type="button" value="{{saveBtnMsg}}" @click="onSave" />
@@ -17,30 +16,16 @@ import router from '@system.router'
 import req from '../Common/api/index'
 import dateUtils from '../Common/helper/date-utils'
 
-const consumptionCategory = {
-  'foot': '食物',
-  'living': '居住',
-  'travelling': '差旅',
-  'appliance': '物品',
-  'entertaniment': '应酬',
-  'selfimage': '个人形象',
-  'selfimprovement': '自我提升',
-  'recreation': '娱乐',
-  'losses': '意外损失',
-}
-
 export default {
   protected: {
     id: '',
     status: '',
   },
   private: {
-    categoryList: ['食物', '居住', '差旅', '应酬', '个人形象', '自我提升', '娱乐', '意外损失'],
     pageClass: '',
     name: '',
     money: '',
     date: '',
-    category: '食物',
     remark: '',
   },
   computed: {
@@ -64,11 +49,10 @@ export default {
   onShow() {
     if (this.id) {
       // 如果有id，则获取内容
-      const list = this.$app.getStore('consumptionList')
-      const detail = list.find(item=>item.uConsumptionID==this.id)
+      const list = this.$app.getStore('incomeList')
+      const detail = list.find(item=>item.uIncomeID==this.id)
       if (detail) {
-        this.$set('name', detail.sConsumptionItem)
-        this.$set('category', consumptionCategory[detail.Category])
+        this.$set('name', detail.sIncomeItem)
         this.$set('money', detail.dMoney)
         this.$set('date', detail.sDate)
         this.$set('remark', detail.sRemark)
@@ -81,8 +65,6 @@ export default {
   changeInput(key, e) {
     if (key=='date') {
       this.$set('date', dateUtils.formatDate(`${e.year}-${e.month+1}-${e.day}`))
-    } else if (key=='category') {
-      this.$set('category', e.newValue)
     } else {
       this.$set(key, e.value)
     }
@@ -102,16 +84,15 @@ export default {
     }
     this.$set('status', 'pending')
     let params = {
-      'sConsumptionItem': this.name,
-      'Category': Object.keys(consumptionCategory)[Object.values(consumptionCategory).findIndex(name=>name==this.category)],
+      'sIncomeItem': this.name,
       'dMoney': this.money,
       'sDate': this.date,
       'sRemark': this.remark,
     }
-    req.consumptionAdd(params).then(res=>{
+    req.incomeAdd(params).then(res=>{
       if (res.Ret == 0) {
         this.$set('status', 'success')
-        this.$app.setStore('consumptionList', null)
+        this.$app.setStore('incomeList', null)
         prompt.showToast({
           message: '新增成功'
         })
@@ -130,30 +111,27 @@ export default {
       return
     }
     this.$set('status', 'pending')
-    let category = Object.keys(consumptionCategory)[Object.values(consumptionCategory).findIndex(name=>name==this.category)]
     let params = {
-      'uConsumptionID': this.id,
-      'sConsumptionItem': this.name,
-      'Category': category,
+      'uIncomeID': this.id,
+      'sIncomeItem': this.name,
       'dMoney': this.money,
       'sDate': this.date,
       'sRemark': this.remark,
     }
-    req.consumptionUpdate(params).then(res=>{
+    req.incomeUpdate(params).then(res=>{
       if (res.Ret == 0) {
         this.$set('status', 'success')
-        let list = this.$app.getStore('consumptionList')
+        let list = this.$app.getStore('incomeList')
         list = list.map(item=>{
-          if (item.uConsumptionID==this.id) {
-            item.sConsumptionItem = this.name
-            item.Category = category
+          if (item.uIncomeID==this.id) {
+            item.sIncomeItem = this.name
             item.dMoney = this.money
             item.sDate = this.date
             item.sRemark = this.remark
           }
           return item
         })
-        this.$app.setStore('consumptionList', list)
+        this.$app.setStore('incomeList', list)
         prompt.showToast({
           message: '保存成功'
         })

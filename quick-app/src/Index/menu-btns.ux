@@ -1,7 +1,7 @@
 <template>
   <div class="btns">
     <image class="btn-icon" @click="toPage('/ConsumptionList')" src="./icon/consumption.png"></image>
-    <image class="btn-icon" @click="toPage('/ConsumptionList')" src="./icon/income.png"></image>
+    <image class="btn-icon" @click="toPage('/IncomeList')" src="./icon/income.png"></image>
     <image class="btn-icon" @click="toPage('/DiaryList')" src="./icon/diary.png"></image>
     <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/note.png"></image>
     <image class="btn-icon" @click="toPage('/NoteList')" src="./icon/password.png"></image>

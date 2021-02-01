@@ -71,6 +71,12 @@
       "ConsumptionDetail": {
         "component": "form"
       },
+      "IncomeList": {
+        "component": "index"
+      },
+      "IncomeDetail": {
+        "component": "form"
+      },
       "DiaryList": {
         "component": "index"
       },

@@ -31,7 +31,7 @@ export default {
   },
   /* 首次进入页面 */ 
   onInit() {
-    // 监听添加、搜索、删除事件
+    // 监听添加、搜索事件
     this.$on('add', this.onAdd)
     this.$on('search', this.onSearch)
   }, 
