@@ -35,7 +35,7 @@ export default {
     status: '',
   },
   private: {
-    categoryList: ['食物', '居住', '差旅', '应酬', '个人形象', '自我提升', '娱乐', '意外损失'],
+    categoryList: ['食物', '居住', '差旅', '物品', '应酬', '个人形象', '自我提升', '娱乐', '意外损失'],
     pageClass: '',
     name: '',
     money: '',
