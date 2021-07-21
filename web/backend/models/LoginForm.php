@@ -44,8 +44,7 @@ class LoginForm extends Model
             $account = $this->getAccount();
             if (!$account || !$account->validatePassword($this->password)) {
                 $this->addError($attribute, '帐号密码错误');
-            }
-            if ($account->Type == UserAccount::ACCOUNT_HERITAGE) {
+            } else if ($account->Type == UserAccount::ACCOUNT_HERITAGE) {
                 // 遗产继承人登录
                 $config = Config::find()
                         ->where(['sConfigKey' => 'LAST_ACCESS'])
