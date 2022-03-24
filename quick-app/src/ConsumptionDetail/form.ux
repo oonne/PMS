@@ -61,7 +61,7 @@ export default {
       return msg
     }
   },
-  onShow() {
+  onInit() {
     if (this.id) {
       // 如果有id，则获取内容
       const list = this.$app.getStore('consumptionList')
