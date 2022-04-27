@@ -1,17 +1,19 @@
 {
   "name": "PMS",
   "description" : "PMS Chrome Extensions",
-  "version": "0.1",
-  "manifest_version": 2,
+  "version": "0.2",
+  "manifest_version": 3,
   "icons": {
     "128": "icon.png"
   },
   "permissions": [
-    "https://api.pms.oonne.com/",
-    "https://qyapi.weixin.qq.com/",
     "notifications",
     "bookmarks",
     "storage"
+  ],
+  "host_permissions": [
+    "https://api.pms.oonne.com/",
+    "https://qyapi.weixin.qq.com/"
   ],
   "chrome_url_overrides": {
     "newtab": "/newtab/index.html"
@@ -21,6 +23,6 @@
     "open_in_tab": true
   },
   "background": {
-    "scripts": ["/background/index.js"]
+    "service_worker": "/background/index.js"
   }
 }
