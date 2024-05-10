@@ -9,11 +9,11 @@ const paddedNum = (num) => {
   }
 }
 const refreshTime = () => {
-  let now = new Date();
-  let clock = `${paddedNum(now.getHours())}:${paddedNum(now.getMinutes())}:${paddedNum(now.getSeconds())}`;
+  const now = new Date();
+  const clock = `${paddedNum(now.getHours())}:${paddedNum(now.getMinutes())}:${paddedNum(now.getSeconds())}`;
   $('#clock').html(clock);
-  let day = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日',][now.getDay()];
-  let date = `${now.getFullYear()}年${paddedNum(now.getMonth()+1)}月${paddedNum(now.getDate())}日`;
+  const day = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六',][now.getDay()];
+  const date = `${now.getFullYear()}年${paddedNum(now.getMonth()+1)}月${paddedNum(now.getDate())}日`;
   $('#calendar').html(`${date} ${day}`);
 }
 refreshTime();
