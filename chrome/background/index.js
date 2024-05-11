@@ -13,14 +13,14 @@ const updateBookmarks = () => {
         return;
       }
 
-      let api = 'https://api.pms.oonne.com';
-      let value = JSON.stringify(bookmarks)
-      let configValue = JSON.stringify({
+      const api = 'https://api.pms.oonne.com';
+      const value = JSON.stringify(bookmarks)
+      const configValue = JSON.stringify({
         sConfigKey: 'BOOKMARKS',
         tConfigValue: value
       });
 
-      let reqOpitons = {
+      const reqOpitons = {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,7 +33,7 @@ const updateBookmarks = () => {
         return res.json();
       }).then(data => {
         if (data.Ret==0) {
-          notice(`<font color=\"info\">同步成功</font>`);
+          notice('同步成功');
         } else {
           notice(data.Data.errors[0]);
         }
@@ -44,13 +44,13 @@ const updateBookmarks = () => {
 
 // 通知企业微信
 const notice = (content) => {
-  let postData = JSON.stringify({
-    "msgtype": "markdown",
-    "markdown": {
-      "content": content
+  const postData = JSON.stringify({
+    "msg_type": "text",
+    "content": {
+      "text": content
     }
   });
-  let reqOpitons = {
+  const reqOpitons = {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -58,7 +58,7 @@ const notice = (content) => {
     },
     body: postData
   };
-  fetch('https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=42511f33-f073-45ed-87bc-86292ffd0b58', reqOpitons);
+  fetch('https://open.feishu.cn/open-apis/bot/v2/hook/d431393e-fa50-442b-955c-880a417f97d9', reqOpitons);
 }
 
 
